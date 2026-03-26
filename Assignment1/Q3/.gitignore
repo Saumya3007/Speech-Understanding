@@ -1,4 +1,5 @@
 .env
 data/
 Results/best_model/
+Results/examples/
 
