@@ -1,0 +1,5 @@
+RMSE (s): 0.069797
+MAE (s): 0.044971
+Max Error (s): 0.236406
+# Manual Bounds: 114
+# Model Bounds: 149

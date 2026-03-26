@@ -1,0 +1,4 @@
+,Main-lobe Width (bins),Peak Sidelobe (dBc),Leakage Ratio,SNR vs Rectangular (dB)
+Rectangular,9,-7.53,0.29263,—
+Hamming,2.0,-0.4,0.84136,-12.67
+Hanning,6.0,-6.58,0.45543,-14.37

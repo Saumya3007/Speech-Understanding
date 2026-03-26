@@ -1,0 +1,101 @@
+pair_idx,speaker_id,gender,direction,transcript,orig_path,trans_path,dur_s
+0,908,M,M2F,I LOVE THEE WITH A LOVE I SEEMED TO LOSE WITH MY LOST SAINTS I LOVE THEE WITH TH,./Results/examples/pair_000_orig_M.wav,./Results/examples/pair_000_trans_M2F.wav,6.0
+1,1995,F,F2M,THERE MIGHT BE A BIT OF POETRY HERE AND THERE BUT MOST OF THIS PLACE WAS SUCH DE,./Results/examples/pair_001_orig_F.wav,./Results/examples/pair_001_trans_F2M.wav,6.0
+2,1188,M,M2F,BUT NOW HERE IS A SUBJECT OF WHICH YOU WILL WONDER AT FIRST WHY TURNER DREW IT A,./Results/examples/pair_002_orig_M.wav,./Results/examples/pair_002_trans_M2F.wav,5.365
+3,4446,F,F2M,DO YOU KNOW I THOUGHT THE DANCE A BIT CONSCIOUS TO NIGHT FOR THE FIRST TIME,./Results/examples/pair_003_orig_F.wav,./Results/examples/pair_003_trans_F2M.wav,4.4
+4,3575,F,F2M,SATURDAY AFTER SATURDAY COMES ROUND AND I CAN HAVE NO HOPE OF HEARING YOUR KNOCK,./Results/examples/pair_004_orig_F.wav,./Results/examples/pair_004_trans_F2M.wav,6.0
+5,2961,F,F2M,OBSERVE AGAIN WHAT CARE THE LAW TOOK IN THE PURSUIT OF WISDOM SEARCHING OUT THE ,./Results/examples/pair_005_orig_F.wav,./Results/examples/pair_005_trans_F2M.wav,6.0
+6,2094,F,F2M,OH I'VE NO DOUBT IT'S IN CAPITAL ORDER,./Results/examples/pair_006_orig_F.wav,./Results/examples/pair_006_trans_F2M.wav,2.71
+7,1580,F,F2M,WE WANT TO KNOW MISTER GILCHRIST HOW YOU AN HONOURABLE MAN EVER CAME TO COMMIT S,./Results/examples/pair_007_orig_F.wav,./Results/examples/pair_007_trans_F2M.wav,6.0
+8,7729,M,M2F,THE BOGUS LEGISLATURE NUMBERED THIRTY SIX MEMBERS,./Results/examples/pair_008_orig_M.wav,./Results/examples/pair_008_trans_M2F.wav,3.285
+9,1580,F,F2M,I AM AFRAID THERE ARE NO SIGNS HERE SAID HE,./Results/examples/pair_009_orig_F.wav,./Results/examples/pair_009_trans_F2M.wav,3.295
+10,8455,M,M2F,WHEN DO YOU INTEND THAT THE JOHN BRIGHT SHALL START,./Results/examples/pair_010_orig_M.wav,./Results/examples/pair_010_trans_M2F.wav,3.05
+11,61,M,M2F,MASTER MONCEUX THE SHERIFF OF NOTTINGHAM WAS MIGHTILY PUT ABOUT WHEN TOLD OF THE,./Results/examples/pair_011_orig_M.wav,./Results/examples/pair_011_trans_M2F.wav,4.775
+12,121,F,F2M,O TIS THE FIRST TIS FLATTERY IN MY SEEING AND MY GREAT MIND MOST KINGLY DRINKS I,./Results/examples/pair_012_orig_F.wav,./Results/examples/pair_012_trans_F2M.wav,6.0
+13,121,F,F2M,TIED TO A WOMAN,./Results/examples/pair_013_orig_F.wav,./Results/examples/pair_013_trans_F2M.wav,2.49
+14,1580,F,F2M,ANYONE IN THE ROOM COULD GET OUT YES SIR,./Results/examples/pair_014_orig_F.wav,./Results/examples/pair_014_trans_F2M.wav,3.845
+15,2961,F,F2M,THERE IS A WANT OF FLOW AND OFTEN A DEFECT OF RHYTHM THE MEANING IS SOMETIMES OB,./Results/examples/pair_015_orig_F.wav,./Results/examples/pair_015_trans_F2M.wav,6.0
+16,3570,F,F2M,EACH WILL THEREFORE SERVE ABOUT EQUALLY WELL DURING THE EARLIER STAGES OF SOCIAL,./Results/examples/pair_016_orig_F.wav,./Results/examples/pair_016_trans_F2M.wav,5.025
+17,7021,M,M2F,AT THE FARTHER END OF THE LARGEST HALL A TABLE WAS SET WITH GOLDEN CUPS AND GOLD,./Results/examples/pair_017_orig_M.wav,./Results/examples/pair_017_trans_M2F.wav,6.0
+18,8463,F,F2M,I WANTED NOTHING MORE THAN TO SEE MY COUNTRY AGAIN MY FRIENDS MY MODEST QUARTERS,./Results/examples/pair_018_orig_F.wav,./Results/examples/pair_018_trans_F2M.wav,6.0
+19,1188,M,M2F,IT WILL BE WELL FOR YOU IF YOU JOIN NOT WITH THOSE WHO INSTEAD OF KITES FLY FALC,./Results/examples/pair_019_orig_M.wav,./Results/examples/pair_019_trans_M2F.wav,6.0
+20,8224,M,M2F,HE PASSED THROUGH HENLEY SAINT ALBANS AND CAME SO NEAR TO LONDON AS HARROW ON TH,./Results/examples/pair_020_orig_M.wav,./Results/examples/pair_020_trans_M2F.wav,6.0
+21,2830,M,M2F,WHEN I WAS A YOUNG MAN I THOUGHT PAUL WAS MAKING TOO MUCH OF HIS CALL,./Results/examples/pair_021_orig_M.wav,./Results/examples/pair_021_trans_M2F.wav,3.665
+22,7176,M,M2F,LORD JOHN TAKING OUT GOLD CIGARETTE CASE FROM HIS LEFT HAND UPPER WAISTCOAT POCK,./Results/examples/pair_022_orig_M.wav,./Results/examples/pair_022_trans_M2F.wav,5.23
+23,61,M,M2F,WHAT IS YOUR NAME LORDING ASKED THE LITTLE STROLLER PRESENTLY,./Results/examples/pair_023_orig_M.wav,./Results/examples/pair_023_trans_M2F.wav,4.315
+24,2961,F,F2M,SOME POEMS OF SOLON WERE RECITED BY THE BOYS,./Results/examples/pair_024_orig_F.wav,./Results/examples/pair_024_trans_F2M.wav,3.775
+25,672,M,M2F,I KNOW NO SUCH PLACE SAID THE TREE,./Results/examples/pair_025_orig_M.wav,./Results/examples/pair_025_trans_M2F.wav,4.25
+26,8455,M,M2F,BUT IN THEIR SELECTION OF A CONSTITUTION THE BRITANNULISTS HAVE UNFORTUNATELY AL,./Results/examples/pair_026_orig_M.wav,./Results/examples/pair_026_trans_M2F.wav,6.0
+27,4446,F,F2M,THEY ASKED HIM TO COME TO SEE THEM IN CHELSEA AND THEY SPOKE VERY TENDERLY OF HI,./Results/examples/pair_027_orig_F.wav,./Results/examples/pair_027_trans_F2M.wav,4.66
+28,1089,M,M2F,THE RECTOR DID NOT ASK FOR A CATECHISM TO HEAR THE LESSON FROM,./Results/examples/pair_028_orig_M.wav,./Results/examples/pair_028_trans_M2F.wav,4.01
+29,237,F,F2M,INDEED HE HAD LOOKED AWAY WITH THE PURPOSE OF NOT SEEING IT,./Results/examples/pair_029_orig_F.wav,./Results/examples/pair_029_trans_F2M.wav,4.09
+30,61,M,M2F,HE MADE AN EFFORT TO HIDE HIS CONDITION FROM THEM ALL AND ROBIN FELT HIS FINGERS,./Results/examples/pair_030_orig_M.wav,./Results/examples/pair_030_trans_M2F.wav,5.58
+31,4992,F,F2M,NEXT CAME OLIVE'S TURN TO HELP IN THE CEREMONIES,./Results/examples/pair_031_orig_F.wav,./Results/examples/pair_031_trans_F2M.wav,3.73
+32,4446,F,F2M,HILDA WAS VERY NICE TO HIM AND HE SAT ON THE EDGE OF HIS CHAIR FLUSHED WITH HIS ,./Results/examples/pair_032_orig_F.wav,./Results/examples/pair_032_trans_F2M.wav,6.0
+33,237,F,F2M,I DIDN'T HAVE ANY FEARS IF I WORKED IT RIGHTLY SAID THE OLD GENTLEMAN COMPLACENT,./Results/examples/pair_033_orig_F.wav,./Results/examples/pair_033_trans_F2M.wav,5.04
+34,2961,F,F2M,BUT THEY HAVE NOTHING TO DO WITH THE INTERPRETATION OF PLATO AND IN SPIRIT THEY ,./Results/examples/pair_034_orig_F.wav,./Results/examples/pair_034_trans_F2M.wav,6.0
+35,4992,F,F2M,SHE MAKES EFFORT AFTER EFFORT TREMBLING WITH EAGERNESS AND WHEN SHE FAILS TO REP,./Results/examples/pair_035_orig_F.wav,./Results/examples/pair_035_trans_F2M.wav,6.0
+36,1580,F,F2M,JUST CLOSE THE DOOR SAID HOLMES,./Results/examples/pair_036_orig_F.wav,./Results/examples/pair_036_trans_F2M.wav,2.145
+37,1580,F,F2M,HE WAS STILL SUFFERING FROM THIS SUDDEN DISTURBANCE OF THE QUIET ROUTINE OF HIS ,./Results/examples/pair_037_orig_F.wav,./Results/examples/pair_037_trans_F2M.wav,4.36
+38,5142,F,F2M,SILAS SLUNK AWAY WITHOUT A WORD OF PROTEST AMBROSE STOOD HIS GROUND EVIDENTLY BE,./Results/examples/pair_038_orig_F.wav,./Results/examples/pair_038_trans_F2M.wav,6.0
+39,1580,F,F2M,I CANNOT ALLOW THE EXAMINATION TO BE HELD IF ONE OF THE PAPERS HAS BEEN TAMPERED,./Results/examples/pair_039_orig_F.wav,./Results/examples/pair_039_trans_F2M.wav,6.0
+40,5142,F,F2M,I PAINTED THE EYES RED FOR ANGER,./Results/examples/pair_040_orig_F.wav,./Results/examples/pair_040_trans_F2M.wav,2.11
+41,5105,M,M2F,IT MUST BE OWNED AND NO ONE WAS MORE READY TO CONFESS IT THAN HIMSELF THAT HIS L,./Results/examples/pair_041_orig_M.wav,./Results/examples/pair_041_trans_M2F.wav,6.0
+42,8463,F,F2M,NEVER DID HE OBJECT TO BUCKLING UP HIS SUITCASE FOR ANY COUNTRY WHATEVER CHINA O,./Results/examples/pair_042_orig_F.wav,./Results/examples/pair_042_trans_F2M.wav,6.0
+43,4077,M,M2F,THE FIRST WELL ESTABLISHED SEAT OF THE CHURCH WAS IN THE PRETTY LITTLE TOWN OF K,./Results/examples/pair_043_orig_M.wav,./Results/examples/pair_043_trans_M2F.wav,6.0
+44,1221,F,F2M,THEY WERE NOW ILLUMINATED BY THE MORNING RADIANCE OF A YOUNG CHILD'S DISPOSITION,./Results/examples/pair_044_orig_F.wav,./Results/examples/pair_044_trans_F2M.wav,6.0
+45,6829,F,F2M,A FRESH WHOLESOME LOOKING BOY WAS TOM GATES WITH STEADY GRAY EYES AN INTELLIGENT,./Results/examples/pair_045_orig_F.wav,./Results/examples/pair_045_trans_F2M.wav,6.0
+46,7176,M,M2F,AND I SHOULD BEGIN WITH A SHORT HOMILY ON SOLILOQUY,./Results/examples/pair_046_orig_M.wav,./Results/examples/pair_046_trans_M2F.wav,4.38
+47,2094,F,F2M,IT IS A VERY FINE OLD PLACE OF RED BRICK SOFTENED BY A PALE POWDERY LICHEN WHICH,./Results/examples/pair_047_orig_F.wav,./Results/examples/pair_047_trans_F2M.wav,6.0
+48,5142,F,F2M,WHEN I ADDRESSED HIM HE ANSWERED CONSTRAINEDLY,./Results/examples/pair_048_orig_F.wav,./Results/examples/pair_048_trans_F2M.wav,2.415
+49,1320,M,M2F,SO CHOOSE FOR YOURSELF TO MAKE A RUSH OR TARRY HERE,./Results/examples/pair_049_orig_M.wav,./Results/examples/pair_049_trans_M2F.wav,3.98
+50,7729,M,M2F,PRIVATE PERSONS WHO HAD LEASED THE FREE STATE HOTEL VAINLY BESOUGHT THE VARIOUS ,./Results/examples/pair_050_orig_M.wav,./Results/examples/pair_050_trans_M2F.wav,6.0
+51,4446,F,F2M,WEREN'T YOU HAPPY THEN AT ALL,./Results/examples/pair_051_orig_F.wav,./Results/examples/pair_051_trans_F2M.wav,2.16
+52,908,M,M2F,WHICH THOU DOST SCATTER ON EVERY LITTLE BLADE OF GRASS THAT SPRINGS REVIVES THE ,./Results/examples/pair_052_orig_M.wav,./Results/examples/pair_052_trans_M2F.wav,6.0
+53,8555,F,F2M,NOW THEN LET'S ENTER THE CITY AN ENJOY THE GRAND FEAST THAT'S BEING COOKED I'M N,./Results/examples/pair_053_orig_F.wav,./Results/examples/pair_053_trans_F2M.wav,6.0
+54,5142,F,F2M,OH IT IS BETTER TO LIVE ON THE SEA AND LET OTHER MEN RAISE YOUR CROPS AND COOK Y,./Results/examples/pair_054_orig_F.wav,./Results/examples/pair_054_trans_F2M.wav,4.985
+55,8455,M,M2F,THE LADIES IN COMPLIANCE WITH THAT SOFTNESS OF HEART WHICH IS THEIR CHARACTERIST,./Results/examples/pair_055_orig_M.wav,./Results/examples/pair_055_trans_M2F.wav,6.0
+56,2830,M,M2F,THE UNDERTAKING WHICH SEEMED SO ATTRACTIVE WHEN VIEWED AS A LITERARY TASK PROVED,./Results/examples/pair_056_orig_M.wav,./Results/examples/pair_056_trans_M2F.wav,6.0
+57,1320,M,M2F,IT WOULD HAVE BEEN MORE WONDERFUL HAD HE SPOKEN WITHOUT A BIDDING,./Results/examples/pair_057_orig_M.wav,./Results/examples/pair_057_trans_M2F.wav,3.88
+58,1221,F,F2M,HESTER PRYNNE WENT ONE DAY TO THE MANSION OF GOVERNOR BELLINGHAM WITH A PAIR OF ,./Results/examples/pair_058_orig_F.wav,./Results/examples/pair_058_trans_F2M.wav,6.0
+59,3570,F,F2M,THIS DIFFERENTIATION IS FURTHERED BY THE INHERITANCE OF WEALTH AND THE CONSEQUEN,./Results/examples/pair_059_orig_F.wav,./Results/examples/pair_059_trans_F2M.wav,5.61
+60,4446,F,F2M,ALEXANDER LEANED FORWARD AND WARMED HIS HANDS BEFORE THE BLAZE,./Results/examples/pair_060_orig_F.wav,./Results/examples/pair_060_trans_F2M.wav,3.735
+61,1320,M,M2F,HOLD SAID DAVID PERCEIVING THAT WITH THIS ASSURANCE THEY WERE ABOUT TO LEAVE HIM,./Results/examples/pair_061_orig_M.wav,./Results/examples/pair_061_trans_M2F.wav,6.0
+62,3570,F,F2M,THE MODERN ORGANIZATION OF INDUSTRY WORKS IN THE SAME DIRECTION ALSO BY ANOTHER ,./Results/examples/pair_062_orig_F.wav,./Results/examples/pair_062_trans_F2M.wav,4.665
+63,1580,F,F2M,YOU KNOW HIM I THINK SO,./Results/examples/pair_063_orig_F.wav,./Results/examples/pair_063_trans_F2M.wav,2.375
+64,672,M,M2F,AND THE GARDENER'S BOY CHOPPED THE TREE INTO SMALL PIECES THERE WAS A WHOLE HEAP,./Results/examples/pair_064_orig_M.wav,./Results/examples/pair_064_trans_M2F.wav,6.0
+65,908,M,M2F,AND THOUGH I HAVE GROWN SERENE AND STRONG SINCE THEN I THINK THAT GOD HAS WILLED,./Results/examples/pair_065_orig_M.wav,./Results/examples/pair_065_trans_M2F.wav,6.0
+66,5142,F,F2M,THE FARMER SAT GLOOMILY ON THE BENCH AND WOULD NOT EAT AND YOU CANNOT WONDER FOR,./Results/examples/pair_066_orig_F.wav,./Results/examples/pair_066_trans_F2M.wav,6.0
+67,237,F,F2M,WE NEVER HAD SO MANY OF THEM IN HERE BEFORE,./Results/examples/pair_067_orig_F.wav,./Results/examples/pair_067_trans_F2M.wav,2.39
+68,5142,F,F2M,THAT IS THE BEST WAY TO DECIDE FOR THE SPEAR WILL ALWAYS POINT SOMEWHERE AND ONE,./Results/examples/pair_068_orig_F.wav,./Results/examples/pair_068_trans_F2M.wav,5.745
+69,5105,M,M2F,WOULD NOT THE LOFTIEST EMINENCES OF THE CITY AT LEAST BE VISIBLE,./Results/examples/pair_069_orig_M.wav,./Results/examples/pair_069_trans_M2F.wav,4.82
+70,2830,M,M2F,NOT GOLD OR SILVER OR PASCHAL LAMBS OR AN ANGEL BUT HIMSELF WHAT FOR,./Results/examples/pair_070_orig_M.wav,./Results/examples/pair_070_trans_M2F.wav,6.0
+71,4077,M,M2F,WHO BEGAN THE QUARREL WAS IT THE MORMONS,./Results/examples/pair_071_orig_M.wav,./Results/examples/pair_071_trans_M2F.wav,2.92
+72,1320,M,M2F,NOTWITHSTANDING THE HIGH RESOLUTION OF HAWKEYE HE FULLY COMPREHENDED ALL THE DIF,./Results/examples/pair_072_orig_M.wav,./Results/examples/pair_072_trans_M2F.wav,6.0
+73,8463,F,F2M,I WAS WELL SATISFIED WITH MY CABIN WHICH WAS LOCATED IN THE STERN AND OPENED INT,./Results/examples/pair_073_orig_F.wav,./Results/examples/pair_073_trans_F2M.wav,6.0
+74,908,M,M2F,OPEN THY HEART WIDE AND FOLD WITHIN THE WET WINGS OF THY DOVE,./Results/examples/pair_074_orig_M.wav,./Results/examples/pair_074_trans_M2F.wav,5.89
+75,237,F,F2M,I CAN'T PRAY TO HAVE THE THINGS I WANT HE SAID SLOWLY AND I WON'T PRAY NOT TO HA,./Results/examples/pair_075_orig_F.wav,./Results/examples/pair_075_trans_F2M.wav,6.0
+76,7176,M,M2F,HE IS A WELCOME FIGURE AT THE GARDEN PARTIES OF THE ELECT WHO ARE ALWAYS READY T,./Results/examples/pair_076_orig_M.wav,./Results/examples/pair_076_trans_M2F.wav,6.0
+77,3575,F,F2M,COME COME I AM GETTING REALLY TIRED OF YOUR ABSENCE,./Results/examples/pair_077_orig_F.wav,./Results/examples/pair_077_trans_F2M.wav,3.03
+78,237,F,F2M,IT'S EXCITING TO SEE EVERYTHING GROWING SO FAST AND TO GET THE GRASS CUT,./Results/examples/pair_078_orig_F.wav,./Results/examples/pair_078_trans_F2M.wav,3.995
+79,6829,F,F2M,IT WAS BETTER FOR HIM TO THINK THE GIRL UNFEELING THAN TO KNOW THE TRUTH,./Results/examples/pair_079_orig_F.wav,./Results/examples/pair_079_trans_F2M.wav,4.02
+80,5142,F,F2M,YOU WERE QUITE RIGHT TO SAY NO AMBROSE BEGAN NEVER SMOKE WITH JOHN JAGO HIS CIGA,./Results/examples/pair_080_orig_F.wav,./Results/examples/pair_080_trans_F2M.wav,5.79
+81,4077,M,M2F,AT THE INCEPTION OF PLURAL MARRIAGE AMONG THE LATTER DAY SAINTS THERE WAS NO LAW,./Results/examples/pair_081_orig_M.wav,./Results/examples/pair_081_trans_M2F.wav,6.0
+82,8224,M,M2F,AMONG OTHER PERSONS OF DISTINCTION WHO UNITED THEMSELVES TO HIM WAS LORD NAPIER ,./Results/examples/pair_082_orig_M.wav,./Results/examples/pair_082_trans_M2F.wav,6.0
+83,2961,F,F2M,AND THEREFORE TO YOU I TURN TIMAEUS CITIZEN OF LOCRIS WHO ARE AT ONCE A PHILOSOP,./Results/examples/pair_083_orig_F.wav,./Results/examples/pair_083_trans_F2M.wav,6.0
+84,4970,F,F2M,I HAVE NOTHING TO WEAR REPLIED THAT DEMURE PERSON,./Results/examples/pair_084_orig_F.wav,./Results/examples/pair_084_trans_F2M.wav,3.905
+85,1284,F,F2M,AT ONE END STOOD A GREAT FIREPLACE IN WHICH A BLUE LOG WAS BLAZING WITH A BLUE F,./Results/examples/pair_085_orig_F.wav,./Results/examples/pair_085_trans_F2M.wav,6.0
+86,3570,F,F2M,THE WEARERS OF UNIFORMS AND LIVERIES MAY BE ROUGHLY DIVIDED INTO TWO CLASSES THE,./Results/examples/pair_086_orig_F.wav,./Results/examples/pair_086_trans_F2M.wav,6.0
+87,121,F,F2M,BUT RECKONING TIME WHOSE MILLION'D ACCIDENTS CREEP IN TWIXT VOWS AND CHANGE DECR,./Results/examples/pair_087_orig_F.wav,./Results/examples/pair_087_trans_F2M.wav,6.0
+88,4970,F,F2M,O VERY WELL SAID GRINGO TURNING AWAY WITH A SHADE OF CONTEMPT YOU'LL FIND IF YOU,./Results/examples/pair_088_orig_F.wav,./Results/examples/pair_088_trans_F2M.wav,6.0
+89,5683,F,F2M,THE MYSTERY OF THEIR ORIGIN THEIR CAPACITY FOR EVOLVING LATENT FACULTIES OF CRIM,./Results/examples/pair_089_orig_F.wav,./Results/examples/pair_089_trans_F2M.wav,6.0
+90,4077,M,M2F,THE ARMY FOUND THE PEOPLE IN POVERTY AND LEFT THEM IN COMPARATIVE WEALTH,./Results/examples/pair_090_orig_M.wav,./Results/examples/pair_090_trans_M2F.wav,4.78
+91,1284,F,F2M,SOME OF THE PENAL REGULATIONS WERE COPIED FROM THE EDICTS OF DIOCLETIAN AND THIS,./Results/examples/pair_091_orig_F.wav,./Results/examples/pair_091_trans_F2M.wav,6.0
+92,2830,M,M2F,THIS SENTENCE ALSO DEFINES OUR SINS AS GREAT SO GREAT IN FACT THAT THE WHOLE WOR,./Results/examples/pair_092_orig_M.wav,./Results/examples/pair_092_trans_M2F.wav,6.0
+93,8230,M,M2F,SOME IMAGES LIKE SOME SENSATIONS FEEL VERY FAMILIAR WHILE OTHERS FEEL STRANGE,./Results/examples/pair_093_orig_M.wav,./Results/examples/pair_093_trans_M2F.wav,6.0
+94,4970,F,F2M,IT IS SUCH A NOBLE AMBITION THAT IT IS A PITY IT HAS USUALLY SUCH A SHALLOW FOUN,./Results/examples/pair_094_orig_F.wav,./Results/examples/pair_094_trans_F2M.wav,6.0
+95,2830,M,M2F,THIS ATTITUDE SPRINGS FROM A FALSE CONCEPTION OF SIN THE CONCEPTION THAT SIN IS ,./Results/examples/pair_095_orig_M.wav,./Results/examples/pair_095_trans_M2F.wav,6.0
+96,7021,M,M2F,I AM VERY GLAD,./Results/examples/pair_096_orig_M.wav,./Results/examples/pair_096_trans_M2F.wav,2.11
+97,5683,F,F2M,HE'S NOT A MAN FOR COUNTRY QUARTERS,./Results/examples/pair_097_orig_F.wav,./Results/examples/pair_097_trans_F2M.wav,2.615
+98,6829,F,F2M,SORRY WE HAVEN'T ANY RECEPTION ROOM IN THE JAIL,./Results/examples/pair_098_orig_F.wav,./Results/examples/pair_098_trans_F2M.wav,2.665
+99,2300,M,M2F,UNLESS HE COULD SECURE AN ENGINE OF SMOOTHER RUNNING AND MORE EXACTLY GOVERNED A,./Results/examples/pair_099_orig_M.wav,./Results/examples/pair_099_trans_M2F.wav,6.0
