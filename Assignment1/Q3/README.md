@@ -1,5 +1,7 @@
 # Q3 — Ethical Auditing & Documentation Debt Mitigation
 
+##Hugging Face Model: https://huggingface.co/Saumya3007/wav2vec2-fairness-q3
+
 ## Setup
 
 ```bash
