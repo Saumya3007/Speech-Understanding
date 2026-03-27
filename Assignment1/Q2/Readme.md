@@ -4,13 +4,6 @@
 Speaker verification using ECAPA-TDNN with disentanglement of speaker
 and environment embeddings. Three models trained on LibriSpeech train-clean-100.
 
-## Results
-
-| Model        | Training EER (%) ↓ | 
-|--------------|--------------------|
-| Baseline     |          5.14      | 
-| Disentangled |          4.74      | 
-| Improved     |          4.87      |
 
 ## Models
 
