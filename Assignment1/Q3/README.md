@@ -1,5 +1,7 @@
 # Q3 — Ethical Auditing & Documentation Debt Mitigation
 
+## Hugging Face Model: https://huggingface.co/Saumya3007/wav2vec2-fairness-q3
+
 ## Setup
 
 ```bash
@@ -37,7 +39,11 @@ Q3/
 ├── config_loader.py
 ├── .env
 ├── requirements.txt
-└── Results/
+├──Results/examples/
+  └── examples/
+        ├── pair_XXX_orig_M.wav      ← original audio
+        └── pair_XXX_trans_M2F.wav   ← transformed audio
+└── Results/output/
     ├── audit_plots.png / .pdf       ← Part 1 output
     ├── speakers_audit.csv
     ├── gender_time_audit.csv
@@ -48,13 +54,11 @@ Q3/
     ├── training_losses.csv
     ├── wer_by_gender.csv
     ├── evaluation/
-    │   ├── fad_dnsmos_validation.png  ← Part 4 output
-    │   ├── validation_results.csv
-    │   ├── dnsmos_original.csv
-    │   └── dnsmos_transformed.csv
-    └── examples/
-        ├── pair_XXX_orig_M.wav      ← original audio
-        └── pair_XXX_trans_M2F.wav   ← transformed audio
+       ├── fad_dnsmos_validation.png  ← Part 4 output
+       ├── validation_results.csv
+       ├── dnsmos_original.csv
+       └── dnsmos_transformed.csv
+    
 Checkpoint
 The best model checkpoint is saved to ./q3/best_model/ during Part 3 training and uploaded to HuggingFace at {HF_USERNAME}/wav2vec2-fairness-q3.
 
@@ -65,4 +69,4 @@ Trained on test-clean, 2000 samples, 3 epochs, λ=0.5
 Base model: facebook/wav2vec2-base-960h with feature encoder frozen
 
 Results Location
-All experiment outputs are in the Results/ folder. Results/evaluation/validation_results.csv contains the final FAD, DNSMOS, and SNR scores.
+All experiment outputs are in the Results/ folder. Results/output/evaluation/validation_results.csv contains the final FAD, DNSMOS, and SNR scores.
