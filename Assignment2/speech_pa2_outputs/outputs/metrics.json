@@ -1,0 +1,10 @@
+{
+  "wer_en": 0.15,
+  "wer_hi": 0.14,
+  "mcd": 25.819918873888597,
+  "lid_f1": 1.0,
+  "pass_wer_en": true,
+  "pass_wer_hi": true,
+  "pass_mcd": false,
+  "pass_lid_f1": true
+}

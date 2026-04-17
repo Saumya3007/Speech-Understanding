@@ -1,0 +1,142 @@
+[
+  {
+    "start": 600.0,
+    "end": 630.0,
+    "text": "In our picture, after you apply Softmax to all of the columns, we'll fill in the grid with these normalized values. At this point, you're safe to think about each column as giving weights according to how relevant the word on the left is to the corresponding value at the top. We call this grid an attention pattern. Now, if you look at the original Transformer paper, there's a really compact way that they write this all down. Here, the variables q and k represent the full arrays of query and key vectors",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 630.0,
+    "end": 660.0,
+    "text": "Thank you for watching.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 660.0,
+    "end": 690.0,
+    "text": "As to that V term, we'll talk about it in just a second. Before that, there's one other technical detail that so far I've skipped. During the training process, when you run this model on a given text example, and all of the weights are slightly adjusted and tuned to either reward or punish it based on how high a probability it assigns to the true next word in the passage, it turns out to make the whole training process a lot more efficient if you simultaneously have it predict every possible next token following each initial sub-sequence of the next word.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 690.0,
+    "end": 720.0,
+    "text": "For example, with the phrase that we've been focusing on, it might also be predicting what words follow creature and what words follow the. This is really nice because it means what would otherwise be a single training example effectively acts as many. For the purposes of our attention pattern, it means that you never want to allow later words to influence earlier words, since otherwise they could kind of give away the answer for what comes next. What this means is that we want all of these spots here, the ones representing later words,",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 720.0,
+    "end": 750.0,
+    "text": "Thank you for watching.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 750.0,
+    "end": 780.0,
+    "text": "But in our GPT example, even though this is more relevant during the training phase than it would be, say, running it as a chatbot or something like that, you do always apply this masking to prevent later tokens from influencing earlier ones. Another fact that's worth reflecting on about this attention pattern is how its size is equal to the square of the context size. So this is why context size can be a really huge bottleneck for large language models, and scaling it up is non-trivial. As you might imagine, motivated by a desire for bigger and bigger context",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 780.0,
+    "end": 810.0,
+    "text": "Okay, great, computing this pattern lets the model deduce which words are relevant to which other words. Now, you need to actually update the embeddings, allowing words to pass information to whichever other words they're relevant to. For example, you want the embedding of fluffy to somehow cause a change to creature that moves it to a different part of this",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 810.0,
+    "end": 840.0,
+    "text": "I'm going to show you the most straightforward way to do this, though there's a slight way that this gets modified in the context of multi-headed attention. This most straightforward way would be to use a third matrix, what we call the value matrix, which you multiply by the embedding of that first word, for example fluffy. The result of this is what you would call a value vector, and this is something that you add to the embedding of the second word.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 840.0,
+    "end": 870.0,
+    "text": "In this case, something you add to the embedding of creature. So this value vector lives in the same very high dimensional space as the embeddings. When you multiply this value matrix by the embedding of a word, you might think of it as saying, if this word is relevant to adjusting the meaning of something else, what exactly should be added to the embedding of that something else in order to reflect this? Looking back in our diagram, let's set aside all of the keys and the queries, since after you compute the attention pattern, you're done with those.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 870.0,
+    "end": 900.0,
+    "text": "Take this value matrix and multiply it by every one of those embeddings to produce a sequence of value vectors. You might think of these value vectors as being kind of associated with the corresponding keys. For each column in this diagram, you multiply each of the value vectors by the corresponding weight in that column. For example, here, under the embedding of creature, you would be adding large proportions of the value vectors for fluffy and blue, while all of the other value vectors get zeroed out.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 900.0,
+    "end": 930.0,
+    "text": "And then finally, the way to actually update the embedding associated with this column, previously encoding some context-free meaning of creature, you add together all of these rescaled values in the column, producing a change that you want to add that I'll label delta E, and then you add that to the original embedding. Hopefully, what results is a more refined vector encoding the more contextually rich meaning, like that of a fluffy blue creature. And of course, you don't just do this to one embedding, you apply it to all of the other embeddings.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 930.0,
+    "end": 960.0,
+    "text": "I want to take a moment to talk about the process of creating a new model for the MFCC.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 960.0,
+    "end": 990.0,
+    "text": "Now, let's take a moment to continue what we started in the last chapter with the score keeping where we count up the total number of model parameters using the numbers from GPT-3. These key and query matrices each have 12,288 columns matching the embedding dimension and 128 rows matching the dimension of that smaller key query space. This gives us an additional 1.5 million or so parameters for each one. If you look at that value matrix by contrast, the way I've described things so far would suggest that",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 990.0,
+    "end": 1020.0,
+    "text": "It's a square matrix that has 12,288 columns and 12,288 rows, since both its inputs and its outputs live in this very large embedding space. If true, that would mean about 150 million added parameters. And to be clear, you could do that. You could devote orders of magnitude more parameters to the value map than to the key and query. But in practice, it is much more efficient if instead you make it so that the number of parameters devoted to this value map",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 1020.0,
+    "end": 1050.0,
+    "text": "The first matrix, on the right here, has a smaller number of rows.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 1050.0,
+    "end": 1080.0,
+    "text": "The first matrix is a matrix of values, typically the same size as the key query space. What this means is you can think of it as mapping the large embedding vectors down to a much smaller space. This is not the conventional naming, but I'm going to call this the value down matrix. The second matrix maps from this smaller space back up to the embedding space, producing the vectors that you use to make the actual updates. I'm going to call this one the value up matrix, which again is not conventional. The way that you would see this written in most papers looks a little different.",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 1080.0,
+    "end": 1110.0,
+    "text": "To throw in linear algebra jargon here, what we're basically doing is constraining the overall value map to be a low-rank transformation. Turning back to the parameter count, all four of these matrices have the same size, and adding them all up, we get about 6.3 million parameters for one attention head. As a quick side note, to be a little more accurate, everything described so far is what people would call a self-attention head. To distinguish it from a variation that comes up in other models,",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 1110.0,
+    "end": 1140.0,
+    "text": "This isn't relevant to our GPT example, but if you're curious, cross-attention involves models that process two distinct types of data, like text in one language and text in another language that's part of an ongoing generation of a translation, or maybe audio input of speech and an ongoing transcription. A cross-attention head looks almost identical. The only difference is that the key and query maps act on different datasets. In a model doing translation, for example,",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 1140.0,
+    "end": 1170.0,
+    "text": "The keys might come from one language, while the queries come from another, and the attention pattern could describe which words from one language correspond to which words in another. And in this setting, there would typically be no masking, since there's not really any notion of later tokens affecting earlier ones. Staying focused on self-attention, though, if you understood everything so far, and if you were to stop here, you would come away with the essence of what attention really is. All that's really left to us is to lay out the sense in which you do this,",
+    "lang": "EN",
+    "seg_idx": 1
+  },
+  {
+    "start": 1170.0,
+    "end": 1200.0,
+    "text": "Many, many different times. In our central example, we focused on adjectives updating nouns, but of course, there are lots of different ways that context can influence the meaning of a word. If the words they crashed the preceded the word car, it has implications for the shape and the structure of that car. And a lot of associations might be less grammatical. If the word wizard is anywhere in the same passage as Harry, it suggests that this might be referring to Harry Potter. Whereas if instead the words Queen, Sussex, and William were in that passage,",
+    "lang": "EN",
+    "seg_idx": 1
+  }
+]

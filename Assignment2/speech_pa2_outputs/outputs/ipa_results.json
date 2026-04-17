@@ -1,0 +1,431 @@
+{
+  "ipa_chunks": [
+    {
+      "start": 0.0,
+      "end": 30.0,
+      "original": "In the last chapter, you and I started to step through the internal workings of a transformer. This is one of the key pieces of technology inside large language models and a lot of other tools in the modern wave of AI. It first hit the scene in a now-famous 2017 paper called Attention is All You Need, and in this chapter, you and I will dig into what this attention mechanism is, visualizing how it processes data. As a quick recap, here's the important context I want you to have in mind.",
+      "lang": "EN",
+      "ipa": "ɪn ðə læst ˈʧæptər, ju ənd aɪ ˈstɑrtɪd tɪ stɛp θru ðə ˌɪnˈtərnəl ˈwərkɪŋz əv ə trænsˈfɔrmər. ðɪs ɪz wən əv ðə ki ˈpisɪz əv tɛkˈnɑləʤi ˌɪnˈsaɪd lɑrʤ ˈlæŋgwɪʤ ˈmɑdəlz ənd ə lɔt əv ˈəðər tulz ɪn ðə ˈmɑdərn weɪv əv eɪaɪ. ɪt fərst hɪt ðə sin ɪn ə now-famous* 2017 ˈpeɪpər kɔld əˈtɛnʃən ɪz ɔl ju nid, ənd ɪn ðɪs ˈʧæptər, ju ənd aɪ wɪl dɪg ˈɪntu wət ðɪs əˈtɛnʃən ˈmɛkəˌnɪzəm ɪz, ˈvɪʒwəˌlaɪzɪŋ haʊ ɪt ˈprɑsɛsəz ˈdætə. ɛz ə kwɪk ˈriˌkæp, hɪrz ðə ˌɪmˈpɔrtənt ˈkɑntɛkst aɪ wɔnt ju tɪ hæv ɪn maɪnd.",
+      "seg_idx": 0
+    },
+    {
+      "start": 30.0,
+      "end": 60.0,
+      "original": "The goal of the model that you and I are studying is to take in a piece of text and predict what word comes next. The input text is broken up into little pieces that we call tokens, and these are very often words or pieces of words, but just to make the examples in this video easier for you and me to think about, let's simplify by pretending that tokens are always just words. The first step in a transformer is to associate each token with a high-dimensional vector, what we call its embedding.",
+      "lang": "EN",
+      "ipa": "ðə goʊl əv ðə ˈmɑdəl ðət ju ənd aɪ ər ˈstədiɪŋ ɪz tɪ teɪk ɪn ə pis əv tɛkst ənd prɪˈdɪkt wət wərd kəmz nɛkst. ðə ˈɪnˌpʊt tɛkst ɪz ˈbroʊkən əp ˈɪntu ˈlɪtəl ˈpisɪz ðət wi kɔl ˈtoʊkənz, ənd ðiz ər ˈvɛri ˈɔfən wərdz ər ˈpisɪz əv wərdz, bət ʤɪst tɪ meɪk ðə ɪgˈzæmpəlz ɪn ðɪs ˈvɪdioʊ ˈiziər fər ju ənd mi tɪ θɪŋk əˈbaʊt, lɛts ˈsɪmpləˌfaɪ baɪ priˈtɛndɪŋ ðət ˈtoʊkənz ər ˈɔlˌweɪz ʤɪst wərdz. ðə fərst stɛp ɪn ə trænsˈfɔrmər ɪz tɪ əˈsoʊʃiˌeɪt iʧ ˈtoʊkən wɪθ ə high-dimensional* ˈvɛktər, wət wi kɔl ɪts embedding.",
+      "seg_idx": 0
+    },
+    {
+      "start": 60.0,
+      "end": 90.0,
+      "original": "is how directions in this high-dimensional space of all possible embeddings can correspond with semantic meaning. In the last chapter, we saw an example for how direction can correspond to gender, in the sense that adding a certain step in this space can take you from the embedding of a masculine noun to the embedding of the corresponding feminine noun. That's just one example. You could imagine how many other directions in this high-dimensional space could correspond to numerous other aspects of a word's meaning.",
+      "lang": "EN",
+      "ipa": "ɪz haʊ dɪˈrɛkʃɪnz ɪn ðɪs high-dimensional* speɪs əv ɔl ˈpɑsəbəl embeddings* kən ˌkɔrəˈspɑnd wɪθ sɪˈmæntɪk ˈminɪŋ. ɪn ðə læst ˈʧæptər, wi sɔ ən ɪgˈzæmpəl fər haʊ dɪˈrɛkʃɪn kən ˌkɔrəˈspɑnd tɪ ˈʤɛndər, ɪn ðə sɛns ðət ˈædɪŋ ə ˈsərtən stɛp ɪn ðɪs speɪs kən teɪk ju frəm ðə embedding* əv ə ˈmæskjələn naʊn tɪ ðə embedding* əv ðə ˌkɔrəˈspɑndɪŋ ˈfɛmənən naʊn. ðæts ʤɪst wən ɪgˈzæmpəl. ju kʊd ˌɪˈmæʤən haʊ ˈmɛni ˈəðər dɪˈrɛkʃɪnz ɪn ðɪs high-dimensional* speɪs kʊd ˌkɔrəˈspɑnd tɪ ˈnumərəs ˈəðər ˈæˌspɛkts əv ə wərdz ˈminɪŋ.",
+      "seg_idx": 0
+    },
+    {
+      "start": 90.0,
+      "end": 120.0,
+      "original": "is to progressively adjust these embeddings so that they don't merely encode an individual word, but instead they bake in some much, much richer contextual meaning. I should say up front that a lot of people find the attention mechanism, this key piece in a transformer, very confusing. So don't worry if it takes some time for things to sink in. I think that before we dive into the computational details and all the matrix multiplications, it's worth thinking about a couple examples for the kind of behavior that we want attention to enable.",
+      "lang": "EN",
+      "ipa": "ɪz tɪ prɑˈgrɛsɪvli əˈʤəst ðiz embeddings* soʊ ðət ðeɪ doʊnt ˈmɪrli ɛnˈkoʊd ən ˌɪndəˈvɪʤəwəl wərd, bət ˌɪnˈstɛd ðeɪ beɪk ɪn səm məʧ, məʧ ˈrɪʧər ˌkɑnˈtɛksˌʧuəl ˈminɪŋ. aɪ ʃʊd seɪ əp frənt ðət ə lɔt əv ˈpipəl faɪnd ðə əˈtɛnʃən ˈmɛkəˌnɪzəm, ðɪs ki pis ɪn ə trænsˈfɔrmər, ˈvɛri kənfˈjuzɪŋ. soʊ doʊnt ˈwəri ɪf ɪt teɪks səm taɪm fər θɪŋz tɪ sɪŋk ɪn. aɪ θɪŋk ðət ˌbiˈfɔr wi daɪv ˈɪntu ðə ˌkɑmpjuˈteɪʃənəl ˈditeɪlz ənd ɔl ðə ˈmeɪtrɪks multiplications, ɪts wərθ ˈθɪŋkɪŋ əˈbaʊt ə ˈkəpəl ɪgˈzæmpəlz fər ðə kaɪnd əv bɪˈheɪvjər ðət wi wɔnt əˈtɛnʃən tɪ ɪˈneɪbəl.",
+      "seg_idx": 0
+    },
+    {
+      "start": 120.0,
+      "end": 150.0,
+      "original": "Consider the phrases American True Mole, One Mole of Carbon Dioxide, and Take a Biopsy of the Mole. You and I know that the word mole has different meanings in each one of these, based on the context. But after the first step of a transformer, the one that breaks up the text and associates each token with a vector, the vector that's associated with mole would be the same in all three of these cases, because this initial token embedding is effectively a lookup table with no reference to the context.",
+      "lang": "EN",
+      "ipa": "kənˈsɪdər ðə ˈfreɪzɪz əˈmɛrɪkən tru moʊl, wən moʊl əv ˈkɑrbən daɪˈɑkˌsaɪd, ənd teɪk ə ˈbaɪɑpsi əv ðə moʊl. ju ənd aɪ noʊ ðət ðə wərd moʊl həz ˈdɪfərənt ˈminɪŋz ɪn iʧ wən əv ðiz, beɪst ɔn ðə ˈkɑntɛkst. bət ˈæftər ðə fərst stɛp əv ə trænsˈfɔrmər, ðə wən ðət breɪks əp ðə tɛkst ənd əˈsoʊʃiˌeɪts iʧ ˈtoʊkən wɪθ ə ˈvɛktər, ðə ˈvɛktər ðæts əˈsoʊʃiˌeɪtəd wɪθ moʊl wʊd bi ðə seɪm ɪn ɔl θri əv ðiz ˈkeɪsɪz, bɪˈkəz ðɪs ˌɪˈnɪʃəl ˈtoʊkən embedding* ɪz ˈifɛktɪvli ə ˈlʊkəp ˈteɪbəl wɪθ noʊ ˈrɛfərəns tɪ ðə ˈkɑntɛkst.",
+      "seg_idx": 0
+    },
+    {
+      "start": 150.0,
+      "end": 180.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "ipa": "θæŋk ju fər ˈwɑʧɪŋ.",
+      "seg_idx": 0
+    },
+    {
+      "start": 180.0,
+      "end": 210.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "ipa": "θæŋk ju fər ˈwɑʧɪŋ.",
+      "seg_idx": 0
+    },
+    {
+      "start": 210.0,
+      "end": 240.0,
+      "original": "Thank you.",
+      "lang": "EN",
+      "ipa": "θæŋk ju.",
+      "seg_idx": 0
+    },
+    {
+      "start": 240.0,
+      "end": 270.0,
+      "original": "The text you input is most of an entire mystery novel, all the way up to a point near the end, which reads, therefore the murderer was. If the model's going to accurately predict the next word, that final vector in the sequence, which began its life simply embedding the word was, will have to have been updated by all of the attention blocks to represent much, much more than any individual word, somehow encoding all of the information from the full context window that's relevant to predicting the next word.",
+      "lang": "EN",
+      "ipa": "ðə tɛkst ju ˈɪnˌpʊt ɪz moʊst əv ən ɪnˈtaɪər ˈmɪstəri ˈnɑvəl, ɔl ðə weɪ əp tɪ ə pɔɪnt nɪr ðə ɛnd, wɪʧ ridz, ˈðɛrˌfɔr ðə ˈmərdərər wɑz. ɪf ðə ˈmɑdəlz goʊɪŋ tɪ ˈækjərətli prɪˈdɪkt ðə nɛkst wərd, ðət ˈfaɪnəl ˈvɛktər ɪn ðə ˈsikwəns, wɪʧ bɪˈgæn ɪts laɪf ˈsɪmpli embedding* ðə wərd wɑz, wɪl hæv tɪ hæv bɪn ˈəpˌdeɪtɪd baɪ ɔl əv ðə əˈtɛnʃən blɑks tɪ ˌrɛprɪˈzɛnt məʧ, məʧ mɔr ðən ˈɛni ˌɪndəˈvɪʤəwəl wərd, ˈsəmˌhaʊ ɛnˈkoʊdɪŋ ɔl əv ðə ˌɪnˌfɔrˈmeɪʃən frəm ðə fʊl ˈkɑntɛkst ˈwɪndoʊ ðæts ˈrɛləvənt tɪ prɪˈdɪktɪŋ ðə nɛkst wərd.",
+      "seg_idx": 0
+    },
+    {
+      "start": 270.0,
+      "end": 300.0,
+      "original": "To get to the computations though, let's take a much simpler example. Imagine that the input includes the phrase, a fluffy blue creature roamed the verdant forest. And for the moment, suppose that the only type of update that we care about is having the adjectives adjust the meanings of their corresponding nouns. What I'm about to describe is what we would call a single head of attention, and later we will see how the attention block consists of many different heads run in parallel. Again, the initial embedding for each word is some high-dimensional vector",
+      "lang": "EN",
+      "ipa": "tɪ gɪt tɪ ðə ˌkɑmpjuˈteɪʃənz ðoʊ, lɛts teɪk ə məʧ ˈsɪmpələr ɪgˈzæmpəl. ˌɪˈmæʤən ðət ðə ˈɪnˌpʊt ˌɪnˈkludz ðə freɪz, ə ˈfləfi blu ˈkriʧər roʊmd ðə ˈvərdənt ˈfɔrɪst. ənd fər ðə ˈmoʊmənt, səˈpoʊz ðət ðə ˈoʊnli taɪp əv ˈəpˌdeɪt ðət wi kɛr əˈbaʊt ɪz ˈhævɪŋ ðə ˈæʤɪktɪvz əˈʤəst ðə ˈminɪŋz əv ðɛr ˌkɔrəˈspɑndɪŋ naʊnz. wət əm əˈbaʊt tɪ dɪˈskraɪb ɪz wət wi wʊd kɔl ə ˈsɪŋgəl hɛd əv əˈtɛnʃən, ənd ˈleɪtər wi wɪl si haʊ ðə əˈtɛnʃən blɑk kənˈsɪsts əv ˈmɛni ˈdɪfərənt hɛdz rən ɪn ˈpɛrəˌlɛl. əˈgɛn, ðə ˌɪˈnɪʃəl embedding* fər iʧ wərd ɪz səm high-dimensional* ˈvɛktər",
+      "seg_idx": 0
+    },
+    {
+      "start": 300.0,
+      "end": 330.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "ipa": "θæŋk ju fər ˈwɑʧɪŋ.",
+      "seg_idx": 0
+    },
+    {
+      "start": 330.0,
+      "end": 360.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "ipa": "θæŋk ju fər ˈwɑʧɪŋ.",
+      "seg_idx": 0
+    },
+    {
+      "start": 360.0,
+      "end": 390.0,
+      "original": "It's just that as we step through all of the different matrices filled with parameters that are involved in this process, I think it's really helpful to have an imagined example of something that it could be doing to help keep it all more concrete. For the first step of this process, you might imagine each noun, like creature, asking the question, hey, are there any adjectives sitting in front of me? And for the words fluffy and blue to each be able to answer, yeah, I'm an adjective and I'm in that position. That question is going to be asked by the student.",
+      "lang": "EN",
+      "ipa": "ɪts ʤɪst ðət ɛz wi stɛp θru ɔl əv ðə ˈdɪfərənt ˈmeɪtrɪsɪz fɪld wɪθ pərˈæmətərz ðət ər ˌɪnˈvɑlvd ɪn ðɪs ˈprɔˌsɛs, aɪ θɪŋk ɪts ˈrɪli ˈhɛlpfəl tɪ hæv ən ˌɪˈmæʤənd ɪgˈzæmpəl əv ˈsəmθɪŋ ðət ɪt kʊd bi duɪŋ tɪ hɛlp kip ɪt ɔl mɔr ˈkɑnkrit. fər ðə fərst stɛp əv ðɪs ˈprɔˌsɛs, ju maɪt ˌɪˈmæʤən iʧ naʊn, laɪk ˈkriʧər, ˈæskɪŋ ðə kˈwɛʃən, heɪ, ər ðɛr ˈɛni ˈæʤɪktɪvz ˈsɪtɪŋ ɪn frənt əv mi? ənd fər ðə wərdz ˈfləfi ənd blu tɪ iʧ bi ˈeɪbəl tɪ ˈænsər, jæ, əm ən ˈæʤɪktɪv ənd əm ɪn ðət pəˈzɪʃən. ðət kˈwɛʃən ɪz goʊɪŋ tɪ bi æst baɪ ðə ˈstudənt.",
+      "seg_idx": 0
+    },
+    {
+      "start": 390.0,
+      "end": 420.0,
+      "original": "Query is somehow encoded as yet another vector, another list of numbers, which we call the query for this word. This query vector, though, has a much smaller dimension than the embedding vector, say 128. Computing this query looks like taking a certain matrix, which I'll label WQ, and multiplying it by the embedding. Compressing things a bit, let's write that query vector as Q, and then anytime you see me put a matrix next to an arrow like this one,",
+      "lang": "EN",
+      "ipa": "kˈwiri ɪz ˈsəmˌhaʊ ɛnˈkoʊdɪd ɛz jɛt əˈnəðər ˈvɛktər, əˈnəðər lɪst əv ˈnəmbərz, wɪʧ wi kɔl ðə kˈwiri fər ðɪs wərd. ðɪs kˈwiri ˈvɛktər, ðoʊ, həz ə məʧ sˈmɔlər dɪˈmɛnʃən ðən ðə embedding* ˈvɛktər, seɪ 128 kəmˈpjutɪŋ ðɪs kˈwiri lʊks laɪk ˈteɪkɪŋ ə ˈsərtən ˈmeɪtrɪks, wɪʧ aɪl ˈleɪbəl wq, ənd ˈməltəˌplaɪɪŋ ɪt baɪ ðə embedding. kəmˈprɛsɪŋ θɪŋz ə bɪt, lɛts raɪt ðət kˈwiri ˈvɛktər ɛz kju, ənd ðɛn ˈɛniˌtaɪm ju si mi pʊt ə ˈmeɪtrɪks nɛkst tɪ ən ˈɛroʊ laɪk ðɪs wən,",
+      "seg_idx": 0
+    },
+    {
+      "start": 420.0,
+      "end": 450.0,
+      "original": "The matrix is a vector that is multiplied by the vector at the arrow's start. In this case, you multiply this matrix by all of the embeddings in the context, producing one query vector for each token. The entries of this matrix are parameters of the model, which means the true behavior is learned from data, and in practice, what this matrix does in a particular attention head is challenging to parse. But for our sake, imagining an example that we might hope that it would learn, we'll suppose that this query matrix maps the embeddings of the",
+      "lang": "EN",
+      "ipa": "ðə ˈmeɪtrɪks ɪz ə ˈvɛktər ðət ɪz ˈməltəˌplaɪd baɪ ðə ˈvɛktər æt ðə ˈɛroʊz stɑrt. ɪn ðɪs keɪs, ju ˈməltəˌplaɪ ðɪs ˈmeɪtrɪks baɪ ɔl əv ðə embeddings* ɪn ðə ˈkɑntɛkst, prəˈdusɪŋ wən kˈwiri ˈvɛktər fər iʧ ˈtoʊkən. ðə ˈɛntriz əv ðɪs ˈmeɪtrɪks ər pərˈæmətərz əv ðə ˈmɑdəl, wɪʧ minz ðə tru bɪˈheɪvjər ɪz ˈlərnɪd frəm ˈdætə, ənd ɪn ˈpræktɪs, wət ðɪs ˈmeɪtrɪks dɪz ɪn ə ˌpɑˈtɪkjələr əˈtɛnʃən hɛd ɪz ˈʧælənʤɪŋ tɪ pɑrs. bət fər ɑr seɪk, ˌɪˈmæʤənɪŋ ən ɪgˈzæmpəl ðət wi maɪt hoʊp ðət ɪt wʊd lərn, wɪl səˈpoʊz ðət ðɪs kˈwiri ˈmeɪtrɪks mæps ðə embeddings* əv ðə",
+      "seg_idx": 0
+    },
+    {
+      "start": 450.0,
+      "end": 480.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "ipa": "θæŋk ju fər ˈwɑʧɪŋ.",
+      "seg_idx": 0
+    },
+    {
+      "start": 480.0,
+      "end": 510.0,
+      "original": "In this case, you want to think of the keys as potentially answering the queries. This key matrix is also full of tunable parameters, and just like the query matrix, it maps the embedding vectors to that same smaller dimensional space. You think of the keys as matching the queries whenever they closely align with each other. In our example, you would imagine that the key matrix maps the adjectives, like fluffy and blue, to vectors that are closely aligned with the query produced by the word creature.",
+      "lang": "EN",
+      "ipa": "ɪn ðɪs keɪs, ju wɔnt tɪ θɪŋk əv ðə kiz ɛz pəˈtɛnʃəli ˈænsərɪŋ ðə kˈwɪriz. ðɪs ki ˈmeɪtrɪks ɪz ˈɔlsoʊ fʊl əv ˈtunəbəl pərˈæmətərz, ənd ʤɪst laɪk ðə kˈwiri ˈmeɪtrɪks, ɪt mæps ðə embedding* ˈvɛktərz tɪ ðət seɪm sˈmɔlər dɪˈmɛnʃənəl speɪs. ju θɪŋk əv ðə kiz ɛz ˈmæʧɪŋ ðə kˈwɪriz wɛˈnɛvər ðeɪ ˈkloʊsli əˈlaɪn wɪθ iʧ ˈəðər. ɪn ɑr ɪgˈzæmpəl, ju wʊd ˌɪˈmæʤən ðət ðə ki ˈmeɪtrɪks mæps ðə ˈæʤɪktɪvz, laɪk ˈfləfi ənd blu, tɪ ˈvɛktərz ðət ər ˈkloʊsli əˈlaɪnd wɪθ ðə kˈwiri prəˈdust baɪ ðə wərd ˈkriʧər.",
+      "seg_idx": 0
+    },
+    {
+      "start": 510.0,
+      "end": 540.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "ipa": "θæŋk ju fər ˈwɑʧɪŋ.",
+      "seg_idx": 0
+    },
+    {
+      "start": 540.0,
+      "end": 570.0,
+      "original": "The key for some other word, like the, and the query for creature, would be some small or negative value that reflects that these are unrelated to each other. So we have this grid of values that can be any real number from negative infinity to infinity, giving us a score for how relevant each word is to updating the meaning of every other word.",
+      "lang": "EN",
+      "ipa": "ðə ki fər səm ˈəðər wərd, laɪk ðə, ənd ðə kˈwiri fər ˈkriʧər, wʊd bi səm smɔl ər ˈnɛgətɪv ˈvælju ðət rɪˈflɛkts ðət ðiz ər ˌənrɪˈleɪtɪd tɪ iʧ ˈəðər. soʊ wi hæv ðɪs grɪd əv ˈvæljuz ðət kən bi ˈɛni ril ˈnəmbər frəm ˈnɛgətɪv ˌɪnˈfɪnɪti tɪ ˌɪnˈfɪnɪti, ˈgɪvɪŋ ˈjuˈɛs ə skɔr fər haʊ ˈrɛləvənt iʧ wərd ɪz tɪ ˈəpˌdeɪtɪŋ ðə ˈminɪŋ əv ˈɛvəri ˈəðər wərd.",
+      "seg_idx": 0
+    },
+    {
+      "start": 570.0,
+      "end": 600.0,
+      "original": "The way we use these scores is to take a certain weighted sum along each column, weighted by the relevance. So instead of having values range from negative infinity to infinity, what we want is for the numbers in these columns to be between 0 and 1, and for each column to add up to 1, as if they were a probability distribution. If you're coming in from the last chapter, you know what we need to do then. We compute a softmax along each one of these columns to normalize the values.",
+      "lang": "EN",
+      "ipa": "ðə weɪ wi juz ðiz skɔrz ɪz tɪ teɪk ə ˈsərtən ˈweɪtɪd səm əˈlɔŋ iʧ ˈkɑləm, ˈweɪtɪd baɪ ðə ˈrɛləvəns. soʊ ˌɪnˈstɛd əv ˈhævɪŋ ˈvæljuz reɪnʤ frəm ˈnɛgətɪv ˌɪnˈfɪnɪti tɪ ˌɪnˈfɪnɪti, wət wi wɔnt ɪz fər ðə ˈnəmbərz ɪn ðiz ˈkɑləmz tɪ bi bɪtˈwin 0 ənd 1 ənd fər iʧ ˈkɑləm tɪ æd əp tɪ 1 ɛz ɪf ðeɪ wər ə ˌprɑbəˈbɪləˌti ˌdɪstrəˈbjuʃən. ɪf jʊr ˈkəmɪŋ ɪn frəm ðə læst ˈʧæptər, ju noʊ wət wi nid tɪ du ðɛn. wi kəmˈpjut ə softmax* əˈlɔŋ iʧ wən əv ðiz ˈkɑləmz tɪ ˈnɔrməˌlaɪz ðə ˈvæljuz.",
+      "seg_idx": 0
+    },
+    {
+      "start": 600.0,
+      "end": 630.0,
+      "original": "In our picture, after you apply Softmax to all of the columns, we'll fill in the grid with these normalized values. At this point, you're safe to think about each column as giving weights according to how relevant the word on the left is to the corresponding value at the top. We call this grid an attention pattern. Now, if you look at the original Transformer paper, there's a really compact way that they write this all down. Here, the variables q and k represent the full arrays of query and key vectors",
+      "lang": "EN",
+      "ipa": "ɪn ɑr ˈpɪkʧər, ˈæftər ju əˈplaɪ softmax* tɪ ɔl əv ðə ˈkɑləmz, wɪl fɪl ɪn ðə grɪd wɪθ ðiz ˈnɔrməˌlaɪzd ˈvæljuz. æt ðɪs pɔɪnt, jʊr seɪf tɪ θɪŋk əˈbaʊt iʧ ˈkɑləm ɛz ˈgɪvɪŋ weɪts əˈkɔrdɪŋ tɪ haʊ ˈrɛləvənt ðə wərd ɔn ðə lɛft ɪz tɪ ðə ˌkɔrəˈspɑndɪŋ ˈvælju æt ðə tɔp. wi kɔl ðɪs grɪd ən əˈtɛnʃən ˈpætərn. naʊ, ɪf ju lʊk æt ðə ərˈɪʤənəl trænsˈfɔrmər ˈpeɪpər, ðɛrz ə ˈrɪli ˈkɑmpækt weɪ ðət ðeɪ raɪt ðɪs ɔl daʊn. hir, ðə ˈvɛriəbəlz kju ənd keɪ ˌrɛprɪˈzɛnt ðə fʊl əreɪz əv kˈwiri ənd ki ˈvɛktərz",
+      "seg_idx": 1
+    },
+    {
+      "start": 630.0,
+      "end": 660.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "ipa": "θæŋk ju fər ˈwɑʧɪŋ.",
+      "seg_idx": 1
+    },
+    {
+      "start": 660.0,
+      "end": 690.0,
+      "original": "As to that V term, we'll talk about it in just a second. Before that, there's one other technical detail that so far I've skipped. During the training process, when you run this model on a given text example, and all of the weights are slightly adjusted and tuned to either reward or punish it based on how high a probability it assigns to the true next word in the passage, it turns out to make the whole training process a lot more efficient if you simultaneously have it predict every possible next token following each initial sub-sequence of the next word.",
+      "lang": "EN",
+      "ipa": "ɛz tɪ ðət vi tərm, wɪl tɔk əˈbaʊt ɪt ɪn ʤɪst ə ˈsɛkənd. ˌbiˈfɔr ðət, ðɛrz wən ˈəðər ˈtɛknɪkəl ˈditeɪl ðət soʊ fɑr aɪv skɪpt. ˈdʊrɪŋ ðə ˈtreɪnɪŋ ˈprɔˌsɛs, wɪn ju rən ðɪs ˈmɑdəl ɔn ə ˈgɪvɪn tɛkst ɪgˈzæmpəl, ənd ɔl əv ðə weɪts ər sˈlaɪtli əˈʤəstɪd ənd tund tɪ ˈiðər rɪˈwɔrd ər ˈpənɪʃ ɪt beɪst ɔn haʊ haɪ ə ˌprɑbəˈbɪləˌti ɪt əˈsaɪnz tɪ ðə tru nɛkst wərd ɪn ðə ˈpæsɪʤ, ɪt tərnz aʊt tɪ meɪk ðə hoʊl ˈtreɪnɪŋ ˈprɔˌsɛs ə lɔt mɔr ɪˈfɪʃənt ɪf ju ˌsaɪməlˈteɪniəsli hæv ɪt prɪˈdɪkt ˈɛvəri ˈpɑsəbəl nɛkst ˈtoʊkən ˈfɑloʊɪŋ iʧ ˌɪˈnɪʃəl sub-sequence* əv ðə nɛkst wərd.",
+      "seg_idx": 1
+    },
+    {
+      "start": 690.0,
+      "end": 720.0,
+      "original": "For example, with the phrase that we've been focusing on, it might also be predicting what words follow creature and what words follow the. This is really nice because it means what would otherwise be a single training example effectively acts as many. For the purposes of our attention pattern, it means that you never want to allow later words to influence earlier words, since otherwise they could kind of give away the answer for what comes next. What this means is that we want all of these spots here, the ones representing later words,",
+      "lang": "EN",
+      "ipa": "fər ɪgˈzæmpəl, wɪθ ðə freɪz ðət wiv bɪn ˈfoʊkɪsɪŋ ɔn, ɪt maɪt ˈɔlsoʊ bi prɪˈdɪktɪŋ wət wərdz ˈfɑloʊ ˈkriʧər ənd wət wərdz ˈfɑloʊ ðə. ðɪs ɪz ˈrɪli nis bɪˈkəz ɪt minz wət wʊd ˈəðərˌwaɪz bi ə ˈsɪŋgəl ˈtreɪnɪŋ ɪgˈzæmpəl ˈifɛktɪvli ækts ɛz ˈmɛni. fər ðə ˈpərpəsɪz əv ɑr əˈtɛnʃən ˈpætərn, ɪt minz ðət ju ˈnɛvər wɔnt tɪ əˈlaʊ ˈleɪtər wərdz tɪ ˈɪnfluəns ˈərliər wərdz, sɪns ˈəðərˌwaɪz ðeɪ kʊd kaɪnd əv gɪv əˈweɪ ðə ˈænsər fər wət kəmz nɛkst. wət ðɪs minz ɪz ðət wi wɔnt ɔl əv ðiz spɑts hir, ðə wənz ˌrɛprɪˈzɛnɪŋ ˈleɪtər wərdz,",
+      "seg_idx": 1
+    },
+    {
+      "start": 720.0,
+      "end": 750.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "ipa": "θæŋk ju fər ˈwɑʧɪŋ.",
+      "seg_idx": 1
+    },
+    {
+      "start": 750.0,
+      "end": 780.0,
+      "original": "But in our GPT example, even though this is more relevant during the training phase than it would be, say, running it as a chatbot or something like that, you do always apply this masking to prevent later tokens from influencing earlier ones. Another fact that's worth reflecting on about this attention pattern is how its size is equal to the square of the context size. So this is why context size can be a really huge bottleneck for large language models, and scaling it up is non-trivial. As you might imagine, motivated by a desire for bigger and bigger context",
+      "lang": "EN",
+      "ipa": "bət ɪn ɑr gpt* ɪgˈzæmpəl, ˈivɪn ðoʊ ðɪs ɪz mɔr ˈrɛləvənt ˈdʊrɪŋ ðə ˈtreɪnɪŋ feɪz ðən ɪt wʊd bi, seɪ, ˈrənɪŋ ɪt ɛz ə chatbot* ər ˈsəmθɪŋ laɪk ðət, ju du ˈɔlˌweɪz əˈplaɪ ðɪs ˈmæskɪŋ tɪ prɪˈvɛnt ˈleɪtər ˈtoʊkənz frəm ˈɪnˌfluənsɪŋ ˈərliər wənz. əˈnəðər fækt ðæts wərθ rɪˈflɛktɪŋ ɔn əˈbaʊt ðɪs əˈtɛnʃən ˈpætərn ɪz haʊ ɪts saɪz ɪz ˈikwəl tɪ ðə skwɛr əv ðə ˈkɑntɛkst saɪz. soʊ ðɪs ɪz waɪ ˈkɑntɛkst saɪz kən bi ə ˈrɪli juʤ ˈbɑtəlˌnɛk fər lɑrʤ ˈlæŋgwɪʤ ˈmɑdəlz, ənd ˈskeɪlɪŋ ɪt əp ɪz non-trivial. ɛz ju maɪt ˌɪˈmæʤən, ˈmoʊtəˌveɪtəd baɪ ə dɪˈzaɪər fər ˈbɪgər ənd ˈbɪgər ˈkɑntɛkst",
+      "seg_idx": 1
+    },
+    {
+      "start": 780.0,
+      "end": 810.0,
+      "original": "Okay, great, computing this pattern lets the model deduce which words are relevant to which other words. Now, you need to actually update the embeddings, allowing words to pass information to whichever other words they're relevant to. For example, you want the embedding of fluffy to somehow cause a change to creature that moves it to a different part of this",
+      "lang": "EN",
+      "ipa": "ˌoʊˈkeɪ, greɪt, kəmˈpjutɪŋ ðɪs ˈpætərn lɛts ðə ˈmɑdəl dɪˈdus wɪʧ wərdz ər ˈrɛləvənt tɪ wɪʧ ˈəðər wərdz. naʊ, ju nid tɪ ˈæˌkʧuəli ˈəpˌdeɪt ðə embeddings, əˈlaʊɪŋ wərdz tɪ pæs ˌɪnˌfɔrˈmeɪʃən tɪ wɪˈʧɛvər ˈəðər wərdz ðɛr ˈrɛləvənt tɪ. fər ɪgˈzæmpəl, ju wɔnt ðə embedding* əv ˈfləfi tɪ ˈsəmˌhaʊ kɔz ə ʧeɪnʤ tɪ ˈkriʧər ðət muvz ɪt tɪ ə ˈdɪfərənt pɑrt əv ðɪs",
+      "seg_idx": 1
+    },
+    {
+      "start": 810.0,
+      "end": 840.0,
+      "original": "I'm going to show you the most straightforward way to do this, though there's a slight way that this gets modified in the context of multi-headed attention. This most straightforward way would be to use a third matrix, what we call the value matrix, which you multiply by the embedding of that first word, for example fluffy. The result of this is what you would call a value vector, and this is something that you add to the embedding of the second word.",
+      "lang": "EN",
+      "ipa": "əm goʊɪŋ tɪ ʃoʊ ju ðə moʊst ˈstreɪtˈfɔrwərd weɪ tɪ du ðɪs, ðoʊ ðɛrz ə slaɪt weɪ ðət ðɪs gɪts ˈmɑdəˌfaɪd ɪn ðə ˈkɑntɛkst əv multi-headed* əˈtɛnʃən. ðɪs moʊst ˈstreɪtˈfɔrwərd weɪ wʊd bi tɪ juz ə θərd ˈmeɪtrɪks, wət wi kɔl ðə ˈvælju ˈmeɪtrɪks, wɪʧ ju ˈməltəˌplaɪ baɪ ðə embedding* əv ðət fərst wərd, fər ɪgˈzæmpəl ˈfləfi. ðə rɪˈzəlt əv ðɪs ɪz wət ju wʊd kɔl ə ˈvælju ˈvɛktər, ənd ðɪs ɪz ˈsəmθɪŋ ðət ju æd tɪ ðə embedding* əv ðə ˈsɛkənd wərd.",
+      "seg_idx": 1
+    },
+    {
+      "start": 840.0,
+      "end": 870.0,
+      "original": "In this case, something you add to the embedding of creature. So this value vector lives in the same very high dimensional space as the embeddings. When you multiply this value matrix by the embedding of a word, you might think of it as saying, if this word is relevant to adjusting the meaning of something else, what exactly should be added to the embedding of that something else in order to reflect this? Looking back in our diagram, let's set aside all of the keys and the queries, since after you compute the attention pattern, you're done with those.",
+      "lang": "EN",
+      "ipa": "ɪn ðɪs keɪs, ˈsəmθɪŋ ju æd tɪ ðə embedding* əv ˈkriʧər. soʊ ðɪs ˈvælju ˈvɛktər lɪvz ɪn ðə seɪm ˈvɛri haɪ dɪˈmɛnʃənəl speɪs ɛz ðə embeddings. wɪn ju ˈməltəˌplaɪ ðɪs ˈvælju ˈmeɪtrɪks baɪ ðə embedding* əv ə wərd, ju maɪt θɪŋk əv ɪt ɛz seɪɪŋ, ɪf ðɪs wərd ɪz ˈrɛləvənt tɪ əˈʤəstɪŋ ðə ˈminɪŋ əv ˈsəmθɪŋ ɛls, wət ɪgˈzæktli ʃʊd bi ˈædɪd tɪ ðə embedding* əv ðət ˈsəmθɪŋ ɛls ɪn ˈɔrdər tɪ rɪˈflɛkt ðɪs? ˈlʊkɪŋ bæk ɪn ɑr ˈdaɪəˌgræm, lɛts sɛt əˈsaɪd ɔl əv ðə kiz ənd ðə kˈwɪriz, sɪns ˈæftər ju kəmˈpjut ðə əˈtɛnʃən ˈpætərn, jʊr dən wɪθ ðoʊz.",
+      "seg_idx": 1
+    },
+    {
+      "start": 870.0,
+      "end": 900.0,
+      "original": "Take this value matrix and multiply it by every one of those embeddings to produce a sequence of value vectors. You might think of these value vectors as being kind of associated with the corresponding keys. For each column in this diagram, you multiply each of the value vectors by the corresponding weight in that column. For example, here, under the embedding of creature, you would be adding large proportions of the value vectors for fluffy and blue, while all of the other value vectors get zeroed out.",
+      "lang": "EN",
+      "ipa": "teɪk ðɪs ˈvælju ˈmeɪtrɪks ənd ˈməltəˌplaɪ ɪt baɪ ˈɛvəri wən əv ðoʊz embeddings* tɪ ˈproʊdus ə ˈsikwəns əv ˈvælju ˈvɛktərz. ju maɪt θɪŋk əv ðiz ˈvælju ˈvɛktərz ɛz biɪŋ kaɪnd əv əˈsoʊʃiˌeɪtəd wɪθ ðə ˌkɔrəˈspɑndɪŋ kiz. fər iʧ ˈkɑləm ɪn ðɪs ˈdaɪəˌgræm, ju ˈməltəˌplaɪ iʧ əv ðə ˈvælju ˈvɛktərz baɪ ðə ˌkɔrəˈspɑndɪŋ weɪt ɪn ðət ˈkɑləm. fər ɪgˈzæmpəl, hir, ˈəndər ðə embedding* əv ˈkriʧər, ju wʊd bi ˈædɪŋ lɑrʤ prəˈpɔrʃənz əv ðə ˈvælju ˈvɛktərz fər ˈfləfi ənd blu, waɪl ɔl əv ðə ˈəðər ˈvælju ˈvɛktərz gɪt ˈziroʊd aʊt.",
+      "seg_idx": 1
+    },
+    {
+      "start": 900.0,
+      "end": 930.0,
+      "original": "And then finally, the way to actually update the embedding associated with this column, previously encoding some context-free meaning of creature, you add together all of these rescaled values in the column, producing a change that you want to add that I'll label delta E, and then you add that to the original embedding. Hopefully, what results is a more refined vector encoding the more contextually rich meaning, like that of a fluffy blue creature. And of course, you don't just do this to one embedding, you apply it to all of the other embeddings.",
+      "lang": "EN",
+      "ipa": "ənd ðɛn ˈfaɪnəli, ðə weɪ tɪ ˈæˌkʧuəli ˈəpˌdeɪt ðə embedding* əˈsoʊʃiˌeɪtəd wɪθ ðɪs ˈkɑləm, ˈpriviəsli ɛnˈkoʊdɪŋ səm context-free* ˈminɪŋ əv ˈkriʧər, ju æd təˈgɛðər ɔl əv ðiz rescaled* ˈvæljuz ɪn ðə ˈkɑləm, prəˈdusɪŋ ə ʧeɪnʤ ðət ju wɔnt tɪ æd ðət aɪl ˈleɪbəl ˈdɛltə i, ənd ðɛn ju æd ðət tɪ ðə ərˈɪʤənəl embedding. ˈhoʊpfəli, wət rɪˈzəlts ɪz ə mɔr rɪˈfaɪnd ˈvɛktər ɛnˈkoʊdɪŋ ðə mɔr contextually* rɪʧ ˈminɪŋ, laɪk ðət əv ə ˈfləfi blu ˈkriʧər. ənd əv kɔrs, ju doʊnt ʤɪst du ðɪs tɪ wən embedding, ju əˈplaɪ ɪt tɪ ɔl əv ðə ˈəðər embeddings.",
+      "seg_idx": 1
+    },
+    {
+      "start": 930.0,
+      "end": 960.0,
+      "original": "I want to take a moment to talk about the process of creating a new model for the MFCC.",
+      "lang": "EN",
+      "ipa": "aɪ wɔnt tɪ teɪk ə ˈmoʊmənt tɪ tɔk əˈbaʊt ðə ˈprɔˌsɛs əv kriˈeɪtɪŋ ə nu ˈmɑdəl fər ðə mfcc.",
+      "seg_idx": 1
+    },
+    {
+      "start": 960.0,
+      "end": 990.0,
+      "original": "Now, let's take a moment to continue what we started in the last chapter with the score keeping where we count up the total number of model parameters using the numbers from GPT-3. These key and query matrices each have 12,288 columns matching the embedding dimension and 128 rows matching the dimension of that smaller key query space. This gives us an additional 1.5 million or so parameters for each one. If you look at that value matrix by contrast, the way I've described things so far would suggest that",
+      "lang": "EN",
+      "ipa": "naʊ, lɛts teɪk ə ˈmoʊmənt tɪ kənˈtɪnju wət wi ˈstɑrtɪd ɪn ðə læst ˈʧæptər wɪθ ðə skɔr ˈkipɪŋ wɛr wi kaʊnt əp ðə ˈtoʊtəl ˈnəmbər əv ˈmɑdəl pərˈæmətərz ˈjuzɪŋ ðə ˈnəmbərz frəm gpt-3* ðiz ki ənd kˈwiri ˈmeɪtrɪsɪz iʧ hæv 12,288* ˈkɑləmz ˈmæʧɪŋ ðə embedding* dɪˈmɛnʃən ənd 128 roʊz ˈmæʧɪŋ ðə dɪˈmɛnʃən əv ðət sˈmɔlər ki kˈwiri speɪs. ðɪs gɪvz ˈjuˈɛs ən əˈdɪʃənəl 1.5* ˈmɪljən ər soʊ pərˈæmətərz fər iʧ wən. ɪf ju lʊk æt ðət ˈvælju ˈmeɪtrɪks baɪ ˈkɑntræst, ðə weɪ aɪv dɪˈskraɪbd θɪŋz soʊ fɑr wʊd səˈʤɛst ðət",
+      "seg_idx": 1
+    },
+    {
+      "start": 990.0,
+      "end": 1020.0,
+      "original": "It's a square matrix that has 12,288 columns and 12,288 rows, since both its inputs and its outputs live in this very large embedding space. If true, that would mean about 150 million added parameters. And to be clear, you could do that. You could devote orders of magnitude more parameters to the value map than to the key and query. But in practice, it is much more efficient if instead you make it so that the number of parameters devoted to this value map",
+      "lang": "EN",
+      "ipa": "ɪts ə skwɛr ˈmeɪtrɪks ðət həz 12,288* ˈkɑləmz ənd 12,288* roʊz, sɪns boʊθ ɪts ˈɪnˌpʊts ənd ɪts ˈaʊtˌpʊts lɪv ɪn ðɪs ˈvɛri lɑrʤ embedding* speɪs. ɪf tru, ðət wʊd min əˈbaʊt 150 ˈmɪljən ˈædɪd pərˈæmətərz. ənd tɪ bi klɪr, ju kʊd du ðət. ju kʊd dɪˈvoʊt ˈɔrdərz əv ˈmægnəˌtud mɔr pərˈæmətərz tɪ ðə ˈvælju mæp ðən tɪ ðə ki ənd kˈwiri. bət ɪn ˈpræktɪs, ɪt ɪz məʧ mɔr ɪˈfɪʃənt ɪf ˌɪnˈstɛd ju meɪk ɪt soʊ ðət ðə ˈnəmbər əv pərˈæmətərz dɪˈvoʊtɪd tɪ ðɪs ˈvælju mæp",
+      "seg_idx": 1
+    },
+    {
+      "start": 1020.0,
+      "end": 1050.0,
+      "original": "The first matrix, on the right here, has a smaller number of rows.",
+      "lang": "EN",
+      "ipa": "ðə fərst ˈmeɪtrɪks, ɔn ðə raɪt hir, həz ə sˈmɔlər ˈnəmbər əv roʊz.",
+      "seg_idx": 1
+    },
+    {
+      "start": 1050.0,
+      "end": 1080.0,
+      "original": "The first matrix is a matrix of values, typically the same size as the key query space. What this means is you can think of it as mapping the large embedding vectors down to a much smaller space. This is not the conventional naming, but I'm going to call this the value down matrix. The second matrix maps from this smaller space back up to the embedding space, producing the vectors that you use to make the actual updates. I'm going to call this one the value up matrix, which again is not conventional. The way that you would see this written in most papers looks a little different.",
+      "lang": "EN",
+      "ipa": "ðə fərst ˈmeɪtrɪks ɪz ə ˈmeɪtrɪks əv ˈvæljuz, ˈtɪpɪkəli ðə seɪm saɪz ɛz ðə ki kˈwiri speɪs. wət ðɪs minz ɪz ju kən θɪŋk əv ɪt ɛz ˈmæpɪŋ ðə lɑrʤ embedding* ˈvɛktərz daʊn tɪ ə məʧ sˈmɔlər speɪs. ðɪs ɪz nɑt ðə kənˈvɛnʃənəl ˈneɪmɪŋ, bət əm goʊɪŋ tɪ kɔl ðɪs ðə ˈvælju daʊn ˈmeɪtrɪks. ðə ˈsɛkənd ˈmeɪtrɪks mæps frəm ðɪs sˈmɔlər speɪs bæk əp tɪ ðə embedding* speɪs, prəˈdusɪŋ ðə ˈvɛktərz ðət ju juz tɪ meɪk ðə ˈækʧəwəl ˈəpˌdeɪts. əm goʊɪŋ tɪ kɔl ðɪs wən ðə ˈvælju əp ˈmeɪtrɪks, wɪʧ əˈgɛn ɪz nɑt kənˈvɛnʃənəl. ðə weɪ ðət ju wʊd si ðɪs ˈrɪtən ɪn moʊst ˈpeɪpərz lʊks ə ˈlɪtəl ˈdɪfərənt.",
+      "seg_idx": 1
+    },
+    {
+      "start": 1080.0,
+      "end": 1110.0,
+      "original": "To throw in linear algebra jargon here, what we're basically doing is constraining the overall value map to be a low-rank transformation. Turning back to the parameter count, all four of these matrices have the same size, and adding them all up, we get about 6.3 million parameters for one attention head. As a quick side note, to be a little more accurate, everything described so far is what people would call a self-attention head. To distinguish it from a variation that comes up in other models,",
+      "lang": "EN",
+      "ipa": "tɪ θroʊ ɪn ˈlɪniər ˈælʤəbrə ˈʤɑrgən hir, wət wɪr ˈbeɪsɪkli duɪŋ ɪz kənˈstreɪnɪŋ ðə ˈoʊvərˌɔl ˈvælju mæp tɪ bi ə low-rank* ˌtrænsfərˈmeɪʃən. ˈtərnɪŋ bæk tɪ ðə pərˈæmətər kaʊnt, ɔl fɔr əv ðiz ˈmeɪtrɪsɪz hæv ðə seɪm saɪz, ənd ˈædɪŋ ðɛm ɔl əp, wi gɪt əˈbaʊt 6.3* ˈmɪljən pərˈæmətərz fər wən əˈtɛnʃən hɛd. ɛz ə kwɪk saɪd noʊt, tɪ bi ə ˈlɪtəl mɔr ˈækjərət, ˈɛvriˌθɪŋ dɪˈskraɪbd soʊ fɑr ɪz wət ˈpipəl wʊd kɔl ə self-attention* hɛd. tɪ dɪˈstɪŋgwɪʃ ɪt frəm ə ˌvɛriˈeɪʃən ðət kəmz əp ɪn ˈəðər ˈmɑdəlz,",
+      "seg_idx": 1
+    },
+    {
+      "start": 1110.0,
+      "end": 1140.0,
+      "original": "This isn't relevant to our GPT example, but if you're curious, cross-attention involves models that process two distinct types of data, like text in one language and text in another language that's part of an ongoing generation of a translation, or maybe audio input of speech and an ongoing transcription. A cross-attention head looks almost identical. The only difference is that the key and query maps act on different datasets. In a model doing translation, for example,",
+      "lang": "EN",
+      "ipa": "ðɪs ˈɪzənt ˈrɛləvənt tɪ ɑr gpt* ɪgˈzæmpəl, bət ɪf jʊr ˈkjʊriəs, cross-attention* ˌɪnˈvɑlvz ˈmɑdəlz ðət ˈprɔˌsɛs tu dɪˈstɪŋkt taɪps əv ˈdætə, laɪk tɛkst ɪn wən ˈlæŋgwɪʤ ənd tɛkst ɪn əˈnəðər ˈlæŋgwɪʤ ðæts pɑrt əv ən ˈɔnˌgoʊɪŋ ˌʤɛnərˈeɪʃən əv ə trænzˈleɪʃən, ər ˈmeɪbi ˈɑdiˌoʊ ˈɪnˌpʊt əv spiʧ ənd ən ˈɔnˌgoʊɪŋ ˌtrænˈskrɪpʃən. ə cross-attention* hɛd lʊks ˈɔlˌmoʊst aɪˈdɛntɪkəl. ðə ˈoʊnli ˈdɪfərəns ɪz ðət ðə ki ənd kˈwiri mæps ækt ɔn ˈdɪfərənt datasets. ɪn ə ˈmɑdəl duɪŋ trænzˈleɪʃən, fər ɪgˈzæmpəl,",
+      "seg_idx": 1
+    },
+    {
+      "start": 1140.0,
+      "end": 1170.0,
+      "original": "The keys might come from one language, while the queries come from another, and the attention pattern could describe which words from one language correspond to which words in another. And in this setting, there would typically be no masking, since there's not really any notion of later tokens affecting earlier ones. Staying focused on self-attention, though, if you understood everything so far, and if you were to stop here, you would come away with the essence of what attention really is. All that's really left to us is to lay out the sense in which you do this,",
+      "lang": "EN",
+      "ipa": "ðə kiz maɪt kəm frəm wən ˈlæŋgwɪʤ, waɪl ðə kˈwɪriz kəm frəm əˈnəðər, ənd ðə əˈtɛnʃən ˈpætərn kʊd dɪˈskraɪb wɪʧ wərdz frəm wən ˈlæŋgwɪʤ ˌkɔrəˈspɑnd tɪ wɪʧ wərdz ɪn əˈnəðər. ənd ɪn ðɪs ˈsɛtɪŋ, ðɛr wʊd ˈtɪpɪkəli bi noʊ ˈmæskɪŋ, sɪns ðɛrz nɑt ˈrɪli ˈɛni ˈnoʊʃən əv ˈleɪtər ˈtoʊkənz əˈfɛktɪŋ ˈərliər wənz. steɪɪŋ ˈfoʊkɪst ɔn self-attention, ðoʊ, ɪf ju ˌəndərˈstʊd ˈɛvriˌθɪŋ soʊ fɑr, ənd ɪf ju wər tɪ stɑp hir, ju wʊd kəm əˈweɪ wɪθ ðə ˈɛsəns əv wət əˈtɛnʃən ˈrɪli ɪz. ɔl ðæts ˈrɪli lɛft tɪ ˈjuˈɛs ɪz tɪ leɪ aʊt ðə sɛns ɪn wɪʧ ju du ðɪs,",
+      "seg_idx": 1
+    },
+    {
+      "start": 1170.0,
+      "end": 1200.0,
+      "original": "Many, many different times. In our central example, we focused on adjectives updating nouns, but of course, there are lots of different ways that context can influence the meaning of a word. If the words they crashed the preceded the word car, it has implications for the shape and the structure of that car. And a lot of associations might be less grammatical. If the word wizard is anywhere in the same passage as Harry, it suggests that this might be referring to Harry Potter. Whereas if instead the words Queen, Sussex, and William were in that passage,",
+      "lang": "EN",
+      "ipa": "ˈmɛni, ˈmɛni ˈdɪfərənt taɪmz. ɪn ɑr ˈsɛntrəl ɪgˈzæmpəl, wi ˈfoʊkɪst ɔn ˈæʤɪktɪvz ˈəpˌdeɪtɪŋ naʊnz, bət əv kɔrs, ðɛr ər lɑts əv ˈdɪfərənt weɪz ðət ˈkɑntɛkst kən ˈɪnfluəns ðə ˈminɪŋ əv ə wərd. ɪf ðə wərdz ðeɪ kræʃt ðə prɪˈsidɪd ðə wərd kɑr, ɪt həz ˌɪmpləˈkeɪʃənz fər ðə ʃeɪp ənd ðə ˈstrəkʧər əv ðət kɑr. ənd ə lɔt əv əˌsoʊʃiˈeɪʃənz maɪt bi lɛs grəˈmætɪkəl. ɪf ðə wərd ˈwɪzərd ɪz ˈɛniˌwɛr ɪn ðə seɪm ˈpæsɪʤ ɛz ˈhɛri, ɪt səˈʤɛsts ðət ðɪs maɪt bi rɪˈfərɪŋ tɪ ˈhɛri ˈpɑtər. wɛˈræz ɪf ˌɪnˈstɛd ðə wərdz kwin, ˈsəsɪks, ənd ˈwɪljəm wər ɪn ðət ˈpæsɪʤ,",
+      "seg_idx": 1
+    },
+    {
+      "start": 1200.0,
+      "end": 1230.0,
+      "original": "And again, in practice, the true behavior of these maps is much more difficult to interpret, where the weights are set to do whatever the model needs them to do to best accomplish its goal of predicting the next token.",
+      "lang": "EN",
+      "ipa": "ənd əˈgɛn, ɪn ˈpræktɪs, ðə tru bɪˈheɪvjər əv ðiz mæps ɪz məʧ mɔr ˈdɪfəkəlt tɪ ˌɪnˈtərprət, wɛr ðə weɪts ər sɛt tɪ du ˌwəˈtɛvər ðə ˈmɑdəl nidz ðɛm tɪ du tɪ bɛst əˈkɑmplɪʃ ɪts goʊl əv prɪˈdɪktɪŋ ðə nɛkst ˈtoʊkən.",
+      "seg_idx": 2
+    },
+    {
+      "start": 1230.0,
+      "end": 1260.0,
+      "original": "As I said before, everything we described is a single head of attention, and a full attention block inside a transformer consists of what's called multi-headed attention, where you run a lot of these operations in parallel, each with its own distinct key, query, and value maps. GPT-3, for example, uses 96 attention heads inside each block. Considering that each one is already a bit confusing, it's certainly a lot to hold in your head. Just to spell it all out very explicitly,",
+      "lang": "EN",
+      "ipa": "ɛz aɪ sɛd ˌbiˈfɔr, ˈɛvriˌθɪŋ wi dɪˈskraɪbd ɪz ə ˈsɪŋgəl hɛd əv əˈtɛnʃən, ənd ə fʊl əˈtɛnʃən blɑk ˌɪnˈsaɪd ə trænsˈfɔrmər kənˈsɪsts əv wəts kɔld multi-headed* əˈtɛnʃən, wɛr ju rən ə lɔt əv ðiz ˌɑpərˈeɪʃənz ɪn ˈpɛrəˌlɛl, iʧ wɪθ ɪts oʊn dɪˈstɪŋkt ki, kˈwiri, ənd ˈvælju mæps. gpt-3* fər ɪgˈzæmpəl, ˈjuzɪz 96 əˈtɛnʃən hɛdz ˌɪnˈsaɪd iʧ blɑk. kənˈsɪdərɪŋ ðət iʧ wən ɪz ɔˈrɛdi ə bɪt kənfˈjuzɪŋ, ɪts ˈsərtənli ə lɔt tɪ hoʊld ɪn jʊr hɛd. ʤɪst tɪ spɛl ɪt ɔl aʊt ˈvɛri ɪkˈsplɪsətli,",
+      "seg_idx": 2
+    },
+    {
+      "start": 1260.0,
+      "end": 1290.0,
+      "original": "Thank you.",
+      "lang": "EN",
+      "ipa": "θæŋk ju.",
+      "seg_idx": 2
+    },
+    {
+      "start": 1290.0,
+      "end": 1320.0,
+      "original": "So, you take those proposed changes, one for each head, and you add the result to the original embedding of that position. This entire sum here would be one slice of what's outputted from this multi-headed attention block, a single one of those refined embeddings that pops out the other end of it. Again, this is a lot to think about, so don't worry at all if it takes some time to sink in. The overall idea is that by running many distinct heads in parallel, you're giving the model the capacity to learn many distinct ways",
+      "lang": "EN",
+      "ipa": "soʊ, ju teɪk ðoʊz prəˈpoʊzd ˈʧeɪnʤɪz, wən fər iʧ hɛd, ənd ju æd ðə rɪˈzəlt tɪ ðə ərˈɪʤənəl embedding* əv ðət pəˈzɪʃən. ðɪs ɪnˈtaɪər səm hir wʊd bi wən slaɪs əv wəts outputted* frəm ðɪs multi-headed* əˈtɛnʃən blɑk, ə ˈsɪŋgəl wən əv ðoʊz rɪˈfaɪnd embeddings* ðət pɑps aʊt ðə ˈəðər ɛnd əv ɪt. əˈgɛn, ðɪs ɪz ə lɔt tɪ θɪŋk əˈbaʊt, soʊ doʊnt ˈwəri æt ɔl ɪf ɪt teɪks səm taɪm tɪ sɪŋk ɪn. ðə ˈoʊvərˌɔl aɪˈdiə ɪz ðət baɪ ˈrənɪŋ ˈmɛni dɪˈstɪŋkt hɛdz ɪn ˈpɛrəˌlɛl, jʊr ˈgɪvɪŋ ðə ˈmɑdəl ðə kəˈpæsɪti tɪ lərn ˈmɛni dɪˈstɪŋkt weɪz",
+      "seg_idx": 2
+    },
+    {
+      "start": 1320.0,
+      "end": 1350.0,
+      "original": "Pulling up our running tally for parameter count, with 96 heads, each including its own variation of these four matrices, each block of multi-headed attention ends up with around 600 million parameters. There's one added, slightly annoying thing that I should really mention for any of you who go on to read more about transformers. You remember how I said that the value map is factored out into these two distinct matrices, which I labeled as the value down and the value up matrices.",
+      "lang": "EN",
+      "ipa": "ˈpʊlɪŋ əp ɑr ˈrənɪŋ ˈtæli fər pərˈæmətər kaʊnt, wɪθ 96 hɛdz, iʧ ˌɪnˈkludɪŋ ɪts oʊn ˌvɛriˈeɪʃən əv ðiz fɔr ˈmeɪtrɪsɪz, iʧ blɑk əv multi-headed* əˈtɛnʃən ɛndz əp wɪθ əraʊnd 600 ˈmɪljən pərˈæmətərz. ðɛrz wən ˈædɪd, sˈlaɪtli əˈnɔɪɪŋ θɪŋ ðət aɪ ʃʊd ˈrɪli ˈmɛnʃən fər ˈɛni əv ju hu goʊ ɔn tɪ rɛd mɔr əˈbaʊt trænsˈfɔrmərz. ju rɪˈmɛmbər haʊ aɪ sɛd ðət ðə ˈvælju mæp ɪz ˈfæktərd aʊt ˈɪntu ðiz tu dɪˈstɪŋkt ˈmeɪtrɪsɪz, wɪʧ aɪ ˈleɪbəld ɛz ðə ˈvælju daʊn ənd ðə ˈvælju əp ˈmeɪtrɪsɪz.",
+      "seg_idx": 2
+    },
+    {
+      "start": 1350.0,
+      "end": 1380.0,
+      "original": "The way that I framed things would suggest that you see this pair of matrices inside each attention head. And you could absolutely implement it this way. That would be a valid design. But the way that you see this written in papers and the way that it's implemented in practice looks a little different. All of these value-up matrices for each head appear stapled together in one giant matrix that we call the output matrix, associated with the entire multi-headed attention block. And when you see people refer to the value matrix for a given attention head,",
+      "lang": "EN",
+      "ipa": "ðə weɪ ðət aɪ freɪmd θɪŋz wʊd səˈʤɛst ðət ju si ðɪs pɛr əv ˈmeɪtrɪsɪz ˌɪnˈsaɪd iʧ əˈtɛnʃən hɛd. ənd ju kʊd ˌæbsəˈlutli ˈɪmpləmənt ɪt ðɪs weɪ. ðət wʊd bi ə ˈvælɪd dɪˈzaɪn. bət ðə weɪ ðət ju si ðɪs ˈrɪtən ɪn ˈpeɪpərz ənd ðə weɪ ðət ɪts ˈɪmpləˌmɛnəd ɪn ˈpræktɪs lʊks ə ˈlɪtəl ˈdɪfərənt. ɔl əv ðiz value-up* ˈmeɪtrɪsɪz fər iʧ hɛd əˈpɪr ˈsteɪpəld təˈgɛðər ɪn wən ʤaɪənt ˈmeɪtrɪks ðət wi kɔl ðə ˈaʊtˌpʊt ˈmeɪtrɪks, əˈsoʊʃiˌeɪtəd wɪθ ðə ɪnˈtaɪər multi-headed* əˈtɛnʃən blɑk. ənd wɪn ju si ˈpipəl rɪˈfər tɪ ðə ˈvælju ˈmeɪtrɪks fər ə ˈgɪvɪn əˈtɛnʃən hɛd,",
+      "seg_idx": 2
+    },
+    {
+      "start": 1380.0,
+      "end": 1410.0,
+      "original": "And they're typically only referring to this first step, the one that I was labeling as the value-down projection into the smaller space. For the curious among you, I've left an on-screen note about it. It's one of those details that runs the risk of distracting from the main conceptual points, but I do want to call it out just so that you know if you read about this in other sources. Setting aside all the technical nuances, in the preview from the last chapter, we saw how data flowing through a transformer doesn't just flow through a single attention block.",
+      "lang": "EN",
+      "ipa": "ənd ðɛr ˈtɪpɪkəli ˈoʊnli rɪˈfərɪŋ tɪ ðɪs fərst stɛp, ðə wən ðət aɪ wɑz ˈleɪbəlɪŋ ɛz ðə value-down* prɑˈʤɛkʃən ˈɪntu ðə sˈmɔlər speɪs. fər ðə ˈkjʊriəs əˈməŋ ju, aɪv lɛft ən ˈɑnˌskrin noʊt əˈbaʊt ɪt. ɪts wən əv ðoʊz ˈditeɪlz ðət rənz ðə rɪsk əv dɪˈstræktɪŋ frəm ðə meɪn kənˈsɛpʧuəl pɔɪnts, bət aɪ du wɔnt tɪ kɔl ɪt aʊt ʤɪst soʊ ðət ju noʊ ɪf ju rɛd əˈbaʊt ðɪs ɪn ˈəðər ˈsɔrsəz. ˈsɛtɪŋ əˈsaɪd ɔl ðə ˈtɛknɪkəl ˈnuɑnsɪz, ɪn ðə ˈprivˌju frəm ðə læst ˈʧæptər, wi sɔ haʊ ˈdætə floʊɪŋ θru ə trænsˈfɔrmər ˈdəzənt ʤɪst floʊ θru ə ˈsɪŋgəl əˈtɛnʃən blɑk.",
+      "seg_idx": 2
+    },
+    {
+      "start": 1410.0,
+      "end": 1440.0,
+      "original": "We'll talk more about those in the next chapter. And then it repeatedly goes through many, many copies of both of these operations. What this means is that after a given word imbibes some of its context, there are many more chances for this more nuanced embedding to be influenced by its more nuanced surroundings. The further down the network you go, with each embedding taking in more and more meaning from all the other embeddings, which themselves are getting more and more nuanced, the hope is that there's this more nuanced embedding",
+      "lang": "EN",
+      "ipa": "wɪl tɔk mɔr əˈbaʊt ðoʊz ɪn ðə nɛkst ˈʧæptər. ənd ðɛn ɪt rɪˈpitɪdli goʊz θru ˈmɛni, ˈmɛni ˈkɑpiz əv boʊθ əv ðiz ˌɑpərˈeɪʃənz. wət ðɪs minz ɪz ðət ˈæftər ə ˈgɪvɪn wərd imbibes* səm əv ɪts ˈkɑntɛkst, ðɛr ər ˈmɛni mɔr ˈʧænsɪz fər ðɪs mɔr nuɑnst embedding* tɪ bi ˈɪnfluənst baɪ ɪts mɔr nuɑnst sərˈaʊndɪŋz. ðə ˈfərðər daʊn ðə ˈnɛtˌwərk ju goʊ, wɪθ iʧ embedding* ˈteɪkɪŋ ɪn mɔr ənd mɔr ˈminɪŋ frəm ɔl ðə ˈəðər embeddings, wɪʧ ðɛmˈsɛlvz ər ˈgɪtɪŋ mɔr ənd mɔr nuɑnst, ðə hoʊp ɪz ðət ðɛrz ðɪs mɔr nuɑnst embedding*",
+      "seg_idx": 2
+    },
+    {
+      "start": 1440.0,
+      "end": 1470.0,
+      "original": "The capacity to encode higher-level and more abstract ideas about a given input beyond just descriptors and grammatical structure. Things like sentiment and tone and whether it's a poem and what underlying scientific truths are relevant to the piece and things like that. Turning back one more time to our scorekeeping, GPT-3 includes 96 distinct layers, so the total number of key query and value parameters is multiplied by another 96,",
+      "lang": "EN",
+      "ipa": "ðə kəˈpæsɪti tɪ ɛnˈkoʊd higher-level* ənd mɔr ˈæbˌstrækt aɪˈdiəz əˈbaʊt ə ˈgɪvɪn ˈɪnˌpʊt bɪɔnd ʤɪst descriptors* ənd grəˈmætɪkəl ˈstrəkʧər. θɪŋz laɪk ˈsɛnəmənt ənd toʊn ənd ˈwɛðər ɪts ə poʊəm ənd wət ˌəndərˈlaɪɪŋ ˌsaɪənˈtɪfɪk truθs ər ˈrɛləvənt tɪ ðə pis ənd θɪŋz laɪk ðət. ˈtərnɪŋ bæk wən mɔr taɪm tɪ ɑr ˈskɔrˌkipɪŋ, gpt-3* ˌɪnˈkludz 96 dɪˈstɪŋkt leɪərz, soʊ ðə ˈtoʊtəl ˈnəmbər əv ki kˈwiri ənd ˈvælju pərˈæmətərz ɪz ˈməltəˌplaɪd baɪ əˈnəðər 96",
+      "seg_idx": 2
+    },
+    {
+      "start": 1470.0,
+      "end": 1500.0,
+      "original": "So even though attention gets all of the attention, the majority of parameters come from the blocks sitting in between these steps. In the next chapter, you and I will talk more about those other blocks, and also a lot more about the training process. A big part of the story for the success of the attention mechanism is not so much any specific kind of behavior",
+      "lang": "EN",
+      "ipa": "soʊ ˈivɪn ðoʊ əˈtɛnʃən gɪts ɔl əv ðə əˈtɛnʃən, ðə məˈʤɔrəti əv pərˈæmətərz kəm frəm ðə blɑks ˈsɪtɪŋ ɪn bɪtˈwin ðiz stɛps. ɪn ðə nɛkst ˈʧæptər, ju ənd aɪ wɪl tɔk mɔr əˈbaʊt ðoʊz ˈəðər blɑks, ənd ˈɔlsoʊ ə lɔt mɔr əˈbaʊt ðə ˈtreɪnɪŋ ˈprɔˌsɛs. ə bɪg pɑrt əv ðə ˈstɔri fər ðə səkˈsɛs əv ðə əˈtɛnʃən ˈmɛkəˌnɪzəm ɪz nɑt soʊ məʧ ˈɛni spɪˈsɪfɪk kaɪnd əv bɪˈheɪvjər",
+      "seg_idx": 2
+    },
+    {
+      "start": 1500.0,
+      "end": 1530.0,
+      "original": "If you want to learn more about this stuff, I've left lots of links in the description. In particular, anything produced by Andrej Karpathy or Chris Ola tend to be pure gold,",
+      "lang": "EN",
+      "ipa": "ɪf ju wɔnt tɪ lərn mɔr əˈbaʊt ðɪs stəf, aɪv lɛft lɑts əv lɪŋks ɪn ðə dɪˈskrɪpʃən. ɪn ˌpɑˈtɪkjələr, ˈɛniˌθɪŋ prəˈdust baɪ ˈɑndreɪ karpathy* ər krɪs ˈoʊlə tɛnd tɪ bi pjʊr goʊld,",
+      "seg_idx": 2
+    },
+    {
+      "start": 1530.0,
+      "end": 1560.0,
+      "original": "In this video, I wanted to just jump into attention in its current form, but if you're curious about more of the history for how we got here and how you might reinvent this idea for yourself, my friend Vivek just put up a couple videos giving a lot more of that motivation. Also, Britt Cruz from the channel The Art of the Problem has a really nice video about the history of large language models.",
+      "lang": "EN",
+      "ipa": "ɪn ðɪs ˈvɪdioʊ, aɪ ˈwɔntɪd tɪ ʤɪst ʤəmp ˈɪntu əˈtɛnʃən ɪn ɪts ˈkɑrənt fɔrm, bət ɪf jʊr ˈkjʊriəs əˈbaʊt mɔr əv ðə ˈhɪstəri fər haʊ wi gɑt hir ənd haʊ ju maɪt ˌriɪnˈvɛnt ðɪs aɪˈdiə fər ˈjɔrsɛlf, maɪ frɛnd vivek* ʤɪst pʊt əp ə ˈkəpəl ˈvɪdioʊz ˈgɪvɪŋ ə lɔt mɔr əv ðət ˌmoʊtəˈveɪʃən. ˈɔlsoʊ, brɪt kruz frəm ðə ˈʧænəl ðə ɑrt əv ðə ˈprɑbləm həz ə ˈrɪli nis ˈvɪdioʊ əˈbaʊt ðə ˈhɪstəri əv lɑrʤ ˈlæŋgwɪʤ ˈmɑdəlz.",
+      "seg_idx": 2
+    },
+    {
+      "start": 1560.0,
+      "end": 1569.15,
+      "original": "Thank you for watching!",
+      "lang": "EN",
+      "ipa": "θæŋk ju fər ˈwɑʧɪŋ!",
+      "seg_idx": 2
+    }
+  ],
+  "full_ipa": "ɪn ðə læst ˈʧæptər, ju ənd aɪ ˈstɑrtɪd tɪ stɛp θru ðə ˌɪnˈtərnəl ˈwərkɪŋz əv ə trænsˈfɔrmər. ðɪs ɪz wən əv ðə ki ˈpisɪz əv tɛkˈnɑləʤi ˌɪnˈsaɪd lɑrʤ ˈlæŋgwɪʤ ˈmɑdəlz ənd ə lɔt əv ˈəðər tulz ɪn ðə ˈmɑdərn weɪv əv eɪaɪ. ɪt fərst hɪt ðə sin ɪn ə now-famous* 2017 ˈpeɪpər kɔld əˈtɛnʃən ɪz ɔl ju nid, ənd ɪn ðɪs ˈʧæptər, ju ənd aɪ wɪl dɪg ˈɪntu wət ðɪs əˈtɛnʃən ˈmɛkəˌnɪzəm ɪz, ˈvɪʒwəˌlaɪzɪŋ haʊ ɪt ˈprɑsɛsəz ˈdætə. ɛz ə kwɪk ˈriˌkæp, hɪrz ðə ˌɪmˈpɔrtənt ˈkɑntɛkst aɪ wɔnt ju tɪ hæv ɪn maɪnd. ðə goʊl əv ðə ˈmɑdəl ðət ju ənd aɪ ər ˈstədiɪŋ ɪz tɪ teɪk ɪn ə pis əv tɛkst ənd prɪˈdɪkt wət wərd kəmz nɛkst. ðə ˈɪnˌpʊt tɛkst ɪz ˈbroʊkən əp ˈɪntu ˈlɪtəl ˈpisɪz ðət wi kɔl ˈtoʊkənz, ənd ðiz ər ˈvɛri ˈɔfən wərdz ər ˈpisɪz əv wərdz, bət ʤɪst tɪ meɪk ðə ɪgˈzæmpəlz ɪn ðɪs ˈvɪdioʊ ˈiziər fər ju ənd mi tɪ θɪŋk əˈbaʊt, lɛts ˈsɪmpləˌfaɪ baɪ priˈtɛndɪŋ ðət ˈtoʊkənz ər ˈɔlˌweɪz ʤɪst wərdz. ðə fərst stɛp ɪn ə trænsˈfɔrmər ɪz tɪ əˈsoʊʃiˌeɪt iʧ ˈtoʊkən wɪθ ə high-dimensional* ˈvɛktər, wət wi kɔl ɪts embedding. ɪz haʊ dɪˈrɛkʃɪnz ɪn ðɪs high-dimensional* speɪs əv ɔl ˈpɑsəbəl embeddings* kən ˌkɔrəˈspɑnd wɪθ sɪˈmæntɪk ˈminɪŋ. ɪn ðə læst ˈʧæptər, wi sɔ ən ɪgˈzæmpəl fər haʊ dɪˈrɛkʃɪn kən ˌkɔrəˈspɑnd tɪ ˈʤɛndər, ɪn ðə sɛns ðət ˈædɪŋ ə ˈsərtən stɛp ɪn ðɪs speɪs kən teɪk ju frəm ðə embedding* əv ə ˈmæskjələn naʊn tɪ ðə embedding* əv ðə ˌkɔrəˈspɑndɪŋ ˈfɛmənən naʊn. ðæts ʤɪst wən ɪgˈzæmpəl. ju kʊd ˌɪˈmæʤən haʊ ˈmɛni ˈəðər dɪˈrɛkʃɪnz ɪn ðɪs high-dimensional* speɪs kʊd ˌkɔrəˈspɑnd tɪ ˈnumərəs ˈəðər ˈæˌspɛkts əv ə wərdz ˈminɪŋ. ɪz tɪ prɑˈgrɛsɪvli əˈʤəst ðiz embeddings* soʊ ðət ðeɪ doʊnt ˈmɪrli ɛnˈkoʊd ən ˌɪndəˈvɪʤəwəl wərd, bət ˌɪnˈstɛd ðeɪ beɪk ɪn səm məʧ, məʧ ˈrɪʧər ˌkɑnˈtɛksˌʧuəl ˈminɪŋ. aɪ ʃʊd seɪ əp frənt ðət ə lɔt əv ˈpipəl faɪnd ðə əˈtɛnʃən ˈmɛkəˌnɪzəm, ðɪs ki pis ɪn ə trænsˈfɔrmər, ˈvɛri kənfˈjuzɪŋ. soʊ doʊnt ˈwəri ɪf ɪt teɪks səm taɪm fər θɪŋz tɪ sɪŋk ɪn. aɪ θɪŋk ðət ˌbiˈfɔr wi daɪv ˈɪntu ðə ˌkɑmpjuˈteɪʃənəl ˈditeɪlz ənd ɔl ðə ˈmeɪtrɪks multiplications, ɪts wərθ ˈθɪŋkɪŋ əˈbaʊt ə ˈkəpəl ɪgˈzæmpəlz fər ðə kaɪnd əv bɪˈheɪvjər ðət wi wɔnt əˈtɛnʃən tɪ ɪˈneɪbəl. kənˈsɪdər ðə ˈfreɪzɪz əˈmɛrɪkən tru moʊl, wən moʊl əv ˈkɑrbən daɪˈɑkˌsaɪd, ənd teɪk ə ˈbaɪɑpsi əv ðə moʊl. ju ənd aɪ noʊ ðət ðə wərd moʊl həz ˈdɪfərənt ˈminɪŋz ɪn iʧ wən əv ðiz, beɪst ɔn ðə ˈkɑntɛkst. bət ˈæftər ðə fərst stɛp əv ə trænsˈfɔrmər, ðə wən ðət breɪks əp ðə tɛkst ənd əˈsoʊʃiˌeɪts iʧ ˈtoʊkən wɪθ ə ˈvɛktər, ðə ˈvɛktər ðæts əˈsoʊʃiˌeɪtəd wɪθ moʊl wʊd bi ðə seɪm ɪn ɔl θri əv ðiz ˈkeɪsɪz, bɪˈkəz ðɪs ˌɪˈnɪʃəl ˈtoʊkən embedding* ɪz ˈifɛktɪvli ə ˈlʊkəp ˈteɪbəl wɪθ noʊ ˈrɛfərəns tɪ ðə ˈkɑntɛkst. θæŋk ju fər ˈwɑʧɪŋ. θæŋk ju fər ˈwɑʧɪŋ. θæŋk ju. ðə tɛkst ju ˈɪnˌpʊt ɪz moʊst əv ən ɪnˈtaɪər ˈmɪstəri ˈnɑvəl, ɔl ðə weɪ əp tɪ ə pɔɪnt nɪr ðə ɛnd, wɪʧ ridz, ˈðɛrˌfɔr ðə ˈmərdərər wɑz. ɪf ðə ˈmɑdəlz goʊɪŋ tɪ ˈækjərətli prɪˈdɪkt ðə nɛkst wərd, ðət ˈfaɪnəl ˈvɛktər ɪn ðə ˈsikwəns, wɪʧ bɪˈgæn ɪts laɪf ˈsɪmpli embedding* ðə wərd wɑz, wɪl hæv tɪ hæv bɪn ˈəpˌdeɪtɪd baɪ ɔl əv ðə əˈtɛnʃən blɑks tɪ ˌrɛprɪˈzɛnt məʧ, məʧ mɔr ðən ˈɛni ˌɪndəˈvɪʤəwəl wərd, ˈsəmˌhaʊ ɛnˈkoʊdɪŋ ɔl əv ðə ˌɪnˌfɔrˈmeɪʃən frəm ðə fʊl ˈkɑntɛkst ˈwɪndoʊ ðæts ˈrɛləvənt tɪ prɪˈdɪktɪŋ ðə nɛkst wərd. tɪ gɪt tɪ ðə ˌkɑmpjuˈteɪʃənz ðoʊ, lɛts teɪk ə məʧ ˈsɪmpələr ɪgˈzæmpəl. ˌɪˈmæʤən ðət ðə ˈɪnˌpʊt ˌɪnˈkludz ðə freɪz, ə ˈfləfi blu ˈkriʧər roʊmd ðə ˈvərdənt ˈfɔrɪst. ənd fər ðə ˈmoʊmənt, səˈpoʊz ðət ðə ˈoʊnli taɪp əv ˈəpˌdeɪt ðət wi kɛr əˈbaʊt ɪz ˈhævɪŋ ðə ˈæʤɪktɪvz əˈʤəst ðə ˈminɪŋz əv ðɛr ˌkɔrəˈspɑndɪŋ naʊnz. wət əm əˈbaʊt tɪ dɪˈskraɪb ɪz wət wi wʊd kɔl ə ˈsɪŋgəl hɛd əv əˈtɛnʃən, ənd ˈleɪtər wi wɪl si haʊ ðə əˈtɛnʃən blɑk kənˈsɪsts əv ˈmɛni ˈdɪfərənt hɛdz rən ɪn ˈpɛrəˌlɛl. əˈgɛn, ðə ˌɪˈnɪʃəl embedding* fər iʧ wərd ɪz səm high-dimensional* ˈvɛktər θæŋk ju fər ˈwɑʧɪŋ. θæŋk ju fər ˈwɑʧɪŋ. ɪts ʤɪst ðət ɛz wi stɛp θru ɔl əv ðə ˈdɪfərənt ˈmeɪtrɪsɪz fɪld wɪθ pərˈæmətərz ðət ər ˌɪnˈvɑlvd ɪn ðɪs ˈprɔˌsɛs, aɪ θɪŋk ɪts ˈrɪli ˈhɛlpfəl tɪ hæv ən ˌɪˈmæʤənd ɪgˈzæmpəl əv ˈsəmθɪŋ ðət ɪt kʊd bi duɪŋ tɪ hɛlp kip ɪt ɔl mɔr ˈkɑnkrit. fər ðə fərst stɛp əv ðɪs ˈprɔˌsɛs, ju maɪt ˌɪˈmæʤən iʧ naʊn, laɪk ˈkriʧər, ˈæskɪŋ ðə kˈwɛʃən, heɪ, ər ðɛr ˈɛni ˈæʤɪktɪvz ˈsɪtɪŋ ɪn frənt əv mi? ənd fər ðə wərdz ˈfləfi ənd blu tɪ iʧ bi ˈeɪbəl tɪ ˈænsər, jæ, əm ən ˈæʤɪktɪv ənd əm ɪn ðət pəˈzɪʃən. ðət kˈwɛʃən ɪz goʊɪŋ tɪ bi æst baɪ ðə ˈstudənt. kˈwiri ɪz ˈsəmˌhaʊ ɛnˈkoʊdɪd ɛz jɛt əˈnəðər ˈvɛktər, əˈnəðər lɪst əv ˈnəmbərz, wɪʧ wi kɔl ðə kˈwiri fər ðɪs wərd. ðɪs kˈwiri ˈvɛktər, ðoʊ, həz ə məʧ sˈmɔlər dɪˈmɛnʃən ðən ðə embedding* ˈvɛktər, seɪ 128 kəmˈpjutɪŋ ðɪs kˈwiri lʊks laɪk ˈteɪkɪŋ ə ˈsərtən ˈmeɪtrɪks, wɪʧ aɪl ˈleɪbəl wq, ənd ˈməltəˌplaɪɪŋ ɪt baɪ ðə embedding. kəmˈprɛsɪŋ θɪŋz ə bɪt, lɛts raɪt ðət kˈwiri ˈvɛktər ɛz kju, ənd ðɛn ˈɛniˌtaɪm ju si mi pʊt ə ˈmeɪtrɪks nɛkst tɪ ən ˈɛroʊ laɪk ðɪs wən, ðə ˈmeɪtrɪks ɪz ə ˈvɛktər ðət ɪz ˈməltəˌplaɪd baɪ ðə ˈvɛktər æt ðə ˈɛroʊz stɑrt. ɪn ðɪs keɪs, ju ˈməltəˌplaɪ ðɪs ˈmeɪtrɪks baɪ ɔl əv ðə embeddings* ɪn ðə ˈkɑntɛkst, prəˈdusɪŋ wən kˈwiri ˈvɛktər fər iʧ ˈtoʊkən. ðə ˈɛntriz əv ðɪs ˈmeɪtrɪks ər pərˈæmətərz əv ðə ˈmɑdəl, wɪʧ minz ðə tru bɪˈheɪvjər ɪz ˈlərnɪd frəm ˈdætə, ənd ɪn ˈpræktɪs, wət ðɪs ˈmeɪtrɪks dɪz ɪn ə ˌpɑˈtɪkjələr əˈtɛnʃən hɛd ɪz ˈʧælənʤɪŋ tɪ pɑrs. bət fər ɑr seɪk, ˌɪˈmæʤənɪŋ ən ɪgˈzæmpəl ðət wi maɪt hoʊp ðət ɪt wʊd lərn, wɪl səˈpoʊz ðət ðɪs kˈwiri ˈmeɪtrɪks mæps ðə embeddings* əv ðə θæŋk ju fər ˈwɑʧɪŋ. ɪn ðɪs keɪs, ju wɔnt tɪ θɪŋk əv ðə kiz ɛz pəˈtɛnʃəli ˈænsərɪŋ ðə kˈwɪriz. ðɪs ki ˈmeɪtrɪks ɪz ˈɔlsoʊ fʊl əv ˈtunəbəl pərˈæmətərz, ənd ʤɪst laɪk ðə kˈwiri ˈmeɪtrɪks, ɪt mæps ðə embedding* ˈvɛktərz tɪ ðət seɪm sˈmɔlər dɪˈmɛnʃənəl speɪs. ju θɪŋk əv ðə kiz ɛz ˈmæʧɪŋ ðə kˈwɪriz wɛˈnɛvər ðeɪ ˈkloʊsli əˈlaɪn wɪθ iʧ ˈəðər. ɪn ɑr ɪgˈzæmpəl, ju wʊd ˌɪˈmæʤən ðət ðə ki ˈmeɪtrɪks mæps ðə ˈæʤɪktɪvz, laɪk ˈfləfi ənd blu, tɪ ˈvɛktərz ðət ər ˈkloʊsli əˈlaɪnd wɪθ ðə kˈwiri prəˈdust baɪ ðə wərd ˈkriʧər. θæŋk ju fər ˈwɑʧɪŋ. ðə ki fər səm ˈəðər wərd, laɪk ðə, ənd ðə kˈwiri fər ˈkriʧər, wʊd bi səm smɔl ər ˈnɛgətɪv ˈvælju ðət rɪˈflɛkts ðət ðiz ər ˌənrɪˈleɪtɪd tɪ iʧ ˈəðər. soʊ wi hæv ðɪs grɪd əv ˈvæljuz ðət kən bi ˈɛni ril ˈnəmbər frəm ˈnɛgətɪv ˌɪnˈfɪnɪti tɪ ˌɪnˈfɪnɪti, ˈgɪvɪŋ ˈjuˈɛs ə skɔr fər haʊ ˈrɛləvənt iʧ wərd ɪz tɪ ˈəpˌdeɪtɪŋ ðə ˈminɪŋ əv ˈɛvəri ˈəðər wərd. ðə weɪ wi juz ðiz skɔrz ɪz tɪ teɪk ə ˈsərtən ˈweɪtɪd səm əˈlɔŋ iʧ ˈkɑləm, ˈweɪtɪd baɪ ðə ˈrɛləvəns. soʊ ˌɪnˈstɛd əv ˈhævɪŋ ˈvæljuz reɪnʤ frəm ˈnɛgətɪv ˌɪnˈfɪnɪti tɪ ˌɪnˈfɪnɪti, wət wi wɔnt ɪz fər ðə ˈnəmbərz ɪn ðiz ˈkɑləmz tɪ bi bɪtˈwin 0 ənd 1 ənd fər iʧ ˈkɑləm tɪ æd əp tɪ 1 ɛz ɪf ðeɪ wər ə ˌprɑbəˈbɪləˌti ˌdɪstrəˈbjuʃən. ɪf jʊr ˈkəmɪŋ ɪn frəm ðə læst ˈʧæptər, ju noʊ wət wi nid tɪ du ðɛn. wi kəmˈpjut ə softmax* əˈlɔŋ iʧ wən əv ðiz ˈkɑləmz tɪ ˈnɔrməˌlaɪz ðə ˈvæljuz. ɪn ɑr ˈpɪkʧər, ˈæftər ju əˈplaɪ softmax* tɪ ɔl əv ðə ˈkɑləmz, wɪl fɪl ɪn ðə grɪd wɪθ ðiz ˈnɔrməˌlaɪzd ˈvæljuz. æt ðɪs pɔɪnt, jʊr seɪf tɪ θɪŋk əˈbaʊt iʧ ˈkɑləm ɛz ˈgɪvɪŋ weɪts əˈkɔrdɪŋ tɪ haʊ ˈrɛləvənt ðə wərd ɔn ðə lɛft ɪz tɪ ðə ˌkɔrəˈspɑndɪŋ ˈvælju æt ðə tɔp. wi kɔl ðɪs grɪd ən əˈtɛnʃən ˈpætərn. naʊ, ɪf ju lʊk æt ðə ərˈɪʤənəl trænsˈfɔrmər ˈpeɪpər, ðɛrz ə ˈrɪli ˈkɑmpækt weɪ ðət ðeɪ raɪt ðɪs ɔl daʊn. hir, ðə ˈvɛriəbəlz kju ənd keɪ ˌrɛprɪˈzɛnt ðə fʊl əreɪz əv kˈwiri ənd ki ˈvɛktərz θæŋk ju fər ˈwɑʧɪŋ. ɛz tɪ ðət vi tərm, wɪl tɔk əˈbaʊt ɪt ɪn ʤɪst ə ˈsɛkənd. ˌbiˈfɔr ðət, ðɛrz wən ˈəðər ˈtɛknɪkəl ˈditeɪl ðət soʊ fɑr aɪv skɪpt. ˈdʊrɪŋ ðə ˈtreɪnɪŋ ˈprɔˌsɛs, wɪn ju rən ðɪs ˈmɑdəl ɔn ə ˈgɪvɪn tɛkst ɪgˈzæmpəl, ənd ɔl əv ðə weɪts ər sˈlaɪtli əˈʤəstɪd ənd tund tɪ ˈiðər rɪˈwɔrd ər ˈpənɪʃ ɪt beɪst ɔn haʊ haɪ ə ˌprɑbəˈbɪləˌti ɪt əˈsaɪnz tɪ ðə tru nɛkst wərd ɪn ðə ˈpæsɪʤ, ɪt tərnz aʊt tɪ meɪk ðə hoʊl ˈtreɪnɪŋ ˈprɔˌsɛs ə lɔt mɔr ɪˈfɪʃənt ɪf ju ˌsaɪməlˈteɪniəsli hæv ɪt prɪˈdɪkt ˈɛvəri ˈpɑsəbəl nɛkst ˈtoʊkən ˈfɑloʊɪŋ iʧ ˌɪˈnɪʃəl sub-sequence* əv ðə nɛkst wərd. fər ɪgˈzæmpəl, wɪθ ðə freɪz ðət wiv bɪn ˈfoʊkɪsɪŋ ɔn, ɪt maɪt ˈɔlsoʊ bi prɪˈdɪktɪŋ wət wərdz ˈfɑloʊ ˈkriʧər ənd wət wərdz ˈfɑloʊ ðə. ðɪs ɪz ˈrɪli nis bɪˈkəz ɪt minz wət wʊd ˈəðərˌwaɪz bi ə ˈsɪŋgəl ˈtreɪnɪŋ ɪgˈzæmpəl ˈifɛktɪvli ækts ɛz ˈmɛni. fər ðə ˈpərpəsɪz əv ɑr əˈtɛnʃən ˈpætərn, ɪt minz ðət ju ˈnɛvər wɔnt tɪ əˈlaʊ ˈleɪtər wərdz tɪ ˈɪnfluəns ˈərliər wərdz, sɪns ˈəðərˌwaɪz ðeɪ kʊd kaɪnd əv gɪv əˈweɪ ðə ˈænsər fər wət kəmz nɛkst. wət ðɪs minz ɪz ðət wi wɔnt ɔl əv ðiz spɑts hir, ðə wənz ˌrɛprɪˈzɛnɪŋ ˈleɪtər wərdz, θæŋk ju fər ˈwɑʧɪŋ. bət ɪn ɑr gpt* ɪgˈzæmpəl, ˈivɪn ðoʊ ðɪs ɪz mɔr ˈrɛləvənt ˈdʊrɪŋ ðə ˈtreɪnɪŋ feɪz ðən ɪt wʊd bi, seɪ, ˈrənɪŋ ɪt ɛz ə chatbot* ər ˈsəmθɪŋ laɪk ðət, ju du ˈɔlˌweɪz əˈplaɪ ðɪs ˈmæskɪŋ tɪ prɪˈvɛnt ˈleɪtər ˈtoʊkənz frəm ˈɪnˌfluənsɪŋ ˈərliər wənz. əˈnəðər fækt ðæts wərθ rɪˈflɛktɪŋ ɔn əˈbaʊt ðɪs əˈtɛnʃən ˈpætərn ɪz haʊ ɪts saɪz ɪz ˈikwəl tɪ ðə skwɛr əv ðə ˈkɑntɛkst saɪz. soʊ ðɪs ɪz waɪ ˈkɑntɛkst saɪz kən bi ə ˈrɪli juʤ ˈbɑtəlˌnɛk fər lɑrʤ ˈlæŋgwɪʤ ˈmɑdəlz, ənd ˈskeɪlɪŋ ɪt əp ɪz non-trivial. ɛz ju maɪt ˌɪˈmæʤən, ˈmoʊtəˌveɪtəd baɪ ə dɪˈzaɪər fər ˈbɪgər ənd ˈbɪgər ˈkɑntɛkst ˌoʊˈkeɪ, greɪt, kəmˈpjutɪŋ ðɪs ˈpætərn lɛts ðə ˈmɑdəl dɪˈdus wɪʧ wərdz ər ˈrɛləvənt tɪ wɪʧ ˈəðər wərdz. naʊ, ju nid tɪ ˈæˌkʧuəli ˈəpˌdeɪt ðə embeddings, əˈlaʊɪŋ wərdz tɪ pæs ˌɪnˌfɔrˈmeɪʃən tɪ wɪˈʧɛvər ˈəðər wərdz ðɛr ˈrɛləvənt tɪ. fər ɪgˈzæmpəl, ju wɔnt ðə embedding* əv ˈfləfi tɪ ˈsəmˌhaʊ kɔz ə ʧeɪnʤ tɪ ˈkriʧər ðət muvz ɪt tɪ ə ˈdɪfərənt pɑrt əv ðɪs əm goʊɪŋ tɪ ʃoʊ ju ðə moʊst ˈstreɪtˈfɔrwərd weɪ tɪ du ðɪs, ðoʊ ðɛrz ə slaɪt weɪ ðət ðɪs gɪts ˈmɑdəˌfaɪd ɪn ðə ˈkɑntɛkst əv multi-headed* əˈtɛnʃən. ðɪs moʊst ˈstreɪtˈfɔrwərd weɪ wʊd bi tɪ juz ə θərd ˈmeɪtrɪks, wət wi kɔl ðə ˈvælju ˈmeɪtrɪks, wɪʧ ju ˈməltəˌplaɪ baɪ ðə embedding* əv ðət fərst wərd, fər ɪgˈzæmpəl ˈfləfi. ðə rɪˈzəlt əv ðɪs ɪz wət ju wʊd kɔl ə ˈvælju ˈvɛktər, ənd ðɪs ɪz ˈsəmθɪŋ ðət ju æd tɪ ðə embedding* əv ðə ˈsɛkənd wərd. ɪn ðɪs keɪs, ˈsəmθɪŋ ju æd tɪ ðə embedding* əv ˈkriʧər. soʊ ðɪs ˈvælju ˈvɛktər lɪvz ɪn ðə seɪm ˈvɛri haɪ dɪˈmɛnʃənəl speɪs ɛz ðə embeddings. wɪn ju ˈməltəˌplaɪ ðɪs ˈvælju ˈmeɪtrɪks baɪ ðə embedding* əv ə wərd, ju maɪt θɪŋk əv ɪt ɛz seɪɪŋ, ɪf ðɪs wərd ɪz ˈrɛləvənt tɪ əˈʤəstɪŋ ðə ˈminɪŋ əv ˈsəmθɪŋ ɛls, wət ɪgˈzæktli ʃʊd bi ˈædɪd tɪ ðə embedding* əv ðət ˈsəmθɪŋ ɛls ɪn ˈɔrdər tɪ rɪˈflɛkt ðɪs? ˈlʊkɪŋ bæk ɪn ɑr ˈdaɪəˌgræm, lɛts sɛt əˈsaɪd ɔl əv ðə kiz ənd ðə kˈwɪriz, sɪns ˈæftər ju kəmˈpjut ðə əˈtɛnʃən ˈpætərn, jʊr dən wɪθ ðoʊz. teɪk ðɪs ˈvælju ˈmeɪtrɪks ənd ˈməltəˌplaɪ ɪt baɪ ˈɛvəri wən əv ðoʊz embeddings* tɪ ˈproʊdus ə ˈsikwəns əv ˈvælju ˈvɛktərz. ju maɪt θɪŋk əv ðiz ˈvælju ˈvɛktərz ɛz biɪŋ kaɪnd əv əˈsoʊʃiˌeɪtəd wɪθ ðə ˌkɔrəˈspɑndɪŋ kiz. fər iʧ ˈkɑləm ɪn ðɪs ˈdaɪəˌgræm, ju ˈməltəˌplaɪ iʧ əv ðə ˈvælju ˈvɛktərz baɪ ðə ˌkɔrəˈspɑndɪŋ weɪt ɪn ðət ˈkɑləm. fər ɪgˈzæmpəl, hir, ˈəndər ðə embedding* əv ˈkriʧər, ju wʊd bi ˈædɪŋ lɑrʤ prəˈpɔrʃənz əv ðə ˈvælju ˈvɛktərz fər ˈfləfi ənd blu, waɪl ɔl əv ðə ˈəðər ˈvælju ˈvɛktərz gɪt ˈziroʊd aʊt. ənd ðɛn ˈfaɪnəli, ðə weɪ tɪ ˈæˌkʧuəli ˈəpˌdeɪt ðə embedding* əˈsoʊʃiˌeɪtəd wɪθ ðɪs ˈkɑləm, ˈpriviəsli ɛnˈkoʊdɪŋ səm context-free* ˈminɪŋ əv ˈkriʧər, ju æd təˈgɛðər ɔl əv ðiz rescaled* ˈvæljuz ɪn ðə ˈkɑləm, prəˈdusɪŋ ə ʧeɪnʤ ðət ju wɔnt tɪ æd ðət aɪl ˈleɪbəl ˈdɛltə i, ənd ðɛn ju æd ðət tɪ ðə ərˈɪʤənəl embedding. ˈhoʊpfəli, wət rɪˈzəlts ɪz ə mɔr rɪˈfaɪnd ˈvɛktər ɛnˈkoʊdɪŋ ðə mɔr contextually* rɪʧ ˈminɪŋ, laɪk ðət əv ə ˈfləfi blu ˈkriʧər. ənd əv kɔrs, ju doʊnt ʤɪst du ðɪs tɪ wən embedding, ju əˈplaɪ ɪt tɪ ɔl əv ðə ˈəðər embeddings. aɪ wɔnt tɪ teɪk ə ˈmoʊmənt tɪ tɔk əˈbaʊt ðə ˈprɔˌsɛs əv kriˈeɪtɪŋ ə nu ˈmɑdəl fər ðə mfcc. naʊ, lɛts teɪk ə ˈmoʊmənt tɪ kənˈtɪnju wət wi ˈstɑrtɪd ɪn ðə læst ˈʧæptər wɪθ ðə skɔr ˈkipɪŋ wɛr wi kaʊnt əp ðə ˈtoʊtəl ˈnəmbər əv ˈmɑdəl pərˈæmətərz ˈjuzɪŋ ðə ˈnəmbərz frəm gpt-3* ðiz ki ənd kˈwiri ˈmeɪtrɪsɪz iʧ hæv 12,288* ˈkɑləmz ˈmæʧɪŋ ðə embedding* dɪˈmɛnʃən ənd 128 roʊz ˈmæʧɪŋ ðə dɪˈmɛnʃən əv ðət sˈmɔlər ki kˈwiri speɪs. ðɪs gɪvz ˈjuˈɛs ən əˈdɪʃənəl 1.5* ˈmɪljən ər soʊ pərˈæmətərz fər iʧ wən. ɪf ju lʊk æt ðət ˈvælju ˈmeɪtrɪks baɪ ˈkɑntræst, ðə weɪ aɪv dɪˈskraɪbd θɪŋz soʊ fɑr wʊd səˈʤɛst ðət ɪts ə skwɛr ˈmeɪtrɪks ðət həz 12,288* ˈkɑləmz ənd 12,288* roʊz, sɪns boʊθ ɪts ˈɪnˌpʊts ənd ɪts ˈaʊtˌpʊts lɪv ɪn ðɪs ˈvɛri lɑrʤ embedding* speɪs. ɪf tru, ðət wʊd min əˈbaʊt 150 ˈmɪljən ˈædɪd pərˈæmətərz. ənd tɪ bi klɪr, ju kʊd du ðət. ju kʊd dɪˈvoʊt ˈɔrdərz əv ˈmægnəˌtud mɔr pərˈæmətərz tɪ ðə ˈvælju mæp ðən tɪ ðə ki ənd kˈwiri. bət ɪn ˈpræktɪs, ɪt ɪz məʧ mɔr ɪˈfɪʃənt ɪf ˌɪnˈstɛd ju meɪk ɪt soʊ ðət ðə ˈnəmbər əv pərˈæmətərz dɪˈvoʊtɪd tɪ ðɪs ˈvælju mæp ðə fərst ˈmeɪtrɪks, ɔn ðə raɪt hir, həz ə sˈmɔlər ˈnəmbər əv roʊz. ðə fərst ˈmeɪtrɪks ɪz ə ˈmeɪtrɪks əv ˈvæljuz, ˈtɪpɪkəli ðə seɪm saɪz ɛz ðə ki kˈwiri speɪs. wət ðɪs minz ɪz ju kən θɪŋk əv ɪt ɛz ˈmæpɪŋ ðə lɑrʤ embedding* ˈvɛktərz daʊn tɪ ə məʧ sˈmɔlər speɪs. ðɪs ɪz nɑt ðə kənˈvɛnʃənəl ˈneɪmɪŋ, bət əm goʊɪŋ tɪ kɔl ðɪs ðə ˈvælju daʊn ˈmeɪtrɪks. ðə ˈsɛkənd ˈmeɪtrɪks mæps frəm ðɪs sˈmɔlər speɪs bæk əp tɪ ðə embedding* speɪs, prəˈdusɪŋ ðə ˈvɛktərz ðət ju juz tɪ meɪk ðə ˈækʧəwəl ˈəpˌdeɪts. əm goʊɪŋ tɪ kɔl ðɪs wən ðə ˈvælju əp ˈmeɪtrɪks, wɪʧ əˈgɛn ɪz nɑt kənˈvɛnʃənəl. ðə weɪ ðət ju wʊd si ðɪs ˈrɪtən ɪn moʊst ˈpeɪpərz lʊks ə ˈlɪtəl ˈdɪfərənt. tɪ θroʊ ɪn ˈlɪniər ˈælʤəbrə ˈʤɑrgən hir, wət wɪr ˈbeɪsɪkli duɪŋ ɪz kənˈstreɪnɪŋ ðə ˈoʊvərˌɔl ˈvælju mæp tɪ bi ə low-rank* ˌtrænsfərˈmeɪʃən. ˈtərnɪŋ bæk tɪ ðə pərˈæmətər kaʊnt, ɔl fɔr əv ðiz ˈmeɪtrɪsɪz hæv ðə seɪm saɪz, ənd ˈædɪŋ ðɛm ɔl əp, wi gɪt əˈbaʊt 6.3* ˈmɪljən pərˈæmətərz fər wən əˈtɛnʃən hɛd. ɛz ə kwɪk saɪd noʊt, tɪ bi ə ˈlɪtəl mɔr ˈækjərət, ˈɛvriˌθɪŋ dɪˈskraɪbd soʊ fɑr ɪz wət ˈpipəl wʊd kɔl ə self-attention* hɛd. tɪ dɪˈstɪŋgwɪʃ ɪt frəm ə ˌvɛriˈeɪʃən ðət kəmz əp ɪn ˈəðər ˈmɑdəlz, ðɪs ˈɪzənt ˈrɛləvənt tɪ ɑr gpt* ɪgˈzæmpəl, bət ɪf jʊr ˈkjʊriəs, cross-attention* ˌɪnˈvɑlvz ˈmɑdəlz ðət ˈprɔˌsɛs tu dɪˈstɪŋkt taɪps əv ˈdætə, laɪk tɛkst ɪn wən ˈlæŋgwɪʤ ənd tɛkst ɪn əˈnəðər ˈlæŋgwɪʤ ðæts pɑrt əv ən ˈɔnˌgoʊɪŋ ˌʤɛnərˈeɪʃən əv ə trænzˈleɪʃən, ər ˈmeɪbi ˈɑdiˌoʊ ˈɪnˌpʊt əv spiʧ ənd ən ˈɔnˌgoʊɪŋ ˌtrænˈskrɪpʃən. ə cross-attention* hɛd lʊks ˈɔlˌmoʊst aɪˈdɛntɪkəl. ðə ˈoʊnli ˈdɪfərəns ɪz ðət ðə ki ənd kˈwiri mæps ækt ɔn ˈdɪfərənt datasets. ɪn ə ˈmɑdəl duɪŋ trænzˈleɪʃən, fər ɪgˈzæmpəl, ðə kiz maɪt kəm frəm wən ˈlæŋgwɪʤ, waɪl ðə kˈwɪriz kəm frəm əˈnəðər, ənd ðə əˈtɛnʃən ˈpætərn kʊd dɪˈskraɪb wɪʧ wərdz frəm wən ˈlæŋgwɪʤ ˌkɔrəˈspɑnd tɪ wɪʧ wərdz ɪn əˈnəðər. ənd ɪn ðɪs ˈsɛtɪŋ, ðɛr wʊd ˈtɪpɪkəli bi noʊ ˈmæskɪŋ, sɪns ðɛrz nɑt ˈrɪli ˈɛni ˈnoʊʃən əv ˈleɪtər ˈtoʊkənz əˈfɛktɪŋ ˈərliər wənz. steɪɪŋ ˈfoʊkɪst ɔn self-attention, ðoʊ, ɪf ju ˌəndərˈstʊd ˈɛvriˌθɪŋ soʊ fɑr, ənd ɪf ju wər tɪ stɑp hir, ju wʊd kəm əˈweɪ wɪθ ðə ˈɛsəns əv wət əˈtɛnʃən ˈrɪli ɪz. ɔl ðæts ˈrɪli lɛft tɪ ˈjuˈɛs ɪz tɪ leɪ aʊt ðə sɛns ɪn wɪʧ ju du ðɪs, ˈmɛni, ˈmɛni ˈdɪfərənt taɪmz. ɪn ɑr ˈsɛntrəl ɪgˈzæmpəl, wi ˈfoʊkɪst ɔn ˈæʤɪktɪvz ˈəpˌdeɪtɪŋ naʊnz, bət əv kɔrs, ðɛr ər lɑts əv ˈdɪfərənt weɪz ðət ˈkɑntɛkst kən ˈɪnfluəns ðə ˈminɪŋ əv ə wərd. ɪf ðə wərdz ðeɪ kræʃt ðə prɪˈsidɪd ðə wərd kɑr, ɪt həz ˌɪmpləˈkeɪʃənz fər ðə ʃeɪp ənd ðə ˈstrəkʧər əv ðət kɑr. ənd ə lɔt əv əˌsoʊʃiˈeɪʃənz maɪt bi lɛs grəˈmætɪkəl. ɪf ðə wərd ˈwɪzərd ɪz ˈɛniˌwɛr ɪn ðə seɪm ˈpæsɪʤ ɛz ˈhɛri, ɪt səˈʤɛsts ðət ðɪs maɪt bi rɪˈfərɪŋ tɪ ˈhɛri ˈpɑtər. wɛˈræz ɪf ˌɪnˈstɛd ðə wərdz kwin, ˈsəsɪks, ənd ˈwɪljəm wər ɪn ðət ˈpæsɪʤ, ənd əˈgɛn, ɪn ˈpræktɪs, ðə tru bɪˈheɪvjər əv ðiz mæps ɪz məʧ mɔr ˈdɪfəkəlt tɪ ˌɪnˈtərprət, wɛr ðə weɪts ər sɛt tɪ du ˌwəˈtɛvər ðə ˈmɑdəl nidz ðɛm tɪ du tɪ bɛst əˈkɑmplɪʃ ɪts goʊl əv prɪˈdɪktɪŋ ðə nɛkst ˈtoʊkən. ɛz aɪ sɛd ˌbiˈfɔr, ˈɛvriˌθɪŋ wi dɪˈskraɪbd ɪz ə ˈsɪŋgəl hɛd əv əˈtɛnʃən, ənd ə fʊl əˈtɛnʃən blɑk ˌɪnˈsaɪd ə trænsˈfɔrmər kənˈsɪsts əv wəts kɔld multi-headed* əˈtɛnʃən, wɛr ju rən ə lɔt əv ðiz ˌɑpərˈeɪʃənz ɪn ˈpɛrəˌlɛl, iʧ wɪθ ɪts oʊn dɪˈstɪŋkt ki, kˈwiri, ənd ˈvælju mæps. gpt-3* fər ɪgˈzæmpəl, ˈjuzɪz 96 əˈtɛnʃən hɛdz ˌɪnˈsaɪd iʧ blɑk. kənˈsɪdərɪŋ ðət iʧ wən ɪz ɔˈrɛdi ə bɪt kənfˈjuzɪŋ, ɪts ˈsərtənli ə lɔt tɪ hoʊld ɪn jʊr hɛd. ʤɪst tɪ spɛl ɪt ɔl aʊt ˈvɛri ɪkˈsplɪsətli, θæŋk ju. soʊ, ju teɪk ðoʊz prəˈpoʊzd ˈʧeɪnʤɪz, wən fər iʧ hɛd, ənd ju æd ðə rɪˈzəlt tɪ ðə ərˈɪʤənəl embedding* əv ðət pəˈzɪʃən. ðɪs ɪnˈtaɪər səm hir wʊd bi wən slaɪs əv wəts outputted* frəm ðɪs multi-headed* əˈtɛnʃən blɑk, ə ˈsɪŋgəl wən əv ðoʊz rɪˈfaɪnd embeddings* ðət pɑps aʊt ðə ˈəðər ɛnd əv ɪt. əˈgɛn, ðɪs ɪz ə lɔt tɪ θɪŋk əˈbaʊt, soʊ doʊnt ˈwəri æt ɔl ɪf ɪt teɪks səm taɪm tɪ sɪŋk ɪn. ðə ˈoʊvərˌɔl aɪˈdiə ɪz ðət baɪ ˈrənɪŋ ˈmɛni dɪˈstɪŋkt hɛdz ɪn ˈpɛrəˌlɛl, jʊr ˈgɪvɪŋ ðə ˈmɑdəl ðə kəˈpæsɪti tɪ lərn ˈmɛni dɪˈstɪŋkt weɪz ˈpʊlɪŋ əp ɑr ˈrənɪŋ ˈtæli fər pərˈæmətər kaʊnt, wɪθ 96 hɛdz, iʧ ˌɪnˈkludɪŋ ɪts oʊn ˌvɛriˈeɪʃən əv ðiz fɔr ˈmeɪtrɪsɪz, iʧ blɑk əv multi-headed* əˈtɛnʃən ɛndz əp wɪθ əraʊnd 600 ˈmɪljən pərˈæmətərz. ðɛrz wən ˈædɪd, sˈlaɪtli əˈnɔɪɪŋ θɪŋ ðət aɪ ʃʊd ˈrɪli ˈmɛnʃən fər ˈɛni əv ju hu goʊ ɔn tɪ rɛd mɔr əˈbaʊt trænsˈfɔrmərz. ju rɪˈmɛmbər haʊ aɪ sɛd ðət ðə ˈvælju mæp ɪz ˈfæktərd aʊt ˈɪntu ðiz tu dɪˈstɪŋkt ˈmeɪtrɪsɪz, wɪʧ aɪ ˈleɪbəld ɛz ðə ˈvælju daʊn ənd ðə ˈvælju əp ˈmeɪtrɪsɪz. ðə weɪ ðət aɪ freɪmd θɪŋz wʊd səˈʤɛst ðət ju si ðɪs pɛr əv ˈmeɪtrɪsɪz ˌɪnˈsaɪd iʧ əˈtɛnʃən hɛd. ənd ju kʊd ˌæbsəˈlutli ˈɪmpləmənt ɪt ðɪs weɪ. ðət wʊd bi ə ˈvælɪd dɪˈzaɪn. bət ðə weɪ ðət ju si ðɪs ˈrɪtən ɪn ˈpeɪpərz ənd ðə weɪ ðət ɪts ˈɪmpləˌmɛnəd ɪn ˈpræktɪs lʊks ə ˈlɪtəl ˈdɪfərənt. ɔl əv ðiz value-up* ˈmeɪtrɪsɪz fər iʧ hɛd əˈpɪr ˈsteɪpəld təˈgɛðər ɪn wən ʤaɪənt ˈmeɪtrɪks ðət wi kɔl ðə ˈaʊtˌpʊt ˈmeɪtrɪks, əˈsoʊʃiˌeɪtəd wɪθ ðə ɪnˈtaɪər multi-headed* əˈtɛnʃən blɑk. ənd wɪn ju si ˈpipəl rɪˈfər tɪ ðə ˈvælju ˈmeɪtrɪks fər ə ˈgɪvɪn əˈtɛnʃən hɛd, ənd ðɛr ˈtɪpɪkəli ˈoʊnli rɪˈfərɪŋ tɪ ðɪs fərst stɛp, ðə wən ðət aɪ wɑz ˈleɪbəlɪŋ ɛz ðə value-down* prɑˈʤɛkʃən ˈɪntu ðə sˈmɔlər speɪs. fər ðə ˈkjʊriəs əˈməŋ ju, aɪv lɛft ən ˈɑnˌskrin noʊt əˈbaʊt ɪt. ɪts wən əv ðoʊz ˈditeɪlz ðət rənz ðə rɪsk əv dɪˈstræktɪŋ frəm ðə meɪn kənˈsɛpʧuəl pɔɪnts, bət aɪ du wɔnt tɪ kɔl ɪt aʊt ʤɪst soʊ ðət ju noʊ ɪf ju rɛd əˈbaʊt ðɪs ɪn ˈəðər ˈsɔrsəz. ˈsɛtɪŋ əˈsaɪd ɔl ðə ˈtɛknɪkəl ˈnuɑnsɪz, ɪn ðə ˈprivˌju frəm ðə læst ˈʧæptər, wi sɔ haʊ ˈdætə floʊɪŋ θru ə trænsˈfɔrmər ˈdəzənt ʤɪst floʊ θru ə ˈsɪŋgəl əˈtɛnʃən blɑk. wɪl tɔk mɔr əˈbaʊt ðoʊz ɪn ðə nɛkst ˈʧæptər. ənd ðɛn ɪt rɪˈpitɪdli goʊz θru ˈmɛni, ˈmɛni ˈkɑpiz əv boʊθ əv ðiz ˌɑpərˈeɪʃənz. wət ðɪs minz ɪz ðət ˈæftər ə ˈgɪvɪn wərd imbibes* səm əv ɪts ˈkɑntɛkst, ðɛr ər ˈmɛni mɔr ˈʧænsɪz fər ðɪs mɔr nuɑnst embedding* tɪ bi ˈɪnfluənst baɪ ɪts mɔr nuɑnst sərˈaʊndɪŋz. ðə ˈfərðər daʊn ðə ˈnɛtˌwərk ju goʊ, wɪθ iʧ embedding* ˈteɪkɪŋ ɪn mɔr ənd mɔr ˈminɪŋ frəm ɔl ðə ˈəðər embeddings, wɪʧ ðɛmˈsɛlvz ər ˈgɪtɪŋ mɔr ənd mɔr nuɑnst, ðə hoʊp ɪz ðət ðɛrz ðɪs mɔr nuɑnst embedding* ðə kəˈpæsɪti tɪ ɛnˈkoʊd higher-level* ənd mɔr ˈæbˌstrækt aɪˈdiəz əˈbaʊt ə ˈgɪvɪn ˈɪnˌpʊt bɪɔnd ʤɪst descriptors* ənd grəˈmætɪkəl ˈstrəkʧər. θɪŋz laɪk ˈsɛnəmənt ənd toʊn ənd ˈwɛðər ɪts ə poʊəm ənd wət ˌəndərˈlaɪɪŋ ˌsaɪənˈtɪfɪk truθs ər ˈrɛləvənt tɪ ðə pis ənd θɪŋz laɪk ðət. ˈtərnɪŋ bæk wən mɔr taɪm tɪ ɑr ˈskɔrˌkipɪŋ, gpt-3* ˌɪnˈkludz 96 dɪˈstɪŋkt leɪərz, soʊ ðə ˈtoʊtəl ˈnəmbər əv ki kˈwiri ənd ˈvælju pərˈæmətərz ɪz ˈməltəˌplaɪd baɪ əˈnəðər 96 soʊ ˈivɪn ðoʊ əˈtɛnʃən gɪts ɔl əv ðə əˈtɛnʃən, ðə məˈʤɔrəti əv pərˈæmətərz kəm frəm ðə blɑks ˈsɪtɪŋ ɪn bɪtˈwin ðiz stɛps. ɪn ðə nɛkst ˈʧæptər, ju ənd aɪ wɪl tɔk mɔr əˈbaʊt ðoʊz ˈəðər blɑks, ənd ˈɔlsoʊ ə lɔt mɔr əˈbaʊt ðə ˈtreɪnɪŋ ˈprɔˌsɛs. ə bɪg pɑrt əv ðə ˈstɔri fər ðə səkˈsɛs əv ðə əˈtɛnʃən ˈmɛkəˌnɪzəm ɪz nɑt soʊ məʧ ˈɛni spɪˈsɪfɪk kaɪnd əv bɪˈheɪvjər ɪf ju wɔnt tɪ lərn mɔr əˈbaʊt ðɪs stəf, aɪv lɛft lɑts əv lɪŋks ɪn ðə dɪˈskrɪpʃən. ɪn ˌpɑˈtɪkjələr, ˈɛniˌθɪŋ prəˈdust baɪ ˈɑndreɪ karpathy* ər krɪs ˈoʊlə tɛnd tɪ bi pjʊr goʊld, ɪn ðɪs ˈvɪdioʊ, aɪ ˈwɔntɪd tɪ ʤɪst ʤəmp ˈɪntu əˈtɛnʃən ɪn ɪts ˈkɑrənt fɔrm, bət ɪf jʊr ˈkjʊriəs əˈbaʊt mɔr əv ðə ˈhɪstəri fər haʊ wi gɑt hir ənd haʊ ju maɪt ˌriɪnˈvɛnt ðɪs aɪˈdiə fər ˈjɔrsɛlf, maɪ frɛnd vivek* ʤɪst pʊt əp ə ˈkəpəl ˈvɪdioʊz ˈgɪvɪŋ ə lɔt mɔr əv ðət ˌmoʊtəˈveɪʃən. ˈɔlsoʊ, brɪt kruz frəm ðə ˈʧænəl ðə ɑrt əv ðə ˈprɑbləm həz ə ˈrɪli nis ˈvɪdioʊ əˈbaʊt ðə ˈhɪstəri əv lɑrʤ ˈlæŋgwɪʤ ˈmɑdəlz. θæŋk ju fər ˈwɑʧɪŋ!",
+  "n_chunks": 53,
+  "sample": "ɪn ðə læst ˈʧæptər, ju ənd aɪ ˈstɑrtɪd tɪ stɛp θru ðə ˌɪnˈtərnəl ˈwərkɪŋz əv ə trænsˈfɔrmər. ðɪs ɪz wən əv ðə ki ˈpisɪz əv tɛkˈnɑləʤi ˌɪnˈsaɪd lɑrʤ ˈlæŋgwɪʤ ˈmɑdəlz ənd ə lɔt əv ˈəðər tulz ɪn ðə ˈmɑdərn weɪv əv eɪaɪ. ɪt fərst hɪt ðə sin ɪn ə now-famous* 2017 ˈpeɪpər kɔld əˈtɛnʃən ɪz ɔl ju nid, ənd ɪ"
+}

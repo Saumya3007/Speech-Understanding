@@ -1,0 +1,9 @@
+.env
+/wandb
+__pycache__/
+*.pt
+/data/
+*.log
+*.ckpt
+*.pt
+*.wav

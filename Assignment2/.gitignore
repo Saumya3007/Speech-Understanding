@@ -1,0 +1,22 @@
+# Data and Media
+data/
+/data/
+*.wav
+
+# Models and Weights
+*.pt
+*.ckpt
+
+# Environment
+.env
+__pycache__/
+
+# Logs and Tracking
+wandb/
+/wandb
+*.log
+
+# Project specific
+tectonic.exe
+report.tex
+Summary.txt

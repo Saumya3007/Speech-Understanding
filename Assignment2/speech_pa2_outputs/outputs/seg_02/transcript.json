@@ -1,0 +1,93 @@
+[
+  {
+    "start": 1200.0,
+    "end": 1230.0,
+    "text": "And again, in practice, the true behavior of these maps is much more difficult to interpret, where the weights are set to do whatever the model needs them to do to best accomplish its goal of predicting the next token.",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1230.0,
+    "end": 1260.0,
+    "text": "As I said before, everything we described is a single head of attention, and a full attention block inside a transformer consists of what's called multi-headed attention, where you run a lot of these operations in parallel, each with its own distinct key, query, and value maps. GPT-3, for example, uses 96 attention heads inside each block. Considering that each one is already a bit confusing, it's certainly a lot to hold in your head. Just to spell it all out very explicitly,",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1260.0,
+    "end": 1290.0,
+    "text": "Thank you.",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1290.0,
+    "end": 1320.0,
+    "text": "So, you take those proposed changes, one for each head, and you add the result to the original embedding of that position. This entire sum here would be one slice of what's outputted from this multi-headed attention block, a single one of those refined embeddings that pops out the other end of it. Again, this is a lot to think about, so don't worry at all if it takes some time to sink in. The overall idea is that by running many distinct heads in parallel, you're giving the model the capacity to learn many distinct ways",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1320.0,
+    "end": 1350.0,
+    "text": "Pulling up our running tally for parameter count, with 96 heads, each including its own variation of these four matrices, each block of multi-headed attention ends up with around 600 million parameters. There's one added, slightly annoying thing that I should really mention for any of you who go on to read more about transformers. You remember how I said that the value map is factored out into these two distinct matrices, which I labeled as the value down and the value up matrices.",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1350.0,
+    "end": 1380.0,
+    "text": "The way that I framed things would suggest that you see this pair of matrices inside each attention head. And you could absolutely implement it this way. That would be a valid design. But the way that you see this written in papers and the way that it's implemented in practice looks a little different. All of these value-up matrices for each head appear stapled together in one giant matrix that we call the output matrix, associated with the entire multi-headed attention block. And when you see people refer to the value matrix for a given attention head,",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1380.0,
+    "end": 1410.0,
+    "text": "And they're typically only referring to this first step, the one that I was labeling as the value-down projection into the smaller space. For the curious among you, I've left an on-screen note about it. It's one of those details that runs the risk of distracting from the main conceptual points, but I do want to call it out just so that you know if you read about this in other sources. Setting aside all the technical nuances, in the preview from the last chapter, we saw how data flowing through a transformer doesn't just flow through a single attention block.",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1410.0,
+    "end": 1440.0,
+    "text": "We'll talk more about those in the next chapter. And then it repeatedly goes through many, many copies of both of these operations. What this means is that after a given word imbibes some of its context, there are many more chances for this more nuanced embedding to be influenced by its more nuanced surroundings. The further down the network you go, with each embedding taking in more and more meaning from all the other embeddings, which themselves are getting more and more nuanced, the hope is that there's this more nuanced embedding",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1440.0,
+    "end": 1470.0,
+    "text": "The capacity to encode higher-level and more abstract ideas about a given input beyond just descriptors and grammatical structure. Things like sentiment and tone and whether it's a poem and what underlying scientific truths are relevant to the piece and things like that. Turning back one more time to our scorekeeping, GPT-3 includes 96 distinct layers, so the total number of key query and value parameters is multiplied by another 96,",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1470.0,
+    "end": 1500.0,
+    "text": "So even though attention gets all of the attention, the majority of parameters come from the blocks sitting in between these steps. In the next chapter, you and I will talk more about those other blocks, and also a lot more about the training process. A big part of the story for the success of the attention mechanism is not so much any specific kind of behavior",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1500.0,
+    "end": 1530.0,
+    "text": "If you want to learn more about this stuff, I've left lots of links in the description. In particular, anything produced by Andrej Karpathy or Chris Ola tend to be pure gold,",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1530.0,
+    "end": 1560.0,
+    "text": "In this video, I wanted to just jump into attention in its current form, but if you're curious about more of the history for how we got here and how you might reinvent this idea for yourself, my friend Vivek just put up a couple videos giving a lot more of that motivation. Also, Britt Cruz from the channel The Art of the Problem has a really nice video about the history of large language models.",
+    "lang": "EN",
+    "seg_idx": 2
+  },
+  {
+    "start": 1560.0,
+    "end": 1569.15,
+    "text": "Thank you for watching!",
+    "lang": "EN",
+    "seg_idx": 2
+  }
+]

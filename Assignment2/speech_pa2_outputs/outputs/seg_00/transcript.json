@@ -1,0 +1,142 @@
+[
+  {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "In the last chapter, you and I started to step through the internal workings of a transformer. This is one of the key pieces of technology inside large language models and a lot of other tools in the modern wave of AI. It first hit the scene in a now-famous 2017 paper called Attention is All You Need, and in this chapter, you and I will dig into what this attention mechanism is, visualizing how it processes data. As a quick recap, here's the important context I want you to have in mind.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 30.0,
+    "end": 60.0,
+    "text": "The goal of the model that you and I are studying is to take in a piece of text and predict what word comes next. The input text is broken up into little pieces that we call tokens, and these are very often words or pieces of words, but just to make the examples in this video easier for you and me to think about, let's simplify by pretending that tokens are always just words. The first step in a transformer is to associate each token with a high-dimensional vector, what we call its embedding.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 60.0,
+    "end": 90.0,
+    "text": "is how directions in this high-dimensional space of all possible embeddings can correspond with semantic meaning. In the last chapter, we saw an example for how direction can correspond to gender, in the sense that adding a certain step in this space can take you from the embedding of a masculine noun to the embedding of the corresponding feminine noun. That's just one example. You could imagine how many other directions in this high-dimensional space could correspond to numerous other aspects of a word's meaning.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 90.0,
+    "end": 120.0,
+    "text": "is to progressively adjust these embeddings so that they don't merely encode an individual word, but instead they bake in some much, much richer contextual meaning. I should say up front that a lot of people find the attention mechanism, this key piece in a transformer, very confusing. So don't worry if it takes some time for things to sink in. I think that before we dive into the computational details and all the matrix multiplications, it's worth thinking about a couple examples for the kind of behavior that we want attention to enable.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 120.0,
+    "end": 150.0,
+    "text": "Consider the phrases American True Mole, One Mole of Carbon Dioxide, and Take a Biopsy of the Mole. You and I know that the word mole has different meanings in each one of these, based on the context. But after the first step of a transformer, the one that breaks up the text and associates each token with a vector, the vector that's associated with mole would be the same in all three of these cases, because this initial token embedding is effectively a lookup table with no reference to the context.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 150.0,
+    "end": 180.0,
+    "text": "Thank you for watching.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 180.0,
+    "end": 210.0,
+    "text": "Thank you for watching.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 210.0,
+    "end": 240.0,
+    "text": "Thank you.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 240.0,
+    "end": 270.0,
+    "text": "The text you input is most of an entire mystery novel, all the way up to a point near the end, which reads, therefore the murderer was. If the model's going to accurately predict the next word, that final vector in the sequence, which began its life simply embedding the word was, will have to have been updated by all of the attention blocks to represent much, much more than any individual word, somehow encoding all of the information from the full context window that's relevant to predicting the next word.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 270.0,
+    "end": 300.0,
+    "text": "To get to the computations though, let's take a much simpler example. Imagine that the input includes the phrase, a fluffy blue creature roamed the verdant forest. And for the moment, suppose that the only type of update that we care about is having the adjectives adjust the meanings of their corresponding nouns. What I'm about to describe is what we would call a single head of attention, and later we will see how the attention block consists of many different heads run in parallel. Again, the initial embedding for each word is some high-dimensional vector",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 300.0,
+    "end": 330.0,
+    "text": "Thank you for watching.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 330.0,
+    "end": 360.0,
+    "text": "Thank you for watching.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 360.0,
+    "end": 390.0,
+    "text": "It's just that as we step through all of the different matrices filled with parameters that are involved in this process, I think it's really helpful to have an imagined example of something that it could be doing to help keep it all more concrete. For the first step of this process, you might imagine each noun, like creature, asking the question, hey, are there any adjectives sitting in front of me? And for the words fluffy and blue to each be able to answer, yeah, I'm an adjective and I'm in that position. That question is going to be asked by the student.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 390.0,
+    "end": 420.0,
+    "text": "Query is somehow encoded as yet another vector, another list of numbers, which we call the query for this word. This query vector, though, has a much smaller dimension than the embedding vector, say 128. Computing this query looks like taking a certain matrix, which I'll label WQ, and multiplying it by the embedding. Compressing things a bit, let's write that query vector as Q, and then anytime you see me put a matrix next to an arrow like this one,",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 420.0,
+    "end": 450.0,
+    "text": "The matrix is a vector that is multiplied by the vector at the arrow's start. In this case, you multiply this matrix by all of the embeddings in the context, producing one query vector for each token. The entries of this matrix are parameters of the model, which means the true behavior is learned from data, and in practice, what this matrix does in a particular attention head is challenging to parse. But for our sake, imagining an example that we might hope that it would learn, we'll suppose that this query matrix maps the embeddings of the",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 450.0,
+    "end": 480.0,
+    "text": "Thank you for watching.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 480.0,
+    "end": 510.0,
+    "text": "In this case, you want to think of the keys as potentially answering the queries. This key matrix is also full of tunable parameters, and just like the query matrix, it maps the embedding vectors to that same smaller dimensional space. You think of the keys as matching the queries whenever they closely align with each other. In our example, you would imagine that the key matrix maps the adjectives, like fluffy and blue, to vectors that are closely aligned with the query produced by the word creature.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 510.0,
+    "end": 540.0,
+    "text": "Thank you for watching.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 540.0,
+    "end": 570.0,
+    "text": "The key for some other word, like the, and the query for creature, would be some small or negative value that reflects that these are unrelated to each other. So we have this grid of values that can be any real number from negative infinity to infinity, giving us a score for how relevant each word is to updating the meaning of every other word.",
+    "lang": "EN",
+    "seg_idx": 0
+  },
+  {
+    "start": 570.0,
+    "end": 600.0,
+    "text": "The way we use these scores is to take a certain weighted sum along each column, weighted by the relevance. So instead of having values range from negative infinity to infinity, what we want is for the numbers in these columns to be between 0 and 1, and for each column to add up to 1, as if they were a probability distribution. If you're coming in from the last chapter, you know what we need to do then. We compute a softmax along each one of these columns to normalize the values.",
+    "lang": "EN",
+    "seg_idx": 0
+  }
+]

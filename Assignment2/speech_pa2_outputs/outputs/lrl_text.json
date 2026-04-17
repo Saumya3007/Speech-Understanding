@@ -1,0 +1,489 @@
+{
+  "lrl_chunks": [
+    {
+      "start": 0.0,
+      "end": 30.0,
+      "original": "In the last chapter, you and I started to step through the internal workings of a transformer. This is one of the key pieces of technology inside large language models and a lot of other tools in the modern wave of AI. It first hit the scene in a now-famous 2017 paper called Attention is All You Need, and in this chapter, you and I will dig into what this attention mechanism is, visualizing how it processes data. As a quick recap, here's the important context I want you to have in mind.",
+      "lang": "EN",
+      "maithili": "अंतिम अध्याय मे हम आ अहाँ एकटा ट्रांसफार्मर के आंतरिक कामकाज मे कदम रखय लगलहुं. ई बड़ऽ भाषा मॉडल आरू एआई केरऽ आधुनिक लहर म॑ बहुत सारा अन्य उपकरणऽ के भीतर तकनीक केरऽ प्रमुख टुकड़ा म॑ स॑ एक छै । ई सबसें पहलऽ २०१७ केरऽ एगो अब॑ प्रसिद्ध पेपर म॑ दृश्य प॑ उतरलै जेकरऽ नाम छेलै एटेंशन इज ऑल यू नीड, आरू ई अध्याय म॑ हम आरू आपने ई बात के खोदबै कि ई ध्यान तंत्र की छै, ई कल्पना करतें कि ई डाटा क॑ कोना प्रोसेस करै छै । एकटा त्वरित रिकैप के रूप में, एतय ओ महत्वपूर्ण संदर्भ अछि जे हम चाहैत छी जे अहाँ सब के ध्यान में राखब।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 30.0,
+      "end": 60.0,
+      "original": "The goal of the model that you and I are studying is to take in a piece of text and predict what word comes next. The input text is broken up into little pieces that we call tokens, and these are very often words or pieces of words, but just to make the examples in this video easier for you and me to think about, let's simplify by pretending that tokens are always just words. The first step in a transformer is to associate each token with a high-dimensional vector, what we call its embedding.",
+      "lang": "EN",
+      "maithili": "हम आ अहाँ जाहि मॉडलक अध्ययन क' रहल छी ओकर लक्ष्य अछि जे एकटा पाठक टुकड़ा ल' क' ई भविष्यवाणी करी जे आगू कोन शब्द आओत. इनपुट टेक्स्ट के छोट-छोट टुकड़ा में तोड़ल गेल अछि जेकरा हम सब टोकन कहैत छी, आ ई सब बहुत बेर शब्द या शब्द के टुकड़ा होइत अछि, मुदा बस एहि वीडियो में देल गेल उदाहरण के हमरा आ अहाँ के सोचय में आसान बनेबाक लेल, आऊ ई नाटक क सरल बनाबी जे टोकन हमेशा मात्र शब्द होइत अछि। ट्रांसफार्मर म॑ पहलऽ कदम हर टोकन क॑ उच्च-आयामी वेक्टर स॑ जोड़ना छै, जेकरा हम्मं॑ एकरऽ एम्बेडिंग कहै छियै ।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 60.0,
+      "end": 90.0,
+      "original": "is how directions in this high-dimensional space of all possible embeddings can correspond with semantic meaning. In the last chapter, we saw an example for how direction can correspond to gender, in the sense that adding a certain step in this space can take you from the embedding of a masculine noun to the embedding of the corresponding feminine noun. That's just one example. You could imagine how many other directions in this high-dimensional space could correspond to numerous other aspects of a word's meaning.",
+      "lang": "EN",
+      "maithili": "छै कि सब संभावित एम्बेडिंग के ई उच्च-आयामी स्थान में दिशा शब्दार्थ अर्थ के साथ कोना मेल खा सकै छै. अंतिम अध्याय में हम एकटा उदाहरण देखलहुं जे दिशा कोना लिंग के अनुरूप भ सकैत अछि, एहि अर्थ में जे एहि स्थान में एकटा निश्चित डेग जोड़ला सं अहाँ के कोनो पुल्लिंग संज्ञा के समाहित सं संबंधित स्त्रीलिंग संज्ञा के समाहित करय में ल जा सकैत अछि. जे एकटा उदाहरण मात्र अछि। अहाँ सोचि सकैत छलहुँ जे एहि उच्च आयामी स्थान मे कतेक आओर दिशा कोनो शब्दक अर्थक अनेक अन्य पक्षक अनुरूप भ' सकैत अछि ।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 90.0,
+      "end": 120.0,
+      "original": "is to progressively adjust these embeddings so that they don't merely encode an individual word, but instead they bake in some much, much richer contextual meaning. I should say up front that a lot of people find the attention mechanism, this key piece in a transformer, very confusing. So don't worry if it takes some time for things to sink in. I think that before we dive into the computational details and all the matrix multiplications, it's worth thinking about a couple examples for the kind of behavior that we want attention to enable.",
+      "lang": "EN",
+      "maithili": "ई एम्बेडिंग क॑ प्रगतिशील रूप स॑ समायोजित करना छै ताकि ई खाली एगो व्यक्तिगत शब्द क॑ एन्कोड नै करी सक॑, बल्कि एकरऽ बदला म॑ ई कुछ बहुत, बहुत समृद्ध संदर्भ अर्थ म॑ सेक॑ सक॑ । हमरा सामने स कहबाक चाही जे बहुत लोक कए ध्यान तंत्र, ट्रांसफार्मर मे इ कुंजी टुकड़ा, बहुत भ्रमित करय वाला लगैत अछि। त चिंता जुनि करू जं चीज के डूबय में किछु समय लागय.हमरा लगैत अछि जे कम्प्यूटेशनल डिटेल आ सब मैट्रिक्स गुणा में गोता लगाबय सं पहिने, एहि तरहक व्यवहार के लेल एक दू टा उदाहरण पर सोचब लायक अछि जेकरा हम सब सक्षम करय लेल ध्यान देबय चाहैत छी.",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 120.0,
+      "end": 150.0,
+      "original": "Consider the phrases American True Mole, One Mole of Carbon Dioxide, and Take a Biopsy of the Mole. You and I know that the word mole has different meanings in each one of these, based on the context. But after the first step of a transformer, the one that breaks up the text and associates each token with a vector, the vector that's associated with mole would be the same in all three of these cases, because this initial token embedding is effectively a lookup table with no reference to the context.",
+      "lang": "EN",
+      "maithili": "अमेरिकन ट्रू मोल, वन मोल ऑफ कार्बन डाइऑक्साइड, आ टेक ए बायोप्सी ऑफ द मोल वाक्यांश पर विचार करू. हम आ अहाँ जनैत छी जे एहि मे सँ प्रत्येक मे तिल शब्दक अर्थ अलग-अलग होइत छैक, संदर्भक आधार पर । लेकिन ट्रांसफार्मर केरऽ पहलऽ चरण के बाद, जे पाठ क॑ तोड़ी क॑ हर टोकन क॑ एक वेक्टर स॑ जोड़ै छै, वैक्टर जे मोल स॑ जुड़लऽ छै, वू ई तीनों मामला म॑ एक जैसनऽ होतै, कैन्हेंकि ई प्रारंभिक टोकन एम्बेडिंग प्रभावी रूप स॑ एगो लुकअप टेबल छै जेकरा म॑ संदर्भ केरऽ कोय संदर्भ नै छै ।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 150.0,
+      "end": 180.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "maithili": "देखबाक लेल धन्यवाद।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 180.0,
+      "end": 210.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "maithili": "देखबाक लेल धन्यवाद।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 210.0,
+      "end": 240.0,
+      "original": "Thank you.",
+      "lang": "EN",
+      "maithili": "अहां कें धन्यवाद।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 240.0,
+      "end": 270.0,
+      "original": "The text you input is most of an entire mystery novel, all the way up to a point near the end, which reads, therefore the murderer was. If the model's going to accurately predict the next word, that final vector in the sequence, which began its life simply embedding the word was, will have to have been updated by all of the attention blocks to represent much, much more than any individual word, somehow encoding all of the information from the full context window that's relevant to predicting the next word.",
+      "lang": "EN",
+      "maithili": "अहाँ जे पाठ इनपुट करैत छी से बेसीतर एकटा पूरा रहस्य उपन्यास अछि, अंतक लगक एकटा बिन्दु धरि, जे पढ़ल जाइत अछि, तेँ हत्यारा छल । अगर मॉडल अगिला शब्द के सही भविष्यवाणी करै वाला छै, त॑ अनुक्रम म॑ वू अंतिम वेक्टर, जे अपनऽ जीवन क॑ बस शब्द क॑ एम्बेड करी क॑ शुरू करलकै, क॑ ध्यान ब्लॉक के सब द्वारा अपडेट करलऽ गेलऽ होतै ताकि कोनो भी व्यक्तिगत शब्द स॑ बहुत, बहुत अधिक प्रतिनिधित्व करलऽ जाय सक॑, कोनो तरह स॑ पूरा संदर्भ विंडो स॑ सब जानकारी क॑ एन्कोड करलऽ जाय जे अगला शब्द के भविष्यवाणी करै लेली प्रासंगिक छै ।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 270.0,
+      "end": 300.0,
+      "original": "To get to the computations though, let's take a much simpler example. Imagine that the input includes the phrase, a fluffy blue creature roamed the verdant forest. And for the moment, suppose that the only type of update that we care about is having the adjectives adjust the meanings of their corresponding nouns. What I'm about to describe is what we would call a single head of attention, and later we will see how the attention block consists of many different heads run in parallel. Again, the initial embedding for each word is some high-dimensional vector",
+      "lang": "EN",
+      "maithili": "यद्यपि गणना पर पहुँचबाक लेल एकटा बहुत सरल उदाहरण ली। कल्पना करू जे इनपुट मे ई वाक्यांश सेहो शामिल अछि, एकटा फुलफुल नील रंगक जीव हरियर जंगल मे घुमैत छल । आरू फिलहाल मं॑ मानलऽ जाय कि एकमात्र प्रकार के अपडेट जेकरऽ चिंता हमरा सिनी क॑ छै, वू छै कि विशेषणऽ स॑ अपनऽ संगत संज्ञा के अर्थ के समायोजन करलऽ जाय । हम जे वर्णन करय जा रहल छी से अछि जकरा हम सब एकटा ध्यानक मुखिया कहब, आ बाद मे देखब जे कोना ध्यान ब्लॉक मे समानांतर रूप सँ चलय बला कतेको अलग-अलग माथ होइत अछि । पुनः प्रत्येक शब्दक लेल प्रारंभिक एम्बेडिंग किछु उच्च-आयामी सदिश होइत अछि |",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 300.0,
+      "end": 330.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "maithili": "देखबाक लेल धन्यवाद।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 330.0,
+      "end": 360.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "maithili": "देखबाक लेल धन्यवाद।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 360.0,
+      "end": 390.0,
+      "original": "It's just that as we step through all of the different matrices filled with parameters that are involved in this process, I think it's really helpful to have an imagined example of something that it could be doing to help keep it all more concrete. For the first step of this process, you might imagine each noun, like creature, asking the question, hey, are there any adjectives sitting in front of me? And for the words fluffy and blue to each be able to answer, yeah, I'm an adjective and I'm in that position. That question is going to be asked by the student.",
+      "lang": "EN",
+      "maithili": "बस ई छै कि जब॑ हम्में पैरामीटर स॑ भरलऽ सब अलग-अलग मैट्रिक्स के माध्यम स॑ कदम रखै छियै जे ई प्रक्रिया म॑ शामिल छै, हमरा लगै छै कि ई वास्तव म॑ मददगार छै कि कुछ ऐन्हऽ चीज के कल्पित उदाहरण मिल॑ सक॑ जेकरा स॑ ई सब क॑ आरू ठोस रखै म॑ मदद मिल॑ सक॑ । एहि प्रक्रियाक पहिल डेग लेल अहाँ कल्पना क' सकैत छी जे प्रत्येक संज्ञा, प्राणी जकाँ, ई प्रश्न पूछैत अछि, हे, की हमरा सोझाँ कोनो विशेषण बैसल अछि? आ फुलफुल आ नील शब्द के लेल प्रत्येक के जवाब देबय में सक्षम होबय के लेल, हाँ, हम विशेषण छी आ हम ओहि स्थिति में छी. ओ प्रश्न विद्यार्थी द्वारा पूछल जा रहल अछि।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 390.0,
+      "end": 420.0,
+      "original": "Query is somehow encoded as yet another vector, another list of numbers, which we call the query for this word. This query vector, though, has a much smaller dimension than the embedding vector, say 128. Computing this query looks like taking a certain matrix, which I'll label WQ, and multiplying it by the embedding. Compressing things a bit, let's write that query vector as Q, and then anytime you see me put a matrix next to an arrow like this one,",
+      "lang": "EN",
+      "maithili": "क्वेरी क॑ कोनो तरह स॑ एक आरू वेक्टर के रूप म॑ एन्कोड करलऽ जाय छै, नंबर केरऽ एगो आरू सूची, जेकरा हम्में ई शब्द लेली क्वेरी कहै छियै । ई क्वेरी वेक्टर, हालांकि, एम्बेडिंग वेक्टर सं बहुत छोट आयाम छै, कहूं 128. एहि क्वेरी कें गणना करनाय एकटा निश्चित मैट्रिक्स लेनाय, जेकरा हम WQ लेबल करबय, आ ओकरा एम्बेडिंग सं गुणा करनाय कें तरह लगै छै. बात के कनि संकुचित करैत, ओहि क्वेरी वेक्टर के क्यू के रूप में लिखी, आ फेर जखन कखनो देखब त हमरा एहि तरहक तीर के बगल में मैट्रिक्स लगा दैत छी,",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 420.0,
+      "end": 450.0,
+      "original": "The matrix is a vector that is multiplied by the vector at the arrow's start. In this case, you multiply this matrix by all of the embeddings in the context, producing one query vector for each token. The entries of this matrix are parameters of the model, which means the true behavior is learned from data, and in practice, what this matrix does in a particular attention head is challenging to parse. But for our sake, imagining an example that we might hope that it would learn, we'll suppose that this query matrix maps the embeddings of the",
+      "lang": "EN",
+      "maithili": "मैट्रिक्स एकटा सदिश छै जेकरा तीर के शुरूआत में सदिश स गुणा करलऽ जाय छै । ऐन्हऽ म॑, आप ई मैट्रिक्स क॑ संदर्भ म॑ सब एम्बेडिंग स॑ गुणा करबै, जेकरा स॑ हर टोकन लेली एक क्वेरी वेक्टर पैदा होय छै । ई मैट्रिक्स केरऽ प्रविष्टि मॉडल केरऽ पैरामीटर छै, जेकरऽ मतलब छै कि सही व्यवहार डाटा स॑ सीखलऽ जाय छै, आरू व्यवहार म॑ ई मैट्रिक्स कोनों विशेष ध्यान सिर म॑ की करै छै, ओकरा पार्स करना चुनौतीपूर्ण छै । लेकिन अपनऽ भलाई लेली, एगो उदाहरण के कल्पना करी क॑ जेकरा स॑ हम्में आशा करी सकै छियै कि ई सीखतै, हम्मं॑ मानबै कि ई क्वेरी मैट्रिक्स केरऽ एम्बेडिंग क॑ मैप करै छै",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 450.0,
+      "end": 480.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "maithili": "देखबाक लेल धन्यवाद।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 480.0,
+      "end": 510.0,
+      "original": "In this case, you want to think of the keys as potentially answering the queries. This key matrix is also full of tunable parameters, and just like the query matrix, it maps the embedding vectors to that same smaller dimensional space. You think of the keys as matching the queries whenever they closely align with each other. In our example, you would imagine that the key matrix maps the adjectives, like fluffy and blue, to vectors that are closely aligned with the query produced by the word creature.",
+      "lang": "EN",
+      "maithili": "अइ मामला मे, अहां कुंजी कें संभावित रूप सं क्वेरी कें जवाब देवय वाला कें रूप मे सोचय चाहय छी. ई कुंजी मैट्रिक्स भी ट्यूनेबल पैरामीटर स॑ भरलऽ छै, आरू ठीक क्वेरी मैट्रिक्स के तरह, ई एम्बेडिंग वैक्टर क॑ वू ही छोटऽ आयामी स्थान प॑ मैप करै छै । अहाँ कुंजी सभकेँ क्वेरी सभसँ मेल खाइत बुझैत छी जखन कखनो ओ एक दोसरासँ निकटतासँ संरेखित होइत अछि । हमरऽ उदाहरण म॑ आपने कल्पना करबै कि की मैट्रिक्स फुल्लै वाला आरू नीला जैसनऽ विशेषणऽ क॑ वैक्टरऽ प॑ मैप करै छै जे प्राणी शब्द द्वारा उत्पादित क्वेरी के साथ निकटता स॑ संरेखित होय छै ।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 510.0,
+      "end": 540.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "maithili": "देखबाक लेल धन्यवाद।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 540.0,
+      "end": 570.0,
+      "original": "The key for some other word, like the, and the query for creature, would be some small or negative value that reflects that these are unrelated to each other. So we have this grid of values that can be any real number from negative infinity to infinity, giving us a score for how relevant each word is to updating the meaning of every other word.",
+      "lang": "EN",
+      "maithili": "कोनो आन शब्दक कुंजी, जेना कि, आ जीवक लेल प्रश्न, कोनो छोट वा नकारात्मक मूल्य होयत जे ई दर्शाबैत अछि जे ई सभ एक दोसरा सँ असंबंधित अछि । त हमरा सब लग मान के ई ग्रिड अछि जे नकारात्मक अनंत स अनंत तक कोनो वास्तविक संख्या भ सकैत अछि, जे हमरा सब के एकटा स्कोर दैत अछि जे प्रत्येक शब्द हर दोसर शब्द के अर्थ के अपडेट करय लेल कतेक प्रासंगिक अछि |",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 570.0,
+      "end": 600.0,
+      "original": "The way we use these scores is to take a certain weighted sum along each column, weighted by the relevance. So instead of having values range from negative infinity to infinity, what we want is for the numbers in these columns to be between 0 and 1, and for each column to add up to 1, as if they were a probability distribution. If you're coming in from the last chapter, you know what we need to do then. We compute a softmax along each one of these columns to normalize the values.",
+      "lang": "EN",
+      "maithili": "हम सब एहि स्कोर के उपयोग करय के तरीका ई अछि जे प्रत्येक कॉलम के संग एकटा निश्चित भारित योग लेब, प्रासंगिकता के हिसाब सं भारित. त॑ मान नकारात्मक अनंत स॑ ल॑ क॑ अनंत तक के होय के बजाय, हम्में जे चाहै छियै, वू ई छै कि ई कॉलमऽ म॑ संख्या 0 आरू 1 के बीच होय, आरू हर कॉलम क॑ जोड़ क॑ 1 होय, जेना कि ई संभावना वितरण होय । अगर अहां अंतिम अध्याय सं आबि रहल छी त अहां के पता अछि जे तखन हमरा सभ के की करय के जरूरत अछि. हम मान क॑ सामान्य करै लेली ई कॉलम म॑ स॑ हर एक के साथ एक सॉफ्टमैक्स के गणना करै छियै ।",
+      "seg_idx": 0,
+      "skipped": false
+    },
+    {
+      "start": 600.0,
+      "end": 630.0,
+      "original": "In our picture, after you apply Softmax to all of the columns, we'll fill in the grid with these normalized values. At this point, you're safe to think about each column as giving weights according to how relevant the word on the left is to the corresponding value at the top. We call this grid an attention pattern. Now, if you look at the original Transformer paper, there's a really compact way that they write this all down. Here, the variables q and k represent the full arrays of query and key vectors",
+      "lang": "EN",
+      "maithili": "हमरऽ चित्र म॑, आपने सब कॉलम प॑ Softmax लागू करला के बाद, हम ग्रिड क॑ ई सामान्यीकृत मान स॑ भरबै । एहि ठाम अहाँ प्रत्येक कॉलम के बारे में सोचब सुरक्षित छी जे बामा कात के शब्द ऊपर के संगत मान के लेल कतेक प्रासंगिक अछि ताहि हिसाब सं वजन दैत अछि. हम एहि ग्रिड कए ध्यान क पैटर्न कहैत छी। आब अगर अहां मूल ट्रांसफार्मर पेपर के देखब त एकटा सचमुच कॉम्पैक्ट तरीका अछि जे ओ सभ ई सभ लिखि दैत छथिन्ह. यहाँ, चर q आरू k क्वेरी आरू कुंजी वैक्टर ककी पूरा सरणी कको प्रदशयत करतका हहै |",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 630.0,
+      "end": 660.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "maithili": "देखबाक लेल धन्यवाद।",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 660.0,
+      "end": 690.0,
+      "original": "As to that V term, we'll talk about it in just a second. Before that, there's one other technical detail that so far I've skipped. During the training process, when you run this model on a given text example, and all of the weights are slightly adjusted and tuned to either reward or punish it based on how high a probability it assigns to the true next word in the passage, it turns out to make the whole training process a lot more efficient if you simultaneously have it predict every possible next token following each initial sub-sequence of the next word.",
+      "lang": "EN",
+      "maithili": "रहल बात ओहि वी टर्म के त हम सब मात्र एक सेकेंड में एहि पर गप्प करब। ताहि सं पहिने एकटा आओर तकनीकी विवरण अछि जे एखन धरि हम छोड़ि देने छी. प्रशिक्षण प्रक्रिया के दौरान, जब॑ आप ई मॉडल क॑ कोनों देलऽ गेलऽ पाठ उदाहरण प॑ चलाबै छै, आरू सब वजन क॑ कनी समायोजित करी क॑ ट्यून करी क॑ या त॑ ओकरा पुरस्कृत करलऽ जाय छै या ओकरा ई आधार प॑ दंडित करलऽ जाय छै कि ई अंश म॑ सही अगला शब्द क॑ कतेक अधिक संभावना दै छै, त॑ ई निकलै छै कि ई पूरा प्रशिक्षण प्रक्रिया क॑ बहुत अधिक कुशल बनाबै छै अगर आप एक साथ ओकरा स॑ अगला शब्द केरऽ हर प्रारंभिक उप-अनुक्रम के बाद हर संभव अगला टोकन के भविष्यवाणी करबै ।",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 690.0,
+      "end": 720.0,
+      "original": "For example, with the phrase that we've been focusing on, it might also be predicting what words follow creature and what words follow the. This is really nice because it means what would otherwise be a single training example effectively acts as many. For the purposes of our attention pattern, it means that you never want to allow later words to influence earlier words, since otherwise they could kind of give away the answer for what comes next. What this means is that we want all of these spots here, the ones representing later words,",
+      "lang": "EN",
+      "maithili": "जेना, जे वाक्यांश पर हम सब ध्यान केंद्रित क' रहल छी, ओहि सं ईहो भविष्यवाणी भ' सकैत अछि जे कोन शब्द जीवक पाछाँ चलैत अछि आ कोन शब्द जीवक पाछाँ चलैत अछि. ई सचमुच नीक छै, कैन्हेंकि एकरऽ मतलब छै कि जे अन्यथा एक प्रशिक्षण उदाहरण होतै, वू प्रभावी ढंग स॑ ओतने काम करै छै । हमरऽ ध्यान पैटर्न के उद्देश्य स॑ एकरऽ मतलब छै कि आपने कहियो बाद के शब्दऽ क॑ पूर्वक शब्दऽ प॑ प्रभाव नै डालै नै चाहै छियै, कैन्हेंकि अन्यथा वू एक तरह स॑ आगू के शब्दऽ के जवाब द॑ सकै छै । एकरऽ मतलब ई छै कि हमरा सिनी क॑ एत॑ ई सब धब्बा चाही, जे बाद केरऽ शब्दऽ के प्रतिनिधित्व करै छै,",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 720.0,
+      "end": 750.0,
+      "original": "Thank you for watching.",
+      "lang": "EN",
+      "maithili": "देखबाक लेल धन्यवाद।",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 750.0,
+      "end": 780.0,
+      "original": "But in our GPT example, even though this is more relevant during the training phase than it would be, say, running it as a chatbot or something like that, you do always apply this masking to prevent later tokens from influencing earlier ones. Another fact that's worth reflecting on about this attention pattern is how its size is equal to the square of the context size. So this is why context size can be a really huge bottleneck for large language models, and scaling it up is non-trivial. As you might imagine, motivated by a desire for bigger and bigger context",
+      "lang": "EN",
+      "maithili": "लेकिन हमरऽ जीपीटी उदाहरण म॑, भले ही ई प्रशिक्षण चरण के दौरान जेतना प्रासंगिक होय, कहै लेली, एकरा चैटबोट या ऐसनऽ कुछ के रूप म॑ चलाबै के तुलना म॑, आप हमेशा ई मास्किंग जरूर लागू करै छियै ताकि बाद के टोकन पहिने के टोकन क॑ प्रभावित नै करै । एकटा आओर तथ्य जे एहि ध्यान पैटर्न के बारे में चिंतन करय योग्य अछि जे एकर आकार कोना संदर्भ आकार के वर्ग के बराबर अछि. त॑ यही वजह छै कि संदर्भ आकार बड़ऽ भाषा मॉडल लेली वास्तव म॑ बहुत बड़ऽ अड़चन बनी सकै छै, आरू एकरा स्केल अप करना गैर-तुच्छ छै । जेना कि अहाँ सोचि सकैत छी, पैघ आ पैघ संदर्भक इच्छा सँ प्रेरित",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 780.0,
+      "end": 810.0,
+      "original": "Okay, great, computing this pattern lets the model deduce which words are relevant to which other words. Now, you need to actually update the embeddings, allowing words to pass information to whichever other words they're relevant to. For example, you want the embedding of fluffy to somehow cause a change to creature that moves it to a different part of this",
+      "lang": "EN",
+      "maithili": "ठीक छै, बढ़िया, ई पैटर्न के गणना करला स॑ मॉडल ई निष्कर्ष निकालै छै कि कोन शब्द कोन दोसरऽ शब्द के साथ प्रासंगिक छै । आब, अहां कें वास्तव मे एम्बेडिंग कें अपडेट करय कें जरूरत छै, जे शब्दक कें जानकारी ओकरा जे अन्य शब्द सं प्रासंगिक छै ओकरा पास करय कें अनुमति देयत छै. जेना कि अहाँ चाहैत छी जे फुलफुल केर एम्बेडिंग कोनो तरहेँ जीव मे एहन परिवर्तन उत्पन्न करय जे ओकरा एहि केर एकटा अलग भाग मे ल' जाइत अछि",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 810.0,
+      "end": 840.0,
+      "original": "I'm going to show you the most straightforward way to do this, though there's a slight way that this gets modified in the context of multi-headed attention. This most straightforward way would be to use a third matrix, what we call the value matrix, which you multiply by the embedding of that first word, for example fluffy. The result of this is what you would call a value vector, and this is something that you add to the embedding of the second word.",
+      "lang": "EN",
+      "maithili": "हम अहाँ सब के एहि काज के सबस सोझ तरीका देखाबय जा रहल छी, हालांकि कनिको तरीका सेहो अछि जे बहुशीर्षक ध्यान के संदर्भ में एहि में संशोधन भ जाइत अछि. ई सबसँ सोझ तरीका होयत जे तेसर मैट्रिक्स के प्रयोग करी, जकरा हम वैल्यू मैट्रिक्स कहैत छी, जकरा अहाँ ओहि पहिल शब्दक एम्बेडिंग सँ गुणा करैत छी, उदाहरण लेल फुलफुल । एकरऽ परिणाम वू छै जेकरा आपने मान सदिश कहबै, आरू ई एगो ऐसनऽ चीज छै जेकरा आपने दोसरऽ शब्द केरऽ एम्बेडिंग म॑ जोड़ै छियै ।",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 840.0,
+      "end": 870.0,
+      "original": "In this case, something you add to the embedding of creature. So this value vector lives in the same very high dimensional space as the embeddings. When you multiply this value matrix by the embedding of a word, you might think of it as saying, if this word is relevant to adjusting the meaning of something else, what exactly should be added to the embedding of that something else in order to reflect this? Looking back in our diagram, let's set aside all of the keys and the queries, since after you compute the attention pattern, you're done with those.",
+      "lang": "EN",
+      "maithili": "एहि स्थिति मे किछु एहन जे अहाँ जीवक एम्बेडिंग मे जोड़ैत छी । त॑ ई मान सदिश वू ही बहुत उच्च आयामी स्थान म॑ रहै छै जे एम्बेडिंग्स के छै । जखन अहाँ एहि मान मैट्रिक्स केँ कोनो शब्दक एम्बेडिंग सँ गुणा करब तखन अहाँ एकरा ई कहब बुझि सकैत छी जे जँ ई शब्द कोनो आन चीजक अर्थ केँ समायोजित करबाक लेल प्रासंगिक अछि तँ एहि बात केँ प्रतिबिंबित करबाक लेल ओहि कोनो आन चीजक एम्बेडिंग मे ठीक-ठीक की जोड़ल जाय ? अपनऽ आरेख म॑ पाछू मुड़ी क॑ देखलऽ जाय त॑ सब कुंजी आरू क्वेरी क॑ अलग करी क॑ रखलऽ जाय, कैन्हेंकि आपने ध्यान पैटर्न के गणना करला के बाद आपने वू सब के काम पूरा करी लेल॑ छै ।",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 870.0,
+      "end": 900.0,
+      "original": "Take this value matrix and multiply it by every one of those embeddings to produce a sequence of value vectors. You might think of these value vectors as being kind of associated with the corresponding keys. For each column in this diagram, you multiply each of the value vectors by the corresponding weight in that column. For example, here, under the embedding of creature, you would be adding large proportions of the value vectors for fluffy and blue, while all of the other value vectors get zeroed out.",
+      "lang": "EN",
+      "maithili": "ई मान मैट्रिक्स क॑ ल॑ क॑ ओकरा वू एम्बेडिंगऽ म॑ स॑ हर एक स॑ गुणा करी क॑ मान वैक्टर केरऽ एक अनुक्रम पैदा करलऽ जाय । अहां एहि मान सदिश कए एक तरह स संबंधित कुंजी स जुड़ल बुझि सकैत छी । इस आरेख मे प्रत्येक कॉलम के ललए, आप मान वैक्टरों में से प्रत्येक को उस कॉलम में संबंधित वजन से गुणा करते हैं | उदाहरण के लेल, एतय, जीव के एम्बेडिंग के तहत, अहाँ फुलफुला आ नील रंग के लेल मूल्य सदिश के पैघ अनुपात जोड़ैत होयब, जखन कि अन्य सब मान सदिश शून्य भ जायत अछि.",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 900.0,
+      "end": 930.0,
+      "original": "And then finally, the way to actually update the embedding associated with this column, previously encoding some context-free meaning of creature, you add together all of these rescaled values in the column, producing a change that you want to add that I'll label delta E, and then you add that to the original embedding. Hopefully, what results is a more refined vector encoding the more contextually rich meaning, like that of a fluffy blue creature. And of course, you don't just do this to one embedding, you apply it to all of the other embeddings.",
+      "lang": "EN",
+      "maithili": "आरू फेरू अंत में, वास्तव में ई कॉलम स॑ जुड़लऽ एम्बेडिंग क॑ अपडेट करै के तरीका, पहिने जीव केरऽ कुछ संदर्भ-मुक्त अर्थ क॑ एन्कोड करी क॑, आपने ई सब रीस्केल करलऽ गेलऽ मान क॑ कॉलम म॑ एक साथ जोड़ै छै, जेकरा स॑ एगो बदलाव पैदा होय छै जेकरा आपने जोड़ना चाहै छियै जेकरा हम्में डेल्टा ई के लेबल देबै, आरू ओकरा बाद आपने ओकरा मूल एम्बेडिंग म॑ जोड़ै छियै । आशा छै, जे परिणाम छै, वू एक अधिक परिष्कृत सदिश छै जे अधिक संदर्भात्मक रूप स॑ समृद्ध अर्थ क॑ एन्कोड करै छै, जेना कि कोनो शराबी नीले जीव के । आरू निश्चित रूप स॑, आपने ई काम खाली एगो एम्बेडिंग प॑ नै करै छियै, आपने एकरा बाकी सब एम्बेडिंग प॑ लागू करी दै छियै ।",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 930.0,
+      "end": 960.0,
+      "original": "I want to take a moment to talk about the process of creating a new model for the MFCC.",
+      "lang": "EN",
+      "maithili": "हम एक क्षण निकालि कए एमएफसीसी लेल नव मॉडल बनेबाक प्रक्रिया पर गप करय चाहैत छी।",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 960.0,
+      "end": 990.0,
+      "original": "Now, let's take a moment to continue what we started in the last chapter with the score keeping where we count up the total number of model parameters using the numbers from GPT-3. These key and query matrices each have 12,288 columns matching the embedding dimension and 128 rows matching the dimension of that smaller key query space. This gives us an additional 1.5 million or so parameters for each one. If you look at that value matrix by contrast, the way I've described things so far would suggest that",
+      "lang": "EN",
+      "maithili": "आब, एक क्षण निकालि क' जे हम सब अंतिम अध्याय मे शुरू केने रही ओकरा स्कोर रखबाक संग जारी राखी जतय हम जीपीटी-3 सं नंबर के उपयोग क' मॉडल पैरामीटर के कुल संख्या के गिनती करैत छी. इ कुंजी आ क्वेरी मैट्रिक्स मे प्रत्येक मे 12,288 कॉलम छै जे एम्बेडिंग आयाम सं मेल खायत छै आ 128 पंक्ति ओय छोट कुंजी क्वेरी स्पेस कें आयाम सं मेल खायत छै. एहि स हमरा सब कए प्रत्येक क लेल 15 लाख या ओहि स बेसी पैरामीटर अतिरिक्त भेटैत अछि। जँ अहाँ ओहि मूल्य मैट्रिक्स केँ एकर विपरीत देखब तँ हम एखन धरि जे तरहेँ चीजक वर्णन केने छी से ई बुझना जायत",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 990.0,
+      "end": 1020.0,
+      "original": "It's a square matrix that has 12,288 columns and 12,288 rows, since both its inputs and its outputs live in this very large embedding space. If true, that would mean about 150 million added parameters. And to be clear, you could do that. You could devote orders of magnitude more parameters to the value map than to the key and query. But in practice, it is much more efficient if instead you make it so that the number of parameters devoted to this value map",
+      "lang": "EN",
+      "maithili": "ई एगो वर्ग मैट्रिक्स छै जेकरा म॑ १२,२८८ कॉलम आरू १२,२८८ पंक्ति छै, कैन्हेंकि एकरऽ इनपुट आरू एकरऽ आउटपुट दूनू ई बहुत बड़ऽ एम्बेडिंग स्पेस म॑ रहै छै । अगर सही अछि त एकर मतलब होएत जे करीब 15 करोड़ पैरामीटर जोड़ल गेल। आ साफ कहब जे अहाँ से क सकैत छलहुं। अहां कुंजी आ क्वेरी सं बेसी मान नक्शा कें लेल परिमाण कें क्रम सं बेसि पैरामीटर समर्पित कयर सकय छी. लेकिन व्यवहार म॑ ई बहुत अधिक कुशल छै अगर एकरऽ बदला म॑ आपने एकरा ऐन्हऽ बनाबै छियै कि ई मान लेली समर्पित पैरामीटर के संख्या नक्शा बनाबै",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 1020.0,
+      "end": 1050.0,
+      "original": "The first matrix, on the right here, has a smaller number of rows.",
+      "lang": "EN",
+      "maithili": "पहिल मैट्रिक्स, एतय दाहिना दिस, पंक्तिक संख्या कम अछि ।",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 1050.0,
+      "end": 1080.0,
+      "original": "The first matrix is a matrix of values, typically the same size as the key query space. What this means is you can think of it as mapping the large embedding vectors down to a much smaller space. This is not the conventional naming, but I'm going to call this the value down matrix. The second matrix maps from this smaller space back up to the embedding space, producing the vectors that you use to make the actual updates. I'm going to call this one the value up matrix, which again is not conventional. The way that you would see this written in most papers looks a little different.",
+      "lang": "EN",
+      "maithili": "पहिल मैट्रिक्स मान कें मैट्रिक्स छै, जे आमतौर पर कुंजी क्वेरी स्पेस कें समान आकार कें होयत छै. एकरऽ मतलब ई छै कि आपने एकरा बड़ऽ एम्बेडिंग वैक्टरऽ क॑ बहुत छोटऽ जगह प॑ मैप करै के रूप म॑ सोच॑ सकै छियै । ई पारंपरिक नामकरण नहिं अछि, मुदा हम एकरा वैल्यू डाउन मैट्रिक्स कहब. दोसरऽ मैट्रिक्स ई छोटऽ जगह स॑ वापस एम्बेडिंग स्पेस तलक मैप करै छै, जेकरा स॑ वैक्टर पैदा होय छै जेकरऽ उपयोग आप वास्तविक अपडेट करै लेली करबै । हम एहि एकटा के वैल्यू अप मैट्रिक्स कहय जा रहल छी, जे फेर सं पारंपरिक नहिं अछि. जे तरीका सं अहां बेसि पेपर मे ई लिखल देखब ओ कनि अलग लगैत अछि.",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 1080.0,
+      "end": 1110.0,
+      "original": "To throw in linear algebra jargon here, what we're basically doing is constraining the overall value map to be a low-rank transformation. Turning back to the parameter count, all four of these matrices have the same size, and adding them all up, we get about 6.3 million parameters for one attention head. As a quick side note, to be a little more accurate, everything described so far is what people would call a self-attention head. To distinguish it from a variation that comes up in other models,",
+      "lang": "EN",
+      "maithili": "यहाँ रेखीय बीजगणित शब्दावली म॑ फेंकै लेली, हम्मं॑ मूल रूप स॑ जे करी रहलऽ छियै, वू छै समग्र मूल्य मानचित्र क॑ कम रैंक के रूपांतरण के रूप म॑ बाध्य करलऽ जाय रहलऽ छै । पैरामीटर गिनती पर वापस घुमि क देखल जाय त एहि चारू मैट्रिक्स क आकार एक समान अछि, आ सबटा कए मिला कए हमरा सब कए एकटा ध्यान सिर क लेल लगभग 63 लाख पैरामीटर भेटैत अछि । एकटा त्वरित साइड नोट के रूप में कनि बेसी सटीक कहब त एखन धरि जे किछु वर्णित अछि ओ अछि जेकरा लोक आत्म-ध्यान के सिर कहताह. एकरा कोनों भिन्नता सं अलग करय कें लेल जे अन्य मॉडल मे आबै छै,",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 1110.0,
+      "end": 1140.0,
+      "original": "This isn't relevant to our GPT example, but if you're curious, cross-attention involves models that process two distinct types of data, like text in one language and text in another language that's part of an ongoing generation of a translation, or maybe audio input of speech and an ongoing transcription. A cross-attention head looks almost identical. The only difference is that the key and query maps act on different datasets. In a model doing translation, for example,",
+      "lang": "EN",
+      "maithili": "ई हमरऽ जीपीटी उदाहरण स॑ प्रासंगिक नै छै, लेकिन अगर आपने जिज्ञासु छियै त॑ क्रॉस-एटेंशन म॑ ऐन्हऽ मॉडल शामिल छै जे दू अलग-अलग प्रकार के डाटा क॑ प्रोसेस करै छै, जेना कि एक भाषा म॑ टेक्स्ट आरू दोसरऽ भाषा म॑ टेक्स्ट जे अनुवाद केरऽ जारी पीढ़ी के हिस्सा छै, या शायद भाषण केरऽ ऑडियो इनपुट आरू चलतऽ ट्रांसक्रिप्शन । एकटा क्रॉस-एटेंशन हेड लगभग एक समान लगैत अछि । अंतर एतबे छै कि कुंजी आरू क्वेरी मैप अलग-अलग डाटासेट प॑ काम करै छै । अनुवाद करय वाला मॉडल मे, उदाहरण के लेल,",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 1140.0,
+      "end": 1170.0,
+      "original": "The keys might come from one language, while the queries come from another, and the attention pattern could describe which words from one language correspond to which words in another. And in this setting, there would typically be no masking, since there's not really any notion of later tokens affecting earlier ones. Staying focused on self-attention, though, if you understood everything so far, and if you were to stop here, you would come away with the essence of what attention really is. All that's really left to us is to lay out the sense in which you do this,",
+      "lang": "EN",
+      "maithili": "कुंजी एक भाषा स॑ आबी सकै छै, जबकि प्रश्न दोसरऽ भाषा स॑ आबी सकै छै, आरू ध्यान पैटर्न ई वर्णन करी सकै छै कि एक भाषा के कोन शब्द दोसरऽ भाषा के कोन शब्द स॑ मेल खाबै छै । आरू ई सेटिंग म॑, आम तौर प॑ कोनो मास्किंग नै होतै, कैन्हेंकि वास्तव म॑ बाद केरऽ टोकन केरऽ कोय धारणा नै छै जे पहिने के टोकन क॑ प्रभावित करै छै । आत्म-ध्यान पर ध्यान केंद्रित रहब, तथापि, जं एखन धरि सब किछु बुझि गेलहुं, आ जं एतय रुकि जायब तं, ध्यान वास्तव में की होइत छैक, तकर सार ल' क' आबि जाइत. वास्तव में हमरा सब पर बस एतबे बचल अछि जे अहाँ ई काज कोन भाव में करैत छी,",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 1170.0,
+      "end": 1200.0,
+      "original": "Many, many different times. In our central example, we focused on adjectives updating nouns, but of course, there are lots of different ways that context can influence the meaning of a word. If the words they crashed the preceded the word car, it has implications for the shape and the structure of that car. And a lot of associations might be less grammatical. If the word wizard is anywhere in the same passage as Harry, it suggests that this might be referring to Harry Potter. Whereas if instead the words Queen, Sussex, and William were in that passage,",
+      "lang": "EN",
+      "maithili": "कतेको बहुत अलग-अलग समय। अपनऽ केंद्रीय उदाहरण म॑ हम्मं॑ संज्ञा क॑ अपडेट करै वाला विशेषण प॑ ध्यान देल॑ छेलियै, लेकिन निश्चित रूप स॑, बहुत तरह के तरीका छै जेकरा स॑ संदर्भ कोनो शब्द के अर्थ क॑ प्रभावित करी सकै छै । जँ ओ सभ जे शब्द दुर्घटनाग्रस्त केने छलाह से गाड़ी शब्दसँ पहिने छल तँ एकर निहितार्थ ओहि गाड़ीक आकार आ संरचना पर पड़ैत अछि । आ बहुत रास संगति व्याकरणिक कम भ' सकैत अछि। यदि जादूगर शब्द हैरी केरऽ समान अंश म॑ कतहीं भी छै त॑ ई स॑ लगै छै कि एकरऽ मतलब हैरी पॉटर केरऽ होय सकै छै । जखन कि जँ ओकर बदला मे ओहि अंश मे रानी, ​​ससेक्स आ विलियम शब्द रहैत त'",
+      "seg_idx": 1,
+      "skipped": false
+    },
+    {
+      "start": 1200.0,
+      "end": 1230.0,
+      "original": "And again, in practice, the true behavior of these maps is much more difficult to interpret, where the weights are set to do whatever the model needs them to do to best accomplish its goal of predicting the next token.",
+      "lang": "EN",
+      "maithili": "आरू फेरू, व्यवहार म॑ ई नक्शाऽ के असली व्यवहार के व्याख्या करना बहुत मुश्किल छै, जहां वजनऽ क॑ मॉडल क॑ जे भी करै के जरूरत छै, वू करै लेली सेट करलऽ जाय छै ताकि अगला टोकन के भविष्यवाणी करै के अपनऽ लक्ष्य क॑ बेहतर ढंग स॑ पूरा करलऽ जाय सक॑ ।",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1230.0,
+      "end": 1260.0,
+      "original": "As I said before, everything we described is a single head of attention, and a full attention block inside a transformer consists of what's called multi-headed attention, where you run a lot of these operations in parallel, each with its own distinct key, query, and value maps. GPT-3, for example, uses 96 attention heads inside each block. Considering that each one is already a bit confusing, it's certainly a lot to hold in your head. Just to spell it all out very explicitly,",
+      "lang": "EN",
+      "maithili": "जेना कि हम पहिने कहने रही, जे किछु हम सब वर्णन केने रही, ओ सब एकटा ध्यानक शीर्ष थिक, आ ट्रांसफार्मरक भीतर एकटा पूरा ध्यान ब्लॉक में जेकरा मल्टी-हेड ध्यान कहल जाइत छैक, जतय अहाँ एहि सब ऑपरेशनक बहुत रास समानांतर चलाबैत छी, प्रत्येकक अपन अलग-अलग कुंजी, क्वेरी, आ वैल्यू मैप होइत छैक. उदाहरण कें लेल जीपीटी-3 मे प्रत्येक ब्लॉक कें अंदर 96 ध्यान सिर कें उपयोग कैल जायत छै. ई देखैत जे एक-एकटा पहिने सं कनि भ्रमित करय वाला अछि, ई निश्चित रूप सं माथ मे पकड़य लेल बहुत किछु अछि. बस एकर सबटा वर्तनी बहुत स्पष्ट रूप स कहब,",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1260.0,
+      "end": 1290.0,
+      "original": "Thank you.",
+      "lang": "EN",
+      "maithili": "अहां कें धन्यवाद।",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1290.0,
+      "end": 1320.0,
+      "original": "So, you take those proposed changes, one for each head, and you add the result to the original embedding of that position. This entire sum here would be one slice of what's outputted from this multi-headed attention block, a single one of those refined embeddings that pops out the other end of it. Again, this is a lot to think about, so don't worry at all if it takes some time to sink in. The overall idea is that by running many distinct heads in parallel, you're giving the model the capacity to learn many distinct ways",
+      "lang": "EN",
+      "maithili": "अस्तु, अहाँ ओहि प्रस्तावित परिवर्तन सभ केँ ल' लैत छी, प्रत्येक माथक लेल एकटा, आ अहाँ ओहि स्थितिक मूल एम्बेडिंग मे परिणाम जोड़ैत छी. एतय ई पूरा योग एहि बहु-सिर वाला ध्यान ब्लॉक सं जे आउटपुट भेल अछि ओकर एकटा टुकड़ा होयत, ओहि परिष्कृत एम्बेडिंग मे सं एकटा जे एकर दोसर छोर सं पॉप आउट भ' जाइत अछि. पुनः ई बहुत किछु सोचय के अछि, तें जं एहि में डूबय में किछु समय लागय तं एकदम सं चिंता नहिं करू.कुल मिला क' विचार ई अछि जे समानांतर में अनेक अलग-अलग माथ चला क' अहाँ मॉडल कें अनेक अलग-अलग तरीका सीखबाक क्षमता द' रहल छी",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1320.0,
+      "end": 1350.0,
+      "original": "Pulling up our running tally for parameter count, with 96 heads, each including its own variation of these four matrices, each block of multi-headed attention ends up with around 600 million parameters. There's one added, slightly annoying thing that I should really mention for any of you who go on to read more about transformers. You remember how I said that the value map is factored out into these two distinct matrices, which I labeled as the value down and the value up matrices.",
+      "lang": "EN",
+      "maithili": "पैरामीटर गिनती लेली हमरऽ रनिंग टैली क॑ ऊपर खींचतें हुअ॑, 96 हेड के साथ, जेकरा म॑ हर एक म॑ ई चारो मैट्रिक्स केरऽ अपनऽ भिन्नता शामिल छै, बहु-हेड वाला ध्यान केरऽ हर ब्लॉक लगभग 60 करोड़ पैरामीटर के साथ समाप्त होय जाय छै । एकटा बात जोड़ल गेल अछि, कनि परेशान करय वाला बात अछि जे हमरा सचमुच अहां सभ मे सं जे कियो ट्रांसफार्मर के बारे मे बेसि पढ़य लेल जाएब हुनका लेल कहय के चाही. अहाँकेँ मोन अछि जे हम कोना कहने रही जे वैल्यू मैपकेँ एहि दुनू अलग-अलग मैट्रिक्समे फैक्टर आउट कएल जाइत अछि , जकरा हम वैल्यू डाउन आ वैल्यू अप मैट्रिक्सक रूपमे लेबल केने रही ।",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1350.0,
+      "end": 1380.0,
+      "original": "The way that I framed things would suggest that you see this pair of matrices inside each attention head. And you could absolutely implement it this way. That would be a valid design. But the way that you see this written in papers and the way that it's implemented in practice looks a little different. All of these value-up matrices for each head appear stapled together in one giant matrix that we call the output matrix, associated with the entire multi-headed attention block. And when you see people refer to the value matrix for a given attention head,",
+      "lang": "EN",
+      "maithili": "हम जाहि तरहेँ चीज के फ्रेम केने रही से ई बुझना जायत जे अहाँ प्रत्येक ध्यान सिर के भीतर ई जोड़ी मैट्रिक्स देखैत छी । आ अहां एकरा एहि तरहे बिल्कुल लागू क सकैत छलहुं. जे एकटा वैध डिजाइन होयत। मुदा जे तरीका सं अहां एहि बात के कागज मे लिखल देखय छी आओर एकरा व्यवहार मे लागू करय के तरीका सं कनि अलग लागैत अछि. प्रत्येक हेड के लेलऽ ई सब वैल्यू-अप मैट्रिक्स एक विशाल मैट्रिक्स म॑ एक साथ स्टेपल करलऽ गेलऽ प्रतीत होय छै जेकरा हमनी आउटपुट मैट्रिक्स कहै छियै, जे पूरा बहु-हेड वाला ध्यान ब्लॉक स॑ जुड़लऽ छै । आ जखन देखैत छी जे लोक कोनो देल गेल ध्यान सिर के लेल मूल्य मैट्रिक्स के संदर्भित करैत अछि, त",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1380.0,
+      "end": 1410.0,
+      "original": "And they're typically only referring to this first step, the one that I was labeling as the value-down projection into the smaller space. For the curious among you, I've left an on-screen note about it. It's one of those details that runs the risk of distracting from the main conceptual points, but I do want to call it out just so that you know if you read about this in other sources. Setting aside all the technical nuances, in the preview from the last chapter, we saw how data flowing through a transformer doesn't just flow through a single attention block.",
+      "lang": "EN",
+      "maithili": "आरू वू आम तौर प॑ खाली ई पहिलऽ कदम के संदर्भ म॑ छै, जेकरा हम्में छोटऽ जगह म॑ वैल्यू-डाउन प्रोजेक्शन के रूप म॑ लेबल करी रहलऽ छेलियै । अहाँ सब मे जे जिज्ञासु छथि हुनका लेल हम एहि पर एकटा ऑन-स्क्रीन नोट छोड़ि देने छी। ई ओहि विवरण मे सं एक अछि जे मुख्य अवधारणागत बिन्दु सं विचलित होय के खतरा अछि, मुदा हम एकरा सिर्फ एहि लेल आवाज देबय चाहैत छी जे अहां सभ के पता चलय जे अहां एहि बारे मे दोसर स्रोत सं पढ़लहुं कि नहि. सब तकनीकी बारीकियों क॑ अलग करी क॑ आखिरी अध्याय केरऽ पूर्वावलोकन म॑ हम्मं॑ देखलियै कि कोना ट्रांसफार्मर के माध्यम स॑ बहय वाला डाटा खाली एगो ध्यान ब्लॉक के माध्यम स॑ नै बह॑ छै ।",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1410.0,
+      "end": 1440.0,
+      "original": "We'll talk more about those in the next chapter. And then it repeatedly goes through many, many copies of both of these operations. What this means is that after a given word imbibes some of its context, there are many more chances for this more nuanced embedding to be influenced by its more nuanced surroundings. The further down the network you go, with each embedding taking in more and more meaning from all the other embeddings, which themselves are getting more and more nuanced, the hope is that there's this more nuanced embedding",
+      "lang": "EN",
+      "maithili": "ओहि सब पर बेसी गप्प अगिला अध्याय मे करब। आ फेर बेर-बेर एहि दुनू ऑपरेशनक कतेको बहुत प्रतिलिपि सँ गुजरैत अछि । एकरऽ मतलब ई छै कि कोनो शब्द अपनऽ कुछ संदर्भ क॑ आत्मसात करला के बाद ई अधिक सूक्ष्म एम्बेडिंग केरऽ अधिक सूक्ष्म परिवेश स॑ प्रभावित होय के बहुत अधिक संभावना छै । नेटवर्क के जतेक नीचा जायब, प्रत्येक एम्बेडिंग अन्य सब एम्बेडिंग सं बेसी सं बेसी अर्थ ल' रहल अछि, जे स्वयं बेसी सं बेसी सूक्ष्म भ' रहल अछि, आशा अछि जे ई बेसी सूक्ष्म एम्बेडिंग अछि",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1440.0,
+      "end": 1470.0,
+      "original": "The capacity to encode higher-level and more abstract ideas about a given input beyond just descriptors and grammatical structure. Things like sentiment and tone and whether it's a poem and what underlying scientific truths are relevant to the piece and things like that. Turning back one more time to our scorekeeping, GPT-3 includes 96 distinct layers, so the total number of key query and value parameters is multiplied by another 96,",
+      "lang": "EN",
+      "maithili": "केवल वर्णनकर्ता आरू व्याकरणिक संरचना स॑ परे कोनों देलऽ गेलऽ इनपुट के बारे म॑ उच्च स्तरीय आरू अधिक अमूर्त विचारऽ क॑ एन्कोड करै के क्षमता । भाव आ स्वर सन बात आ कविता अछि की नहि आ कोन-कोन अंतर्निहित वैज्ञानिक सत्य टुकड़ा लेल प्रासंगिक अछि आ एहन-एहन बात। हमरऽ स्कोरकीपिंग प॑ एक बार आरू पीछे मुड़ला प॑ जीपीटी-3 म॑ 96 अलग-अलग लेयर शामिल छै, ई लेली कुंजी क्वेरी आरू वैल्यू पैरामीटर केरऽ कुल संख्या क॑ एक आरू 96, 100 स॑ गुणा करलऽ जाय छै ।",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1470.0,
+      "end": 1500.0,
+      "original": "So even though attention gets all of the attention, the majority of parameters come from the blocks sitting in between these steps. In the next chapter, you and I will talk more about those other blocks, and also a lot more about the training process. A big part of the story for the success of the attention mechanism is not so much any specific kind of behavior",
+      "lang": "EN",
+      "maithili": "त॑ भले ही ध्यान केरऽ सब ध्यान मिलै छै, लेकिन अधिकांश पैरामीटर ई स्टेपऽ के बीच म॑ बैठलऽ ब्लॉकऽ स॑ आबै छै । अगिला अध्याय में हम आ अहाँ ओहि अन्य ब्लॉक के बारे में बेसी गप्प करब, आ प्रशिक्षण प्रक्रिया के बारे में सेहो बहुत किछु। ध्यान तंत्र के सफलता के लेलऽ कहानी के एगो बड़ऽ हिस्सा एतना कोनो विशिष्ट तरह के व्यवहार नै छै",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1500.0,
+      "end": 1530.0,
+      "original": "If you want to learn more about this stuff, I've left lots of links in the description. In particular, anything produced by Andrej Karpathy or Chris Ola tend to be pure gold,",
+      "lang": "EN",
+      "maithili": "अगर अहां एहि सामान के बारे मे बेसि जानय चाहय छी तं हम विवरण मे बहुत रास लिंक छोड़ि देने छी. विशेष रूप स आंद्रेज कार्पाथी या क्रिस ओला द्वारा निर्मित कोनो भी चीज शुद्ध सोना,",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1530.0,
+      "end": 1560.0,
+      "original": "In this video, I wanted to just jump into attention in its current form, but if you're curious about more of the history for how we got here and how you might reinvent this idea for yourself, my friend Vivek just put up a couple videos giving a lot more of that motivation. Also, Britt Cruz from the channel The Art of the Problem has a really nice video about the history of large language models.",
+      "lang": "EN",
+      "maithili": "एहि वीडियो में हम बस एकर वर्तमान रूप में ध्यान में कूदय चाहैत छलहुं, मुदा जौं अहां सब इतिहास के बारे में बेसी जानकारी के लेल उत्सुक छी जे हम सब कोना एतय पहुंचलहुं आ कोना अहां एहि विचार के अपना लेल फेर सं आविष्कार क सकैत छी त हमर मित्र विवेक बस एक दू टा वीडियो लगा देलखिन्ह जे ओहि प्रेरणा के बहुत बेसी दैत छथि. संगहि, चैनल द आर्ट ऑफ द प्रॉब्लेम के ब्रिट क्रूज के पास बड़का भाषा मॉडल के इतिहास के बारे में सचमुच नीक वीडियो अछि.",
+      "seg_idx": 2,
+      "skipped": false
+    },
+    {
+      "start": 1560.0,
+      "end": 1569.15,
+      "original": "Thank you for watching!",
+      "lang": "EN",
+      "maithili": "देखबाक लेल धन्यवाद!",
+      "seg_idx": 2,
+      "skipped": false
+    }
+  ],
+  "seg_lrl": {
+    "seg_00": "अंतिम अध्याय मे हम आ अहाँ एकटा ट्रांसफार्मर के आंतरिक कामकाज मे कदम रखय लगलहुं. ई बड़ऽ भाषा मॉडल आरू एआई केरऽ आधुनिक लहर म॑ बहुत सारा अन्य उपकरणऽ के भीतर तकनीक केरऽ प्रमुख टुकड़ा म॑ स॑ एक छै । ई सबसें पहलऽ २०१७ केरऽ एगो अब॑ प्रसिद्ध पेपर म॑ दृश्य प॑ उतरलै जेकरऽ नाम छेलै एटेंशन इज ऑल यू नीड, आरू ई अध्याय म॑ हम आरू आपने ई बात के खोदबै कि ई ध्यान तंत्र की छै, ई कल्पना करतें कि ई डाटा क॑ कोना प्रोसेस करै छै । एकटा त्वरित रिकैप के रूप में, एतय ओ महत्वपूर्ण संदर्भ अछि जे हम चाहैत छी जे अहाँ सब के ध्यान में राखब। हम आ अहाँ जाहि मॉडलक अध्ययन क' रहल छी ओकर लक्ष्य अछि जे एकटा पाठक टुकड़ा ल' क' ई भविष्यवाणी करी जे आगू कोन शब्द आओत. इनपुट टेक्स्ट के छोट-छोट टुकड़ा में तोड़ल गेल अछि जेकरा हम सब टोकन कहैत छी, आ ई सब बहुत बेर शब्द या शब्द के टुकड़ा होइत अछि, मुदा बस एहि वीडियो में देल गेल उदाहरण के हमरा आ अहाँ के सोचय में आसान बनेबाक लेल, आऊ ई नाटक क सरल बनाबी जे टोकन हमेशा मात्र शब्द होइत अछि। ट्रांसफार्मर म॑ पहलऽ कदम हर टोकन क॑ उच्च-आयामी वेक्टर स॑ जोड़ना छै, जेकरा हम्मं॑ एकरऽ एम्बेडिंग कहै छियै । छै कि सब संभावित एम्बेडिंग के ई उच्च-आयामी स्थान में दिशा शब्दार्थ अर्थ के साथ कोना मेल खा सकै छै. अंतिम अध्याय में हम एकटा उदाहरण देखलहुं जे दिशा कोना लिंग के अनुरूप भ सकैत अछि, एहि अर्थ में जे एहि स्थान में एकटा निश्चित डेग जोड़ला सं अहाँ के कोनो पुल्लिंग संज्ञा के समाहित सं संबंधित स्त्रीलिंग संज्ञा के समाहित करय में ल जा सकैत अछि. जे एकटा उदाहरण मात्र अछि। अहाँ सोचि सकैत छलहुँ जे एहि उच्च आयामी स्थान मे कतेक आओर दिशा कोनो शब्दक अर्थक अनेक अन्य पक्षक अनुरूप भ' सकैत अछि । ई एम्बेडिंग क॑ प्रगतिशील रूप स॑ समायोजित करना छै ताकि ई खाली एगो व्यक्तिगत शब्द क॑ एन्कोड नै करी सक॑, बल्कि एकरऽ बदला म॑ ई कुछ बहुत, बहुत समृद्ध संदर्भ अर्थ म॑ सेक॑ सक॑ । हमरा सामने स कहबाक चाही जे बहुत लोक कए ध्यान तंत्र, ट्रांसफार्मर मे इ कुंजी टुकड़ा, बहुत भ्रमित करय वाला लगैत अछि। त चिंता जुनि करू जं चीज के डूबय में किछु समय लागय.हमरा लगैत अछि जे कम्प्यूटेशनल डिटेल आ सब मैट्रिक्स गुणा में गोता लगाबय सं पहिने, एहि तरहक व्यवहार के लेल एक दू टा उदाहरण पर सोचब लायक अछि जेकरा हम सब सक्षम करय लेल ध्यान देबय चाहैत छी. अमेरिकन ट्रू मोल, वन मोल ऑफ कार्बन डाइऑक्साइड, आ टेक ए बायोप्सी ऑफ द मोल वाक्यांश पर विचार करू. हम आ अहाँ जनैत छी जे एहि मे सँ प्रत्येक मे तिल शब्दक अर्थ अलग-अलग होइत छैक, संदर्भक आधार पर । लेकिन ट्रांसफार्मर केरऽ पहलऽ चरण के बाद, जे पाठ क॑ तोड़ी क॑ हर टोकन क॑ एक वेक्टर स॑ जोड़ै छै, वैक्टर जे मोल स॑ जुड़लऽ छै, वू ई तीनों मामला म॑ एक जैसनऽ होतै, कैन्हेंकि ई प्रारंभिक टोकन एम्बेडिंग प्रभावी रूप स॑ एगो लुकअप टेबल छै जेकरा म॑ संदर्भ केरऽ कोय संदर्भ नै छै । देखबाक लेल धन्यवाद। देखबाक लेल धन्यवाद। अहां कें धन्यवाद। अहाँ जे पाठ इनपुट करैत छी से बेसीतर एकटा पूरा रहस्य उपन्यास अछि, अंतक लगक एकटा बिन्दु धरि, जे पढ़ल जाइत अछि, तेँ हत्यारा छल । अगर मॉडल अगिला शब्द के सही भविष्यवाणी करै वाला छै, त॑ अनुक्रम म॑ वू अंतिम वेक्टर, जे अपनऽ जीवन क॑ बस शब्द क॑ एम्बेड करी क॑ शुरू करलकै, क॑ ध्यान ब्लॉक के सब द्वारा अपडेट करलऽ गेलऽ होतै ताकि कोनो भी व्यक्तिगत शब्द स॑ बहुत, बहुत अधिक प्रतिनिधित्व करलऽ जाय सक॑, कोनो तरह स॑ पूरा संदर्भ विंडो स॑ सब जानकारी क॑ एन्कोड करलऽ जाय जे अगला शब्द के भविष्यवाणी करै लेली प्रासंगिक छै । यद्यपि गणना पर पहुँचबाक लेल एकटा बहुत सरल उदाहरण ली। कल्पना करू जे इनपुट मे ई वाक्यांश सेहो शामिल अछि, एकटा फुलफुल नील रंगक जीव हरियर जंगल मे घुमैत छल । आरू फिलहाल मं॑ मानलऽ जाय कि एकमात्र प्रकार के अपडेट जेकरऽ चिंता हमरा सिनी क॑ छै, वू छै कि विशेषणऽ स॑ अपनऽ संगत संज्ञा के अर्थ के समायोजन करलऽ जाय । हम जे वर्णन करय जा रहल छी से अछि जकरा हम सब एकटा ध्यानक मुखिया कहब, आ बाद मे देखब जे कोना ध्यान ब्लॉक मे समानांतर रूप सँ चलय बला कतेको अलग-अलग माथ होइत अछि । पुनः प्रत्येक शब्दक लेल प्रारंभिक एम्बेडिंग किछु उच्च-आयामी सदिश होइत अछि | देखबाक लेल धन्यवाद। देखबाक लेल धन्यवाद। बस ई छै कि जब॑ हम्में पैरामीटर स॑ भरलऽ सब अलग-अलग मैट्रिक्स के माध्यम स॑ कदम रखै छियै जे ई प्रक्रिया म॑ शामिल छै, हमरा लगै छै कि ई वास्तव म॑ मददगार छै कि कुछ ऐन्हऽ चीज के कल्पित उदाहरण मिल॑ सक॑ जेकरा स॑ ई सब क॑ आरू ठोस रखै म॑ मदद मिल॑ सक॑ । एहि प्रक्रियाक पहिल डेग लेल अहाँ कल्पना क' सकैत छी जे प्रत्येक संज्ञा, प्राणी जकाँ, ई प्रश्न पूछैत अछि, हे, की हमरा सोझाँ कोनो विशेषण बैसल अछि? आ फुलफुल आ नील शब्द के लेल प्रत्येक के जवाब देबय में सक्षम होबय के लेल, हाँ, हम विशेषण छी आ हम ओहि स्थिति में छी. ओ प्रश्न विद्यार्थी द्वारा पूछल जा रहल अछि। क्वेरी क॑ कोनो तरह स॑ एक आरू वेक्टर के रूप म॑ एन्कोड करलऽ जाय छै, नंबर केरऽ एगो आरू सूची, जेकरा हम्में ई शब्द लेली क्वेरी कहै छियै । ई क्वेरी वेक्टर, हालांकि, एम्बेडिंग वेक्टर सं बहुत छोट आयाम छै, कहूं 128. एहि क्वेरी कें गणना करनाय एकटा निश्चित मैट्रिक्स लेनाय, जेकरा हम WQ लेबल करबय, आ ओकरा एम्बेडिंग सं गुणा करनाय कें तरह लगै छै. बात के कनि संकुचित करैत, ओहि क्वेरी वेक्टर के क्यू के रूप में लिखी, आ फेर जखन कखनो देखब त हमरा एहि तरहक तीर के बगल में मैट्रिक्स लगा दैत छी, मैट्रिक्स एकटा सदिश छै जेकरा तीर के शुरूआत में सदिश स गुणा करलऽ जाय छै । ऐन्हऽ म॑, आप ई मैट्रिक्स क॑ संदर्भ म॑ सब एम्बेडिंग स॑ गुणा करबै, जेकरा स॑ हर टोकन लेली एक क्वेरी वेक्टर पैदा होय छै । ई मैट्रिक्स केरऽ प्रविष्टि मॉडल केरऽ पैरामीटर छै, जेकरऽ मतलब छै कि सही व्यवहार डाटा स॑ सीखलऽ जाय छै, आरू व्यवहार म॑ ई मैट्रिक्स कोनों विशेष ध्यान सिर म॑ की करै छै, ओकरा पार्स करना चुनौतीपूर्ण छै । लेकिन अपनऽ भलाई लेली, एगो उदाहरण के कल्पना करी क॑ जेकरा स॑ हम्में आशा करी सकै छियै कि ई सीखतै, हम्मं॑ मानबै कि ई क्वेरी मैट्रिक्स केरऽ एम्बेडिंग क॑ मैप करै छै देखबाक लेल धन्यवाद। अइ मामला मे, अहां कुंजी कें संभावित रूप सं क्वेरी कें जवाब देवय वाला कें रूप मे सोचय चाहय छी. ई कुंजी मैट्रिक्स भी ट्यूनेबल पैरामीटर स॑ भरलऽ छै, आरू ठीक क्वेरी मैट्रिक्स के तरह, ई एम्बेडिंग वैक्टर क॑ वू ही छोटऽ आयामी स्थान प॑ मैप करै छै । अहाँ कुंजी सभकेँ क्वेरी सभसँ मेल खाइत बुझैत छी जखन कखनो ओ एक दोसरासँ निकटतासँ संरेखित होइत अछि । हमरऽ उदाहरण म॑ आपने कल्पना करबै कि की मैट्रिक्स फुल्लै वाला आरू नीला जैसनऽ विशेषणऽ क॑ वैक्टरऽ प॑ मैप करै छै जे प्राणी शब्द द्वारा उत्पादित क्वेरी के साथ निकटता स॑ संरेखित होय छै । देखबाक लेल धन्यवाद। कोनो आन शब्दक कुंजी, जेना कि, आ जीवक लेल प्रश्न, कोनो छोट वा नकारात्मक मूल्य होयत जे ई दर्शाबैत अछि जे ई सभ एक दोसरा सँ असंबंधित अछि । त हमरा सब लग मान के ई ग्रिड अछि जे नकारात्मक अनंत स अनंत तक कोनो वास्तविक संख्या भ सकैत अछि, जे हमरा सब के एकटा स्कोर दैत अछि जे प्रत्येक शब्द हर दोसर शब्द के अर्थ के अपडेट करय लेल कतेक प्रासंगिक अछि | हम सब एहि स्कोर के उपयोग करय के तरीका ई अछि जे प्रत्येक कॉलम के संग एकटा निश्चित भारित योग लेब, प्रासंगिकता के हिसाब सं भारित. त॑ मान नकारात्मक अनंत स॑ ल॑ क॑ अनंत तक के होय के बजाय, हम्में जे चाहै छियै, वू ई छै कि ई कॉलमऽ म॑ संख्या 0 आरू 1 के बीच होय, आरू हर कॉलम क॑ जोड़ क॑ 1 होय, जेना कि ई संभावना वितरण होय । अगर अहां अंतिम अध्याय सं आबि रहल छी त अहां के पता अछि जे तखन हमरा सभ के की करय के जरूरत अछि. हम मान क॑ सामान्य करै लेली ई कॉलम म॑ स॑ हर एक के साथ एक सॉफ्टमैक्स के गणना करै छियै ।",
+    "seg_01": "हमरऽ चित्र म॑, आपने सब कॉलम प॑ Softmax लागू करला के बाद, हम ग्रिड क॑ ई सामान्यीकृत मान स॑ भरबै । एहि ठाम अहाँ प्रत्येक कॉलम के बारे में सोचब सुरक्षित छी जे बामा कात के शब्द ऊपर के संगत मान के लेल कतेक प्रासंगिक अछि ताहि हिसाब सं वजन दैत अछि. हम एहि ग्रिड कए ध्यान क पैटर्न कहैत छी। आब अगर अहां मूल ट्रांसफार्मर पेपर के देखब त एकटा सचमुच कॉम्पैक्ट तरीका अछि जे ओ सभ ई सभ लिखि दैत छथिन्ह. यहाँ, चर q आरू k क्वेरी आरू कुंजी वैक्टर ककी पूरा सरणी कको प्रदशयत करतका हहै | देखबाक लेल धन्यवाद। रहल बात ओहि वी टर्म के त हम सब मात्र एक सेकेंड में एहि पर गप्प करब। ताहि सं पहिने एकटा आओर तकनीकी विवरण अछि जे एखन धरि हम छोड़ि देने छी. प्रशिक्षण प्रक्रिया के दौरान, जब॑ आप ई मॉडल क॑ कोनों देलऽ गेलऽ पाठ उदाहरण प॑ चलाबै छै, आरू सब वजन क॑ कनी समायोजित करी क॑ ट्यून करी क॑ या त॑ ओकरा पुरस्कृत करलऽ जाय छै या ओकरा ई आधार प॑ दंडित करलऽ जाय छै कि ई अंश म॑ सही अगला शब्द क॑ कतेक अधिक संभावना दै छै, त॑ ई निकलै छै कि ई पूरा प्रशिक्षण प्रक्रिया क॑ बहुत अधिक कुशल बनाबै छै अगर आप एक साथ ओकरा स॑ अगला शब्द केरऽ हर प्रारंभिक उप-अनुक्रम के बाद हर संभव अगला टोकन के भविष्यवाणी करबै । जेना, जे वाक्यांश पर हम सब ध्यान केंद्रित क' रहल छी, ओहि सं ईहो भविष्यवाणी भ' सकैत अछि जे कोन शब्द जीवक पाछाँ चलैत अछि आ कोन शब्द जीवक पाछाँ चलैत अछि. ई सचमुच नीक छै, कैन्हेंकि एकरऽ मतलब छै कि जे अन्यथा एक प्रशिक्षण उदाहरण होतै, वू प्रभावी ढंग स॑ ओतने काम करै छै । हमरऽ ध्यान पैटर्न के उद्देश्य स॑ एकरऽ मतलब छै कि आपने कहियो बाद के शब्दऽ क॑ पूर्वक शब्दऽ प॑ प्रभाव नै डालै नै चाहै छियै, कैन्हेंकि अन्यथा वू एक तरह स॑ आगू के शब्दऽ के जवाब द॑ सकै छै । एकरऽ मतलब ई छै कि हमरा सिनी क॑ एत॑ ई सब धब्बा चाही, जे बाद केरऽ शब्दऽ के प्रतिनिधित्व करै छै, देखबाक लेल धन्यवाद। लेकिन हमरऽ जीपीटी उदाहरण म॑, भले ही ई प्रशिक्षण चरण के दौरान जेतना प्रासंगिक होय, कहै लेली, एकरा चैटबोट या ऐसनऽ कुछ के रूप म॑ चलाबै के तुलना म॑, आप हमेशा ई मास्किंग जरूर लागू करै छियै ताकि बाद के टोकन पहिने के टोकन क॑ प्रभावित नै करै । एकटा आओर तथ्य जे एहि ध्यान पैटर्न के बारे में चिंतन करय योग्य अछि जे एकर आकार कोना संदर्भ आकार के वर्ग के बराबर अछि. त॑ यही वजह छै कि संदर्भ आकार बड़ऽ भाषा मॉडल लेली वास्तव म॑ बहुत बड़ऽ अड़चन बनी सकै छै, आरू एकरा स्केल अप करना गैर-तुच्छ छै । जेना कि अहाँ सोचि सकैत छी, पैघ आ पैघ संदर्भक इच्छा सँ प्रेरित ठीक छै, बढ़िया, ई पैटर्न के गणना करला स॑ मॉडल ई निष्कर्ष निकालै छै कि कोन शब्द कोन दोसरऽ शब्द के साथ प्रासंगिक छै । आब, अहां कें वास्तव मे एम्बेडिंग कें अपडेट करय कें जरूरत छै, जे शब्दक कें जानकारी ओकरा जे अन्य शब्द सं प्रासंगिक छै ओकरा पास करय कें अनुमति देयत छै. जेना कि अहाँ चाहैत छी जे फुलफुल केर एम्बेडिंग कोनो तरहेँ जीव मे एहन परिवर्तन उत्पन्न करय जे ओकरा एहि केर एकटा अलग भाग मे ल' जाइत अछि हम अहाँ सब के एहि काज के सबस सोझ तरीका देखाबय जा रहल छी, हालांकि कनिको तरीका सेहो अछि जे बहुशीर्षक ध्यान के संदर्भ में एहि में संशोधन भ जाइत अछि. ई सबसँ सोझ तरीका होयत जे तेसर मैट्रिक्स के प्रयोग करी, जकरा हम वैल्यू मैट्रिक्स कहैत छी, जकरा अहाँ ओहि पहिल शब्दक एम्बेडिंग सँ गुणा करैत छी, उदाहरण लेल फुलफुल । एकरऽ परिणाम वू छै जेकरा आपने मान सदिश कहबै, आरू ई एगो ऐसनऽ चीज छै जेकरा आपने दोसरऽ शब्द केरऽ एम्बेडिंग म॑ जोड़ै छियै । एहि स्थिति मे किछु एहन जे अहाँ जीवक एम्बेडिंग मे जोड़ैत छी । त॑ ई मान सदिश वू ही बहुत उच्च आयामी स्थान म॑ रहै छै जे एम्बेडिंग्स के छै । जखन अहाँ एहि मान मैट्रिक्स केँ कोनो शब्दक एम्बेडिंग सँ गुणा करब तखन अहाँ एकरा ई कहब बुझि सकैत छी जे जँ ई शब्द कोनो आन चीजक अर्थ केँ समायोजित करबाक लेल प्रासंगिक अछि तँ एहि बात केँ प्रतिबिंबित करबाक लेल ओहि कोनो आन चीजक एम्बेडिंग मे ठीक-ठीक की जोड़ल जाय ? अपनऽ आरेख म॑ पाछू मुड़ी क॑ देखलऽ जाय त॑ सब कुंजी आरू क्वेरी क॑ अलग करी क॑ रखलऽ जाय, कैन्हेंकि आपने ध्यान पैटर्न के गणना करला के बाद आपने वू सब के काम पूरा करी लेल॑ छै । ई मान मैट्रिक्स क॑ ल॑ क॑ ओकरा वू एम्बेडिंगऽ म॑ स॑ हर एक स॑ गुणा करी क॑ मान वैक्टर केरऽ एक अनुक्रम पैदा करलऽ जाय । अहां एहि मान सदिश कए एक तरह स संबंधित कुंजी स जुड़ल बुझि सकैत छी । इस आरेख मे प्रत्येक कॉलम के ललए, आप मान वैक्टरों में से प्रत्येक को उस कॉलम में संबंधित वजन से गुणा करते हैं | उदाहरण के लेल, एतय, जीव के एम्बेडिंग के तहत, अहाँ फुलफुला आ नील रंग के लेल मूल्य सदिश के पैघ अनुपात जोड़ैत होयब, जखन कि अन्य सब मान सदिश शून्य भ जायत अछि. आरू फेरू अंत में, वास्तव में ई कॉलम स॑ जुड़लऽ एम्बेडिंग क॑ अपडेट करै के तरीका, पहिने जीव केरऽ कुछ संदर्भ-मुक्त अर्थ क॑ एन्कोड करी क॑, आपने ई सब रीस्केल करलऽ गेलऽ मान क॑ कॉलम म॑ एक साथ जोड़ै छै, जेकरा स॑ एगो बदलाव पैदा होय छै जेकरा आपने जोड़ना चाहै छियै जेकरा हम्में डेल्टा ई के लेबल देबै, आरू ओकरा बाद आपने ओकरा मूल एम्बेडिंग म॑ जोड़ै छियै । आशा छै, जे परिणाम छै, वू एक अधिक परिष्कृत सदिश छै जे अधिक संदर्भात्मक रूप स॑ समृद्ध अर्थ क॑ एन्कोड करै छै, जेना कि कोनो शराबी नीले जीव के । आरू निश्चित रूप स॑, आपने ई काम खाली एगो एम्बेडिंग प॑ नै करै छियै, आपने एकरा बाकी सब एम्बेडिंग प॑ लागू करी दै छियै । हम एक क्षण निकालि कए एमएफसीसी लेल नव मॉडल बनेबाक प्रक्रिया पर गप करय चाहैत छी। आब, एक क्षण निकालि क' जे हम सब अंतिम अध्याय मे शुरू केने रही ओकरा स्कोर रखबाक संग जारी राखी जतय हम जीपीटी-3 सं नंबर के उपयोग क' मॉडल पैरामीटर के कुल संख्या के गिनती करैत छी. इ कुंजी आ क्वेरी मैट्रिक्स मे प्रत्येक मे 12,288 कॉलम छै जे एम्बेडिंग आयाम सं मेल खायत छै आ 128 पंक्ति ओय छोट कुंजी क्वेरी स्पेस कें आयाम सं मेल खायत छै. एहि स हमरा सब कए प्रत्येक क लेल 15 लाख या ओहि स बेसी पैरामीटर अतिरिक्त भेटैत अछि। जँ अहाँ ओहि मूल्य मैट्रिक्स केँ एकर विपरीत देखब तँ हम एखन धरि जे तरहेँ चीजक वर्णन केने छी से ई बुझना जायत ई एगो वर्ग मैट्रिक्स छै जेकरा म॑ १२,२८८ कॉलम आरू १२,२८८ पंक्ति छै, कैन्हेंकि एकरऽ इनपुट आरू एकरऽ आउटपुट दूनू ई बहुत बड़ऽ एम्बेडिंग स्पेस म॑ रहै छै । अगर सही अछि त एकर मतलब होएत जे करीब 15 करोड़ पैरामीटर जोड़ल गेल। आ साफ कहब जे अहाँ से क सकैत छलहुं। अहां कुंजी आ क्वेरी सं बेसी मान नक्शा कें लेल परिमाण कें क्रम सं बेसि पैरामीटर समर्पित कयर सकय छी. लेकिन व्यवहार म॑ ई बहुत अधिक कुशल छै अगर एकरऽ बदला म॑ आपने एकरा ऐन्हऽ बनाबै छियै कि ई मान लेली समर्पित पैरामीटर के संख्या नक्शा बनाबै पहिल मैट्रिक्स, एतय दाहिना दिस, पंक्तिक संख्या कम अछि । पहिल मैट्रिक्स मान कें मैट्रिक्स छै, जे आमतौर पर कुंजी क्वेरी स्पेस कें समान आकार कें होयत छै. एकरऽ मतलब ई छै कि आपने एकरा बड़ऽ एम्बेडिंग वैक्टरऽ क॑ बहुत छोटऽ जगह प॑ मैप करै के रूप म॑ सोच॑ सकै छियै । ई पारंपरिक नामकरण नहिं अछि, मुदा हम एकरा वैल्यू डाउन मैट्रिक्स कहब. दोसरऽ मैट्रिक्स ई छोटऽ जगह स॑ वापस एम्बेडिंग स्पेस तलक मैप करै छै, जेकरा स॑ वैक्टर पैदा होय छै जेकरऽ उपयोग आप वास्तविक अपडेट करै लेली करबै । हम एहि एकटा के वैल्यू अप मैट्रिक्स कहय जा रहल छी, जे फेर सं पारंपरिक नहिं अछि. जे तरीका सं अहां बेसि पेपर मे ई लिखल देखब ओ कनि अलग लगैत अछि. यहाँ रेखीय बीजगणित शब्दावली म॑ फेंकै लेली, हम्मं॑ मूल रूप स॑ जे करी रहलऽ छियै, वू छै समग्र मूल्य मानचित्र क॑ कम रैंक के रूपांतरण के रूप म॑ बाध्य करलऽ जाय रहलऽ छै । पैरामीटर गिनती पर वापस घुमि क देखल जाय त एहि चारू मैट्रिक्स क आकार एक समान अछि, आ सबटा कए मिला कए हमरा सब कए एकटा ध्यान सिर क लेल लगभग 63 लाख पैरामीटर भेटैत अछि । एकटा त्वरित साइड नोट के रूप में कनि बेसी सटीक कहब त एखन धरि जे किछु वर्णित अछि ओ अछि जेकरा लोक आत्म-ध्यान के सिर कहताह. एकरा कोनों भिन्नता सं अलग करय कें लेल जे अन्य मॉडल मे आबै छै, ई हमरऽ जीपीटी उदाहरण स॑ प्रासंगिक नै छै, लेकिन अगर आपने जिज्ञासु छियै त॑ क्रॉस-एटेंशन म॑ ऐन्हऽ मॉडल शामिल छै जे दू अलग-अलग प्रकार के डाटा क॑ प्रोसेस करै छै, जेना कि एक भाषा म॑ टेक्स्ट आरू दोसरऽ भाषा म॑ टेक्स्ट जे अनुवाद केरऽ जारी पीढ़ी के हिस्सा छै, या शायद भाषण केरऽ ऑडियो इनपुट आरू चलतऽ ट्रांसक्रिप्शन । एकटा क्रॉस-एटेंशन हेड लगभग एक समान लगैत अछि । अंतर एतबे छै कि कुंजी आरू क्वेरी मैप अलग-अलग डाटासेट प॑ काम करै छै । अनुवाद करय वाला मॉडल मे, उदाहरण के लेल, कुंजी एक भाषा स॑ आबी सकै छै, जबकि प्रश्न दोसरऽ भाषा स॑ आबी सकै छै, आरू ध्यान पैटर्न ई वर्णन करी सकै छै कि एक भाषा के कोन शब्द दोसरऽ भाषा के कोन शब्द स॑ मेल खाबै छै । आरू ई सेटिंग म॑, आम तौर प॑ कोनो मास्किंग नै होतै, कैन्हेंकि वास्तव म॑ बाद केरऽ टोकन केरऽ कोय धारणा नै छै जे पहिने के टोकन क॑ प्रभावित करै छै । आत्म-ध्यान पर ध्यान केंद्रित रहब, तथापि, जं एखन धरि सब किछु बुझि गेलहुं, आ जं एतय रुकि जायब तं, ध्यान वास्तव में की होइत छैक, तकर सार ल' क' आबि जाइत. वास्तव में हमरा सब पर बस एतबे बचल अछि जे अहाँ ई काज कोन भाव में करैत छी, कतेको बहुत अलग-अलग समय। अपनऽ केंद्रीय उदाहरण म॑ हम्मं॑ संज्ञा क॑ अपडेट करै वाला विशेषण प॑ ध्यान देल॑ छेलियै, लेकिन निश्चित रूप स॑, बहुत तरह के तरीका छै जेकरा स॑ संदर्भ कोनो शब्द के अर्थ क॑ प्रभावित करी सकै छै । जँ ओ सभ जे शब्द दुर्घटनाग्रस्त केने छलाह से गाड़ी शब्दसँ पहिने छल तँ एकर निहितार्थ ओहि गाड़ीक आकार आ संरचना पर पड़ैत अछि । आ बहुत रास संगति व्याकरणिक कम भ' सकैत अछि। यदि जादूगर शब्द हैरी केरऽ समान अंश म॑ कतहीं भी छै त॑ ई स॑ लगै छै कि एकरऽ मतलब हैरी पॉटर केरऽ होय सकै छै । जखन कि जँ ओकर बदला मे ओहि अंश मे रानी, ​​ससेक्स आ विलियम शब्द रहैत त'",
+    "seg_02": "आरू फेरू, व्यवहार म॑ ई नक्शाऽ के असली व्यवहार के व्याख्या करना बहुत मुश्किल छै, जहां वजनऽ क॑ मॉडल क॑ जे भी करै के जरूरत छै, वू करै लेली सेट करलऽ जाय छै ताकि अगला टोकन के भविष्यवाणी करै के अपनऽ लक्ष्य क॑ बेहतर ढंग स॑ पूरा करलऽ जाय सक॑ । जेना कि हम पहिने कहने रही, जे किछु हम सब वर्णन केने रही, ओ सब एकटा ध्यानक शीर्ष थिक, आ ट्रांसफार्मरक भीतर एकटा पूरा ध्यान ब्लॉक में जेकरा मल्टी-हेड ध्यान कहल जाइत छैक, जतय अहाँ एहि सब ऑपरेशनक बहुत रास समानांतर चलाबैत छी, प्रत्येकक अपन अलग-अलग कुंजी, क्वेरी, आ वैल्यू मैप होइत छैक. उदाहरण कें लेल जीपीटी-3 मे प्रत्येक ब्लॉक कें अंदर 96 ध्यान सिर कें उपयोग कैल जायत छै. ई देखैत जे एक-एकटा पहिने सं कनि भ्रमित करय वाला अछि, ई निश्चित रूप सं माथ मे पकड़य लेल बहुत किछु अछि. बस एकर सबटा वर्तनी बहुत स्पष्ट रूप स कहब, अहां कें धन्यवाद। अस्तु, अहाँ ओहि प्रस्तावित परिवर्तन सभ केँ ल' लैत छी, प्रत्येक माथक लेल एकटा, आ अहाँ ओहि स्थितिक मूल एम्बेडिंग मे परिणाम जोड़ैत छी. एतय ई पूरा योग एहि बहु-सिर वाला ध्यान ब्लॉक सं जे आउटपुट भेल अछि ओकर एकटा टुकड़ा होयत, ओहि परिष्कृत एम्बेडिंग मे सं एकटा जे एकर दोसर छोर सं पॉप आउट भ' जाइत अछि. पुनः ई बहुत किछु सोचय के अछि, तें जं एहि में डूबय में किछु समय लागय तं एकदम सं चिंता नहिं करू.कुल मिला क' विचार ई अछि जे समानांतर में अनेक अलग-अलग माथ चला क' अहाँ मॉडल कें अनेक अलग-अलग तरीका सीखबाक क्षमता द' रहल छी पैरामीटर गिनती लेली हमरऽ रनिंग टैली क॑ ऊपर खींचतें हुअ॑, 96 हेड के साथ, जेकरा म॑ हर एक म॑ ई चारो मैट्रिक्स केरऽ अपनऽ भिन्नता शामिल छै, बहु-हेड वाला ध्यान केरऽ हर ब्लॉक लगभग 60 करोड़ पैरामीटर के साथ समाप्त होय जाय छै । एकटा बात जोड़ल गेल अछि, कनि परेशान करय वाला बात अछि जे हमरा सचमुच अहां सभ मे सं जे कियो ट्रांसफार्मर के बारे मे बेसि पढ़य लेल जाएब हुनका लेल कहय के चाही. अहाँकेँ मोन अछि जे हम कोना कहने रही जे वैल्यू मैपकेँ एहि दुनू अलग-अलग मैट्रिक्समे फैक्टर आउट कएल जाइत अछि , जकरा हम वैल्यू डाउन आ वैल्यू अप मैट्रिक्सक रूपमे लेबल केने रही । हम जाहि तरहेँ चीज के फ्रेम केने रही से ई बुझना जायत जे अहाँ प्रत्येक ध्यान सिर के भीतर ई जोड़ी मैट्रिक्स देखैत छी । आ अहां एकरा एहि तरहे बिल्कुल लागू क सकैत छलहुं. जे एकटा वैध डिजाइन होयत। मुदा जे तरीका सं अहां एहि बात के कागज मे लिखल देखय छी आओर एकरा व्यवहार मे लागू करय के तरीका सं कनि अलग लागैत अछि. प्रत्येक हेड के लेलऽ ई सब वैल्यू-अप मैट्रिक्स एक विशाल मैट्रिक्स म॑ एक साथ स्टेपल करलऽ गेलऽ प्रतीत होय छै जेकरा हमनी आउटपुट मैट्रिक्स कहै छियै, जे पूरा बहु-हेड वाला ध्यान ब्लॉक स॑ जुड़लऽ छै । आ जखन देखैत छी जे लोक कोनो देल गेल ध्यान सिर के लेल मूल्य मैट्रिक्स के संदर्भित करैत अछि, त आरू वू आम तौर प॑ खाली ई पहिलऽ कदम के संदर्भ म॑ छै, जेकरा हम्में छोटऽ जगह म॑ वैल्यू-डाउन प्रोजेक्शन के रूप म॑ लेबल करी रहलऽ छेलियै । अहाँ सब मे जे जिज्ञासु छथि हुनका लेल हम एहि पर एकटा ऑन-स्क्रीन नोट छोड़ि देने छी। ई ओहि विवरण मे सं एक अछि जे मुख्य अवधारणागत बिन्दु सं विचलित होय के खतरा अछि, मुदा हम एकरा सिर्फ एहि लेल आवाज देबय चाहैत छी जे अहां सभ के पता चलय जे अहां एहि बारे मे दोसर स्रोत सं पढ़लहुं कि नहि. सब तकनीकी बारीकियों क॑ अलग करी क॑ आखिरी अध्याय केरऽ पूर्वावलोकन म॑ हम्मं॑ देखलियै कि कोना ट्रांसफार्मर के माध्यम स॑ बहय वाला डाटा खाली एगो ध्यान ब्लॉक के माध्यम स॑ नै बह॑ छै । ओहि सब पर बेसी गप्प अगिला अध्याय मे करब। आ फेर बेर-बेर एहि दुनू ऑपरेशनक कतेको बहुत प्रतिलिपि सँ गुजरैत अछि । एकरऽ मतलब ई छै कि कोनो शब्द अपनऽ कुछ संदर्भ क॑ आत्मसात करला के बाद ई अधिक सूक्ष्म एम्बेडिंग केरऽ अधिक सूक्ष्म परिवेश स॑ प्रभावित होय के बहुत अधिक संभावना छै । नेटवर्क के जतेक नीचा जायब, प्रत्येक एम्बेडिंग अन्य सब एम्बेडिंग सं बेसी सं बेसी अर्थ ल' रहल अछि, जे स्वयं बेसी सं बेसी सूक्ष्म भ' रहल अछि, आशा अछि जे ई बेसी सूक्ष्म एम्बेडिंग अछि केवल वर्णनकर्ता आरू व्याकरणिक संरचना स॑ परे कोनों देलऽ गेलऽ इनपुट के बारे म॑ उच्च स्तरीय आरू अधिक अमूर्त विचारऽ क॑ एन्कोड करै के क्षमता । भाव आ स्वर सन बात आ कविता अछि की नहि आ कोन-कोन अंतर्निहित वैज्ञानिक सत्य टुकड़ा लेल प्रासंगिक अछि आ एहन-एहन बात। हमरऽ स्कोरकीपिंग प॑ एक बार आरू पीछे मुड़ला प॑ जीपीटी-3 म॑ 96 अलग-अलग लेयर शामिल छै, ई लेली कुंजी क्वेरी आरू वैल्यू पैरामीटर केरऽ कुल संख्या क॑ एक आरू 96, 100 स॑ गुणा करलऽ जाय छै । त॑ भले ही ध्यान केरऽ सब ध्यान मिलै छै, लेकिन अधिकांश पैरामीटर ई स्टेपऽ के बीच म॑ बैठलऽ ब्लॉकऽ स॑ आबै छै । अगिला अध्याय में हम आ अहाँ ओहि अन्य ब्लॉक के बारे में बेसी गप्प करब, आ प्रशिक्षण प्रक्रिया के बारे में सेहो बहुत किछु। ध्यान तंत्र के सफलता के लेलऽ कहानी के एगो बड़ऽ हिस्सा एतना कोनो विशिष्ट तरह के व्यवहार नै छै अगर अहां एहि सामान के बारे मे बेसि जानय चाहय छी तं हम विवरण मे बहुत रास लिंक छोड़ि देने छी. विशेष रूप स आंद्रेज कार्पाथी या क्रिस ओला द्वारा निर्मित कोनो भी चीज शुद्ध सोना, एहि वीडियो में हम बस एकर वर्तमान रूप में ध्यान में कूदय चाहैत छलहुं, मुदा जौं अहां सब इतिहास के बारे में बेसी जानकारी के लेल उत्सुक छी जे हम सब कोना एतय पहुंचलहुं आ कोना अहां एहि विचार के अपना लेल फेर सं आविष्कार क सकैत छी त हमर मित्र विवेक बस एक दू टा वीडियो लगा देलखिन्ह जे ओहि प्रेरणा के बहुत बेसी दैत छथि. संगहि, चैनल द आर्ट ऑफ द प्रॉब्लेम के ब्रिट क्रूज के पास बड़का भाषा मॉडल के इतिहास के बारे में सचमुच नीक वीडियो अछि. देखबाक लेल धन्यवाद!"
+  },
+  "full_maithili": "अंतिम अध्याय मे हम आ अहाँ एकटा ट्रांसफार्मर के आंतरिक कामकाज मे कदम रखय लगलहुं. ई बड़ऽ भाषा मॉडल आरू एआई केरऽ आधुनिक लहर म॑ बहुत सारा अन्य उपकरणऽ के भीतर तकनीक केरऽ प्रमुख टुकड़ा म॑ स॑ एक छै । ई सबसें पहलऽ २०१७ केरऽ एगो अब॑ प्रसिद्ध पेपर म॑ दृश्य प॑ उतरलै जेकरऽ नाम छेलै एटेंशन इज ऑल यू नीड, आरू ई अध्याय म॑ हम आरू आपने ई बात के खोदबै कि ई ध्यान तंत्र की छै, ई कल्पना करतें कि ई डाटा क॑ कोना प्रोसेस करै छै । एकटा त्वरित रिकैप के रूप में, एतय ओ महत्वपूर्ण संदर्भ अछि जे हम चाहैत छी जे अहाँ सब के ध्यान में राखब। हम आ अहाँ जाहि मॉडलक अध्ययन क' रहल छी ओकर लक्ष्य अछि जे एकटा पाठक टुकड़ा ल' क' ई भविष्यवाणी करी जे आगू कोन शब्द आओत. इनपुट टेक्स्ट के छोट-छोट टुकड़ा में तोड़ल गेल अछि जेकरा हम सब टोकन कहैत छी, आ ई सब बहुत बेर शब्द या शब्द के टुकड़ा होइत अछि, मुदा बस एहि वीडियो में देल गेल उदाहरण के हमरा आ अहाँ के सोचय में आसान बनेबाक लेल, आऊ ई नाटक क सरल बनाबी जे टोकन हमेशा मात्र शब्द होइत अछि। ट्रांसफार्मर म॑ पहलऽ कदम हर टोकन क॑ उच्च-आयामी वेक्टर स॑ जोड़ना छै, जेकरा हम्मं॑ एकरऽ एम्बेडिंग कहै छियै । छै कि सब संभावित एम्बेडिंग के ई उच्च-आयामी स्थान में दिशा शब्दार्थ अर्थ के साथ कोना मेल खा सकै छै. अंतिम अध्याय में हम एकटा उदाहरण देखलहुं जे दिशा कोना लिंग के अनुरूप भ सकैत अछि, एहि अर्थ में जे एहि स्थान में एकटा निश्चित डेग जोड़ला सं अहाँ के कोनो पुल्लिंग संज्ञा के समाहित सं संबंधित स्त्रीलिंग संज्ञा के समाहित करय में ल जा सकैत अछि. जे एकटा उदाहरण मात्र अछि। अहाँ सोचि सकैत छलहुँ जे एहि उच्च आयामी स्थान मे कतेक आओर दिशा कोनो शब्दक अर्थक अनेक अन्य पक्षक अनुरूप भ' सकैत अछि । ई एम्बेडिंग क॑ प्रगतिशील रूप स॑ समायोजित करना छै ताकि ई खाली एगो व्यक्तिगत शब्द क॑ एन्कोड नै करी सक॑, बल्कि एकरऽ बदला म॑ ई कुछ बहुत, बहुत समृद्ध संदर्भ अर्थ म॑ सेक॑ सक॑ । हमरा सामने स कहबाक चाही जे बहुत लोक कए ध्यान तंत्र, ट्रांसफार्मर मे इ कुंजी टुकड़ा, बहुत भ्रमित करय वाला लगैत अछि। त चिंता जुनि करू जं चीज के डूबय में किछु समय लागय.हमरा लगैत अछि जे कम्प्यूटेशनल डिटेल आ सब मैट्रिक्स गुणा में गोता लगाबय सं पहिने, एहि तरहक व्यवहार के लेल एक दू टा उदाहरण पर सोचब लायक अछि जेकरा हम सब सक्षम करय लेल ध्यान देबय चाहैत छी. अमेरिकन ट्रू मोल, वन मोल ऑफ कार्बन डाइऑक्साइड, आ टेक ए बायोप्सी ऑफ द मोल वाक्यांश पर विचार करू. हम आ अहाँ जनैत छी जे एहि मे सँ प्रत्येक मे तिल शब्दक अर्थ अलग-अलग होइत छैक, संदर्भक आधार पर । लेकिन ट्रांसफार्मर केरऽ पहलऽ चरण के बाद, जे पाठ क॑ तोड़ी क॑ हर टोकन क॑ एक वेक्टर स॑ जोड़ै छै, वैक्टर जे मोल स॑ जुड़लऽ छै, वू ई तीनों मामला म॑ एक जैसनऽ होतै, कैन्हेंकि ई प्रारंभिक टोकन एम्बेडिंग प्रभावी रूप स॑ एगो लुकअप टेबल छै जेकरा म॑ संदर्भ केरऽ कोय संदर्भ नै छै । देखबाक लेल धन्यवाद। देखबाक लेल धन्यवाद। अहां कें धन्यवाद। अहाँ जे पाठ इनपुट करैत छी से बेसीतर एकटा पूरा रहस्य उपन्यास अछि, अंतक लगक एकटा बिन्दु धरि, जे पढ़ल जाइत अछि, तेँ हत्यारा छल । अगर मॉडल अगिला शब्द के सही भविष्यवाणी करै वाला छै, त॑ अनुक्रम म॑ वू अंतिम वेक्टर, जे अपनऽ जीवन क॑ बस शब्द क॑ एम्बेड करी क॑ शुरू करलकै, क॑ ध्यान ब्लॉक के सब द्वारा अपडेट करलऽ गेलऽ होतै ताकि कोनो भी व्यक्तिगत शब्द स॑ बहुत, बहुत अधिक प्रतिनिधित्व करलऽ जाय सक॑, कोनो तरह स॑ पूरा संदर्भ विंडो स॑ सब जानकारी क॑ एन्कोड करलऽ जाय जे अगला शब्द के भविष्यवाणी करै लेली प्रासंगिक छै । यद्यपि गणना पर पहुँचबाक लेल एकटा बहुत सरल उदाहरण ली। कल्पना करू जे इनपुट मे ई वाक्यांश सेहो शामिल अछि, एकटा फुलफुल नील रंगक जीव हरियर जंगल मे घुमैत छल । आरू फिलहाल मं॑ मानलऽ जाय कि एकमात्र प्रकार के अपडेट जेकरऽ चिंता हमरा सिनी क॑ छै, वू छै कि विशेषणऽ स॑ अपनऽ संगत संज्ञा के अर्थ के समायोजन करलऽ जाय । हम जे वर्णन करय जा रहल छी से अछि जकरा हम सब एकटा ध्यानक मुखिया कहब, आ बाद मे देखब जे कोना ध्यान ब्लॉक मे समानांतर रूप सँ चलय बला कतेको अलग-अलग माथ होइत अछि । पुनः प्रत्येक शब्दक लेल प्रारंभिक एम्बेडिंग किछु उच्च-आयामी सदिश होइत अछि | देखबाक लेल धन्यवाद। देखबाक लेल धन्यवाद। बस ई छै कि जब॑ हम्में पैरामीटर स॑ भरलऽ सब अलग-अलग मैट्रिक्स के माध्यम स॑ कदम रखै छियै जे ई प्रक्रिया म॑ शामिल छै, हमरा लगै छै कि ई वास्तव म॑ मददगार छै कि कुछ ऐन्हऽ चीज के कल्पित उदाहरण मिल॑ सक॑ जेकरा स॑ ई सब क॑ आरू ठोस रखै म॑ मदद मिल॑ सक॑ । एहि प्रक्रियाक पहिल डेग लेल अहाँ कल्पना क' सकैत छी जे प्रत्येक संज्ञा, प्राणी जकाँ, ई प्रश्न पूछैत अछि, हे, की हमरा सोझाँ कोनो विशेषण बैसल अछि? आ फुलफुल आ नील शब्द के लेल प्रत्येक के जवाब देबय में सक्षम होबय के लेल, हाँ, हम विशेषण छी आ हम ओहि स्थिति में छी. ओ प्रश्न विद्यार्थी द्वारा पूछल जा रहल अछि। क्वेरी क॑ कोनो तरह स॑ एक आरू वेक्टर के रूप म॑ एन्कोड करलऽ जाय छै, नंबर केरऽ एगो आरू सूची, जेकरा हम्में ई शब्द लेली क्वेरी कहै छियै । ई क्वेरी वेक्टर, हालांकि, एम्बेडिंग वेक्टर सं बहुत छोट आयाम छै, कहूं 128. एहि क्वेरी कें गणना करनाय एकटा निश्चित मैट्रिक्स लेनाय, जेकरा हम WQ लेबल करबय, आ ओकरा एम्बेडिंग सं गुणा करनाय कें तरह लगै छै. बात के कनि संकुचित करैत, ओहि क्वेरी वेक्टर के क्यू के रूप में लिखी, आ फेर जखन कखनो देखब त हमरा एहि तरहक तीर के बगल में मैट्रिक्स लगा दैत छी, मैट्रिक्स एकटा सदिश छै जेकरा तीर के शुरूआत में सदिश स गुणा करलऽ जाय छै । ऐन्हऽ म॑, आप ई मैट्रिक्स क॑ संदर्भ म॑ सब एम्बेडिंग स॑ गुणा करबै, जेकरा स॑ हर टोकन लेली एक क्वेरी वेक्टर पैदा होय छै । ई मैट्रिक्स केरऽ प्रविष्टि मॉडल केरऽ पैरामीटर छै, जेकरऽ मतलब छै कि सही व्यवहार डाटा स॑ सीखलऽ जाय छै, आरू व्यवहार म॑ ई मैट्रिक्स कोनों विशेष ध्यान सिर म॑ की करै छै, ओकरा पार्स करना चुनौतीपूर्ण छै । लेकिन अपनऽ भलाई लेली, एगो उदाहरण के कल्पना करी क॑ जेकरा स॑ हम्में आशा करी सकै छियै कि ई सीखतै, हम्मं॑ मानबै कि ई क्वेरी मैट्रिक्स केरऽ एम्बेडिंग क॑ मैप करै छै देखबाक लेल धन्यवाद। अइ मामला मे, अहां कुंजी कें संभावित रूप सं क्वेरी कें जवाब देवय वाला कें रूप मे सोचय चाहय छी. ई कुंजी मैट्रिक्स भी ट्यूनेबल पैरामीटर स॑ भरलऽ छै, आरू ठीक क्वेरी मैट्रिक्स के तरह, ई एम्बेडिंग वैक्टर क॑ वू ही छोटऽ आयामी स्थान प॑ मैप करै छै । अहाँ कुंजी सभकेँ क्वेरी सभसँ मेल खाइत बुझैत छी जखन कखनो ओ एक दोसरासँ निकटतासँ संरेखित होइत अछि । हमरऽ उदाहरण म॑ आपने कल्पना करबै कि की मैट्रिक्स फुल्लै वाला आरू नीला जैसनऽ विशेषणऽ क॑ वैक्टरऽ प॑ मैप करै छै जे प्राणी शब्द द्वारा उत्पादित क्वेरी के साथ निकटता स॑ संरेखित होय छै । देखबाक लेल धन्यवाद। कोनो आन शब्दक कुंजी, जेना कि, आ जीवक लेल प्रश्न, कोनो छोट वा नकारात्मक मूल्य होयत जे ई दर्शाबैत अछि जे ई सभ एक दोसरा सँ असंबंधित अछि । त हमरा सब लग मान के ई ग्रिड अछि जे नकारात्मक अनंत स अनंत तक कोनो वास्तविक संख्या भ सकैत अछि, जे हमरा सब के एकटा स्कोर दैत अछि जे प्रत्येक शब्द हर दोसर शब्द के अर्थ के अपडेट करय लेल कतेक प्रासंगिक अछि | हम सब एहि स्कोर के उपयोग करय के तरीका ई अछि जे प्रत्येक कॉलम के संग एकटा निश्चित भारित योग लेब, प्रासंगिकता के हिसाब सं भारित. त॑ मान नकारात्मक अनंत स॑ ल॑ क॑ अनंत तक के होय के बजाय, हम्में जे चाहै छियै, वू ई छै कि ई कॉलमऽ म॑ संख्या 0 आरू 1 के बीच होय, आरू हर कॉलम क॑ जोड़ क॑ 1 होय, जेना कि ई संभावना वितरण होय । अगर अहां अंतिम अध्याय सं आबि रहल छी त अहां के पता अछि जे तखन हमरा सभ के की करय के जरूरत अछि. हम मान क॑ सामान्य करै लेली ई कॉलम म॑ स॑ हर एक के साथ एक सॉफ्टमैक्स के गणना करै छियै । हमरऽ चित्र म॑, आपने सब कॉलम प॑ Softmax लागू करला के बाद, हम ग्रिड क॑ ई सामान्यीकृत मान स॑ भरबै । एहि ठाम अहाँ प्रत्येक कॉलम के बारे में सोचब सुरक्षित छी जे बामा कात के शब्द ऊपर के संगत मान के लेल कतेक प्रासंगिक अछि ताहि हिसाब सं वजन दैत अछि. हम एहि ग्रिड कए ध्यान क पैटर्न कहैत छी। आब अगर अहां मूल ट्रांसफार्मर पेपर के देखब त एकटा सचमुच कॉम्पैक्ट तरीका अछि जे ओ सभ ई सभ लिखि दैत छथिन्ह. यहाँ, चर q आरू k क्वेरी आरू कुंजी वैक्टर ककी पूरा सरणी कको प्रदशयत करतका हहै | देखबाक लेल धन्यवाद। रहल बात ओहि वी टर्म के त हम सब मात्र एक सेकेंड में एहि पर गप्प करब। ताहि सं पहिने एकटा आओर तकनीकी विवरण अछि जे एखन धरि हम छोड़ि देने छी. प्रशिक्षण प्रक्रिया के दौरान, जब॑ आप ई मॉडल क॑ कोनों देलऽ गेलऽ पाठ उदाहरण प॑ चलाबै छै, आरू सब वजन क॑ कनी समायोजित करी क॑ ट्यून करी क॑ या त॑ ओकरा पुरस्कृत करलऽ जाय छै या ओकरा ई आधार प॑ दंडित करलऽ जाय छै कि ई अंश म॑ सही अगला शब्द क॑ कतेक अधिक संभावना दै छै, त॑ ई निकलै छै कि ई पूरा प्रशिक्षण प्रक्रिया क॑ बहुत अधिक कुशल बनाबै छै अगर आप एक साथ ओकरा स॑ अगला शब्द केरऽ हर प्रारंभिक उप-अनुक्रम के बाद हर संभव अगला टोकन के भविष्यवाणी करबै । जेना, जे वाक्यांश पर हम सब ध्यान केंद्रित क' रहल छी, ओहि सं ईहो भविष्यवाणी भ' सकैत अछि जे कोन शब्द जीवक पाछाँ चलैत अछि आ कोन शब्द जीवक पाछाँ चलैत अछि. ई सचमुच नीक छै, कैन्हेंकि एकरऽ मतलब छै कि जे अन्यथा एक प्रशिक्षण उदाहरण होतै, वू प्रभावी ढंग स॑ ओतने काम करै छै । हमरऽ ध्यान पैटर्न के उद्देश्य स॑ एकरऽ मतलब छै कि आपने कहियो बाद के शब्दऽ क॑ पूर्वक शब्दऽ प॑ प्रभाव नै डालै नै चाहै छियै, कैन्हेंकि अन्यथा वू एक तरह स॑ आगू के शब्दऽ के जवाब द॑ सकै छै । एकरऽ मतलब ई छै कि हमरा सिनी क॑ एत॑ ई सब धब्बा चाही, जे बाद केरऽ शब्दऽ के प्रतिनिधित्व करै छै, देखबाक लेल धन्यवाद। लेकिन हमरऽ जीपीटी उदाहरण म॑, भले ही ई प्रशिक्षण चरण के दौरान जेतना प्रासंगिक होय, कहै लेली, एकरा चैटबोट या ऐसनऽ कुछ के रूप म॑ चलाबै के तुलना म॑, आप हमेशा ई मास्किंग जरूर लागू करै छियै ताकि बाद के टोकन पहिने के टोकन क॑ प्रभावित नै करै । एकटा आओर तथ्य जे एहि ध्यान पैटर्न के बारे में चिंतन करय योग्य अछि जे एकर आकार कोना संदर्भ आकार के वर्ग के बराबर अछि. त॑ यही वजह छै कि संदर्भ आकार बड़ऽ भाषा मॉडल लेली वास्तव म॑ बहुत बड़ऽ अड़चन बनी सकै छै, आरू एकरा स्केल अप करना गैर-तुच्छ छै । जेना कि अहाँ सोचि सकैत छी, पैघ आ पैघ संदर्भक इच्छा सँ प्रेरित ठीक छै, बढ़िया, ई पैटर्न के गणना करला स॑ मॉडल ई निष्कर्ष निकालै छै कि कोन शब्द कोन दोसरऽ शब्द के साथ प्रासंगिक छै । आब, अहां कें वास्तव मे एम्बेडिंग कें अपडेट करय कें जरूरत छै, जे शब्दक कें जानकारी ओकरा जे अन्य शब्द सं प्रासंगिक छै ओकरा पास करय कें अनुमति देयत छै. जेना कि अहाँ चाहैत छी जे फुलफुल केर एम्बेडिंग कोनो तरहेँ जीव मे एहन परिवर्तन उत्पन्न करय जे ओकरा एहि केर एकटा अलग भाग मे ल' जाइत अछि हम अहाँ सब के एहि काज के सबस सोझ तरीका देखाबय जा रहल छी, हालांकि कनिको तरीका सेहो अछि जे बहुशीर्षक ध्यान के संदर्भ में एहि में संशोधन भ जाइत अछि. ई सबसँ सोझ तरीका होयत जे तेसर मैट्रिक्स के प्रयोग करी, जकरा हम वैल्यू मैट्रिक्स कहैत छी, जकरा अहाँ ओहि पहिल शब्दक एम्बेडिंग सँ गुणा करैत छी, उदाहरण लेल फुलफुल । एकरऽ परिणाम वू छै जेकरा आपने मान सदिश कहबै, आरू ई एगो ऐसनऽ चीज छै जेकरा आपने दोसरऽ शब्द केरऽ एम्बेडिंग म॑ जोड़ै छियै । एहि स्थिति मे किछु एहन जे अहाँ जीवक एम्बेडिंग मे जोड़ैत छी । त॑ ई मान सदिश वू ही बहुत उच्च आयामी स्थान म॑ रहै छै जे एम्बेडिंग्स के छै । जखन अहाँ एहि मान मैट्रिक्स केँ कोनो शब्दक एम्बेडिंग सँ गुणा करब तखन अहाँ एकरा ई कहब बुझि सकैत छी जे जँ ई शब्द कोनो आन चीजक अर्थ केँ समायोजित करबाक लेल प्रासंगिक अछि तँ एहि बात केँ प्रतिबिंबित करबाक लेल ओहि कोनो आन चीजक एम्बेडिंग मे ठीक-ठीक की जोड़ल जाय ? अपनऽ आरेख म॑ पाछू मुड़ी क॑ देखलऽ जाय त॑ सब कुंजी आरू क्वेरी क॑ अलग करी क॑ रखलऽ जाय, कैन्हेंकि आपने ध्यान पैटर्न के गणना करला के बाद आपने वू सब के काम पूरा करी लेल॑ छै । ई मान मैट्रिक्स क॑ ल॑ क॑ ओकरा वू एम्बेडिंगऽ म॑ स॑ हर एक स॑ गुणा करी क॑ मान वैक्टर केरऽ एक अनुक्रम पैदा करलऽ जाय । अहां एहि मान सदिश कए एक तरह स संबंधित कुंजी स जुड़ल बुझि सकैत छी । इस आरेख मे प्रत्येक कॉलम के ललए, आप मान वैक्टरों में से प्रत्येक को उस कॉलम में संबंधित वजन से गुणा करते हैं | उदाहरण के लेल, एतय, जीव के एम्बेडिंग के तहत, अहाँ फुलफुला आ नील रंग के लेल मूल्य सदिश के पैघ अनुपात जोड़ैत होयब, जखन कि अन्य सब मान सदिश शून्य भ जायत अछि. आरू फेरू अंत में, वास्तव में ई कॉलम स॑ जुड़लऽ एम्बेडिंग क॑ अपडेट करै के तरीका, पहिने जीव केरऽ कुछ संदर्भ-मुक्त अर्थ क॑ एन्कोड करी क॑, आपने ई सब रीस्केल करलऽ गेलऽ मान क॑ कॉलम म॑ एक साथ जोड़ै छै, जेकरा स॑ एगो बदलाव पैदा होय छै जेकरा आपने जोड़ना चाहै छियै जेकरा हम्में डेल्टा ई के लेबल देबै, आरू ओकरा बाद आपने ओकरा मूल एम्बेडिंग म॑ जोड़ै छियै । आशा छै, जे परिणाम छै, वू एक अधिक परिष्कृत सदिश छै जे अधिक संदर्भात्मक रूप स॑ समृद्ध अर्थ क॑ एन्कोड करै छै, जेना कि कोनो शराबी नीले जीव के । आरू निश्चित रूप स॑, आपने ई काम खाली एगो एम्बेडिंग प॑ नै करै छियै, आपने एकरा बाकी सब एम्बेडिंग प॑ लागू करी दै छियै । हम एक क्षण निकालि कए एमएफसीसी लेल नव मॉडल बनेबाक प्रक्रिया पर गप करय चाहैत छी। आब, एक क्षण निकालि क' जे हम सब अंतिम अध्याय मे शुरू केने रही ओकरा स्कोर रखबाक संग जारी राखी जतय हम जीपीटी-3 सं नंबर के उपयोग क' मॉडल पैरामीटर के कुल संख्या के गिनती करैत छी. इ कुंजी आ क्वेरी मैट्रिक्स मे प्रत्येक मे 12,288 कॉलम छै जे एम्बेडिंग आयाम सं मेल खायत छै आ 128 पंक्ति ओय छोट कुंजी क्वेरी स्पेस कें आयाम सं मेल खायत छै. एहि स हमरा सब कए प्रत्येक क लेल 15 लाख या ओहि स बेसी पैरामीटर अतिरिक्त भेटैत अछि। जँ अहाँ ओहि मूल्य मैट्रिक्स केँ एकर विपरीत देखब तँ हम एखन धरि जे तरहेँ चीजक वर्णन केने छी से ई बुझना जायत ई एगो वर्ग मैट्रिक्स छै जेकरा म॑ १२,२८८ कॉलम आरू १२,२८८ पंक्ति छै, कैन्हेंकि एकरऽ इनपुट आरू एकरऽ आउटपुट दूनू ई बहुत बड़ऽ एम्बेडिंग स्पेस म॑ रहै छै । अगर सही अछि त एकर मतलब होएत जे करीब 15 करोड़ पैरामीटर जोड़ल गेल। आ साफ कहब जे अहाँ से क सकैत छलहुं। अहां कुंजी आ क्वेरी सं बेसी मान नक्शा कें लेल परिमाण कें क्रम सं बेसि पैरामीटर समर्पित कयर सकय छी. लेकिन व्यवहार म॑ ई बहुत अधिक कुशल छै अगर एकरऽ बदला म॑ आपने एकरा ऐन्हऽ बनाबै छियै कि ई मान लेली समर्पित पैरामीटर के संख्या नक्शा बनाबै पहिल मैट्रिक्स, एतय दाहिना दिस, पंक्तिक संख्या कम अछि । पहिल मैट्रिक्स मान कें मैट्रिक्स छै, जे आमतौर पर कुंजी क्वेरी स्पेस कें समान आकार कें होयत छै. एकरऽ मतलब ई छै कि आपने एकरा बड़ऽ एम्बेडिंग वैक्टरऽ क॑ बहुत छोटऽ जगह प॑ मैप करै के रूप म॑ सोच॑ सकै छियै । ई पारंपरिक नामकरण नहिं अछि, मुदा हम एकरा वैल्यू डाउन मैट्रिक्स कहब. दोसरऽ मैट्रिक्स ई छोटऽ जगह स॑ वापस एम्बेडिंग स्पेस तलक मैप करै छै, जेकरा स॑ वैक्टर पैदा होय छै जेकरऽ उपयोग आप वास्तविक अपडेट करै लेली करबै । हम एहि एकटा के वैल्यू अप मैट्रिक्स कहय जा रहल छी, जे फेर सं पारंपरिक नहिं अछि. जे तरीका सं अहां बेसि पेपर मे ई लिखल देखब ओ कनि अलग लगैत अछि. यहाँ रेखीय बीजगणित शब्दावली म॑ फेंकै लेली, हम्मं॑ मूल रूप स॑ जे करी रहलऽ छियै, वू छै समग्र मूल्य मानचित्र क॑ कम रैंक के रूपांतरण के रूप म॑ बाध्य करलऽ जाय रहलऽ छै । पैरामीटर गिनती पर वापस घुमि क देखल जाय त एहि चारू मैट्रिक्स क आकार एक समान अछि, आ सबटा कए मिला कए हमरा सब कए एकटा ध्यान सिर क लेल लगभग 63 लाख पैरामीटर भेटैत अछि । एकटा त्वरित साइड नोट के रूप में कनि बेसी सटीक कहब त एखन धरि जे किछु वर्णित अछि ओ अछि जेकरा लोक आत्म-ध्यान के सिर कहताह. एकरा कोनों भिन्नता सं अलग करय कें लेल जे अन्य मॉडल मे आबै छै, ई हमरऽ जीपीटी उदाहरण स॑ प्रासंगिक नै छै, लेकिन अगर आपने जिज्ञासु छियै त॑ क्रॉस-एटेंशन म॑ ऐन्हऽ मॉडल शामिल छै जे दू अलग-अलग प्रकार के डाटा क॑ प्रोसेस करै छै, जेना कि एक भाषा म॑ टेक्स्ट आरू दोसरऽ भाषा म॑ टेक्स्ट जे अनुवाद केरऽ जारी पीढ़ी के हिस्सा छै, या शायद भाषण केरऽ ऑडियो इनपुट आरू चलतऽ ट्रांसक्रिप्शन । एकटा क्रॉस-एटेंशन हेड लगभग एक समान लगैत अछि । अंतर एतबे छै कि कुंजी आरू क्वेरी मैप अलग-अलग डाटासेट प॑ काम करै छै । अनुवाद करय वाला मॉडल मे, उदाहरण के लेल, कुंजी एक भाषा स॑ आबी सकै छै, जबकि प्रश्न दोसरऽ भाषा स॑ आबी सकै छै, आरू ध्यान पैटर्न ई वर्णन करी सकै छै कि एक भाषा के कोन शब्द दोसरऽ भाषा के कोन शब्द स॑ मेल खाबै छै । आरू ई सेटिंग म॑, आम तौर प॑ कोनो मास्किंग नै होतै, कैन्हेंकि वास्तव म॑ बाद केरऽ टोकन केरऽ कोय धारणा नै छै जे पहिने के टोकन क॑ प्रभावित करै छै । आत्म-ध्यान पर ध्यान केंद्रित रहब, तथापि, जं एखन धरि सब किछु बुझि गेलहुं, आ जं एतय रुकि जायब तं, ध्यान वास्तव में की होइत छैक, तकर सार ल' क' आबि जाइत. वास्तव में हमरा सब पर बस एतबे बचल अछि जे अहाँ ई काज कोन भाव में करैत छी, कतेको बहुत अलग-अलग समय। अपनऽ केंद्रीय उदाहरण म॑ हम्मं॑ संज्ञा क॑ अपडेट करै वाला विशेषण प॑ ध्यान देल॑ छेलियै, लेकिन निश्चित रूप स॑, बहुत तरह के तरीका छै जेकरा स॑ संदर्भ कोनो शब्द के अर्थ क॑ प्रभावित करी सकै छै । जँ ओ सभ जे शब्द दुर्घटनाग्रस्त केने छलाह से गाड़ी शब्दसँ पहिने छल तँ एकर निहितार्थ ओहि गाड़ीक आकार आ संरचना पर पड़ैत अछि । आ बहुत रास संगति व्याकरणिक कम भ' सकैत अछि। यदि जादूगर शब्द हैरी केरऽ समान अंश म॑ कतहीं भी छै त॑ ई स॑ लगै छै कि एकरऽ मतलब हैरी पॉटर केरऽ होय सकै छै । जखन कि जँ ओकर बदला मे ओहि अंश मे रानी, ​​ससेक्स आ विलियम शब्द रहैत त' आरू फेरू, व्यवहार म॑ ई नक्शाऽ के असली व्यवहार के व्याख्या करना बहुत मुश्किल छै, जहां वजनऽ क॑ मॉडल क॑ जे भी करै के जरूरत छै, वू करै लेली सेट करलऽ जाय छै ताकि अगला टोकन के भविष्यवाणी करै के अपनऽ लक्ष्य क॑ बेहतर ढंग स॑ पूरा करलऽ जाय सक॑ । जेना कि हम पहिने कहने रही, जे किछु हम सब वर्णन केने रही, ओ सब एकटा ध्यानक शीर्ष थिक, आ ट्रांसफार्मरक भीतर एकटा पूरा ध्यान ब्लॉक में जेकरा मल्टी-हेड ध्यान कहल जाइत छैक, जतय अहाँ एहि सब ऑपरेशनक बहुत रास समानांतर चलाबैत छी, प्रत्येकक अपन अलग-अलग कुंजी, क्वेरी, आ वैल्यू मैप होइत छैक. उदाहरण कें लेल जीपीटी-3 मे प्रत्येक ब्लॉक कें अंदर 96 ध्यान सिर कें उपयोग कैल जायत छै. ई देखैत जे एक-एकटा पहिने सं कनि भ्रमित करय वाला अछि, ई निश्चित रूप सं माथ मे पकड़य लेल बहुत किछु अछि. बस एकर सबटा वर्तनी बहुत स्पष्ट रूप स कहब, अहां कें धन्यवाद। अस्तु, अहाँ ओहि प्रस्तावित परिवर्तन सभ केँ ल' लैत छी, प्रत्येक माथक लेल एकटा, आ अहाँ ओहि स्थितिक मूल एम्बेडिंग मे परिणाम जोड़ैत छी. एतय ई पूरा योग एहि बहु-सिर वाला ध्यान ब्लॉक सं जे आउटपुट भेल अछि ओकर एकटा टुकड़ा होयत, ओहि परिष्कृत एम्बेडिंग मे सं एकटा जे एकर दोसर छोर सं पॉप आउट भ' जाइत अछि. पुनः ई बहुत किछु सोचय के अछि, तें जं एहि में डूबय में किछु समय लागय तं एकदम सं चिंता नहिं करू.कुल मिला क' विचार ई अछि जे समानांतर में अनेक अलग-अलग माथ चला क' अहाँ मॉडल कें अनेक अलग-अलग तरीका सीखबाक क्षमता द' रहल छी पैरामीटर गिनती लेली हमरऽ रनिंग टैली क॑ ऊपर खींचतें हुअ॑, 96 हेड के साथ, जेकरा म॑ हर एक म॑ ई चारो मैट्रिक्स केरऽ अपनऽ भिन्नता शामिल छै, बहु-हेड वाला ध्यान केरऽ हर ब्लॉक लगभग 60 करोड़ पैरामीटर के साथ समाप्त होय जाय छै । एकटा बात जोड़ल गेल अछि, कनि परेशान करय वाला बात अछि जे हमरा सचमुच अहां सभ मे सं जे कियो ट्रांसफार्मर के बारे मे बेसि पढ़य लेल जाएब हुनका लेल कहय के चाही. अहाँकेँ मोन अछि जे हम कोना कहने रही जे वैल्यू मैपकेँ एहि दुनू अलग-अलग मैट्रिक्समे फैक्टर आउट कएल जाइत अछि , जकरा हम वैल्यू डाउन आ वैल्यू अप मैट्रिक्सक रूपमे लेबल केने रही । हम जाहि तरहेँ चीज के फ्रेम केने रही से ई बुझना जायत जे अहाँ प्रत्येक ध्यान सिर के भीतर ई जोड़ी मैट्रिक्स देखैत छी । आ अहां एकरा एहि तरहे बिल्कुल लागू क सकैत छलहुं. जे एकटा वैध डिजाइन होयत। मुदा जे तरीका सं अहां एहि बात के कागज मे लिखल देखय छी आओर एकरा व्यवहार मे लागू करय के तरीका सं कनि अलग लागैत अछि. प्रत्येक हेड के लेलऽ ई सब वैल्यू-अप मैट्रिक्स एक विशाल मैट्रिक्स म॑ एक साथ स्टेपल करलऽ गेलऽ प्रतीत होय छै जेकरा हमनी आउटपुट मैट्रिक्स कहै छियै, जे पूरा बहु-हेड वाला ध्यान ब्लॉक स॑ जुड़लऽ छै । आ जखन देखैत छी जे लोक कोनो देल गेल ध्यान सिर के लेल मूल्य मैट्रिक्स के संदर्भित करैत अछि, त आरू वू आम तौर प॑ खाली ई पहिलऽ कदम के संदर्भ म॑ छै, जेकरा हम्में छोटऽ जगह म॑ वैल्यू-डाउन प्रोजेक्शन के रूप म॑ लेबल करी रहलऽ छेलियै । अहाँ सब मे जे जिज्ञासु छथि हुनका लेल हम एहि पर एकटा ऑन-स्क्रीन नोट छोड़ि देने छी। ई ओहि विवरण मे सं एक अछि जे मुख्य अवधारणागत बिन्दु सं विचलित होय के खतरा अछि, मुदा हम एकरा सिर्फ एहि लेल आवाज देबय चाहैत छी जे अहां सभ के पता चलय जे अहां एहि बारे मे दोसर स्रोत सं पढ़लहुं कि नहि. सब तकनीकी बारीकियों क॑ अलग करी क॑ आखिरी अध्याय केरऽ पूर्वावलोकन म॑ हम्मं॑ देखलियै कि कोना ट्रांसफार्मर के माध्यम स॑ बहय वाला डाटा खाली एगो ध्यान ब्लॉक के माध्यम स॑ नै बह॑ छै । ओहि सब पर बेसी गप्प अगिला अध्याय मे करब। आ फेर बेर-बेर एहि दुनू ऑपरेशनक कतेको बहुत प्रतिलिपि सँ गुजरैत अछि । एकरऽ मतलब ई छै कि कोनो शब्द अपनऽ कुछ संदर्भ क॑ आत्मसात करला के बाद ई अधिक सूक्ष्म एम्बेडिंग केरऽ अधिक सूक्ष्म परिवेश स॑ प्रभावित होय के बहुत अधिक संभावना छै । नेटवर्क के जतेक नीचा जायब, प्रत्येक एम्बेडिंग अन्य सब एम्बेडिंग सं बेसी सं बेसी अर्थ ल' रहल अछि, जे स्वयं बेसी सं बेसी सूक्ष्म भ' रहल अछि, आशा अछि जे ई बेसी सूक्ष्म एम्बेडिंग अछि केवल वर्णनकर्ता आरू व्याकरणिक संरचना स॑ परे कोनों देलऽ गेलऽ इनपुट के बारे म॑ उच्च स्तरीय आरू अधिक अमूर्त विचारऽ क॑ एन्कोड करै के क्षमता । भाव आ स्वर सन बात आ कविता अछि की नहि आ कोन-कोन अंतर्निहित वैज्ञानिक सत्य टुकड़ा लेल प्रासंगिक अछि आ एहन-एहन बात। हमरऽ स्कोरकीपिंग प॑ एक बार आरू पीछे मुड़ला प॑ जीपीटी-3 म॑ 96 अलग-अलग लेयर शामिल छै, ई लेली कुंजी क्वेरी आरू वैल्यू पैरामीटर केरऽ कुल संख्या क॑ एक आरू 96, 100 स॑ गुणा करलऽ जाय छै । त॑ भले ही ध्यान केरऽ सब ध्यान मिलै छै, लेकिन अधिकांश पैरामीटर ई स्टेपऽ के बीच म॑ बैठलऽ ब्लॉकऽ स॑ आबै छै । अगिला अध्याय में हम आ अहाँ ओहि अन्य ब्लॉक के बारे में बेसी गप्प करब, आ प्रशिक्षण प्रक्रिया के बारे में सेहो बहुत किछु। ध्यान तंत्र के सफलता के लेलऽ कहानी के एगो बड़ऽ हिस्सा एतना कोनो विशिष्ट तरह के व्यवहार नै छै अगर अहां एहि सामान के बारे मे बेसि जानय चाहय छी तं हम विवरण मे बहुत रास लिंक छोड़ि देने छी. विशेष रूप स आंद्रेज कार्पाथी या क्रिस ओला द्वारा निर्मित कोनो भी चीज शुद्ध सोना, एहि वीडियो में हम बस एकर वर्तमान रूप में ध्यान में कूदय चाहैत छलहुं, मुदा जौं अहां सब इतिहास के बारे में बेसी जानकारी के लेल उत्सुक छी जे हम सब कोना एतय पहुंचलहुं आ कोना अहां एहि विचार के अपना लेल फेर सं आविष्कार क सकैत छी त हमर मित्र विवेक बस एक दू टा वीडियो लगा देलखिन्ह जे ओहि प्रेरणा के बहुत बेसी दैत छथि. संगहि, चैनल द आर्ट ऑफ द प्रॉब्लेम के ब्रिट क्रूज के पास बड़का भाषा मॉडल के इतिहास के बारे में सचमुच नीक वीडियो अछि. देखबाक लेल धन्यवाद!",
+  "n_good": 53,
+  "n_junk": 0
+}

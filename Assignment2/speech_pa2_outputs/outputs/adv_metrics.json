@@ -1,0 +1,11 @@
+{
+  "eer": 0.0,
+  "eer_pct": 0.0,
+  "pass_eer": true,
+  "bonafide_score_mean": 0.9999999979964825,
+  "spoof_score_mean": 9.42475982990639e-12,
+  "fgsm_epsilon": 0.0001,
+  "fgsm_snr_db": 97.74970041761853,
+  "fgsm_snr_pass": true,
+  "fgsm_flip_rate_pct": 0.0
+}
